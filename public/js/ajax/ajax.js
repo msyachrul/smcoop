@@ -221,9 +221,13 @@
     $('.form-horizontal').show();
  });
  // autocomplete namaBarang
-
-   $( function() {
-    $( ".namaBarang" ).autocomplete({
+   // $( function() {
+    $( '.namaBarang' ).autocomplete({
       source: '/pembelian/autocomplete',
+      select: function(event,ui) {
+        event.preventDefault();
+        $('.namaBarang').val(ui.item.label);
+        $('.idBarang').val(ui.item.value);
+      }
     });
-  });
+  // });

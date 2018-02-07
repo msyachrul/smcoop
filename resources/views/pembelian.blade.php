@@ -1,3 +1,5 @@
+<?php date_default_timezone_set("Asia/Jakarta") ?>
+
 @extends('layouts.layout')
 
 @section('breadcrumb','Pembelian')
@@ -18,8 +20,6 @@
       	 </a>
         </div>
       </div>
-
-
       <!-- Modal inputPembelian -->
     <div id="inputPembelian" class="modal fade" role="dialog">
       	<div class="modal-dialog">
@@ -32,8 +32,12 @@
       				<form class="form-horizontal" role="form">
       					<div class="form-group">
       						<label class="control-label col-sm-6">Tanggal</label>
-      						<input type="date" class="form-control" name="tanggal" id="tanggal">
+      						<input type="date" class="form-control" name="tanggal" id="tanggal" value="{{ date('Y-m-d') }}">
       					</div>
+                <div class="form-group ui-front">
+                  <label class="control-label col-sm-6">ID Barang</label>
+                  <input type="text" class="idBarang form-control" name="idBarang" disabled>
+                </div>
       					<div class="form-group ui-front">
       						<label class="control-label col-sm-6">Nama Barang</label>
       						<input type="text" class="namaBarang form-control" name="namaBarang">

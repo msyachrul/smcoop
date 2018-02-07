@@ -17,46 +17,15 @@ class pembelianController extends Controller
 
     	$term = $req->term;
     	$barang = Barang::where('nama','LIKE','%'.$term.'%')->get();
-    	$hasil = [];
+    	$hasil = array();
 
-    	if (count($barang) == 0) {
-    		 return 'Barang tidak ditemukan';
-    	}
-    	else {
-    		foreach ($barang as $key => $value) {
-    			$hasil[] = $value->nama;
-    		}
-    		return $hasil;
-    	
-    	}
+    	foreach ($barang as $key => $value) {
+    		$hasil[$key]['value'] = $value->id;
+   			$hasil[$key]['label'] = $value->nama;
 
+       	}
 
-
-
-    	// return $availableTags = [
-			  //     "ActionScript",
-			  //     "AppleScript",
-			  //     "Asp",
-			  //     "BASIC",
-			  //     "C",
-			  //     "C++",
-			  //     "Clojure",
-			  //     "COBOL",
-			  //     "ColdFusion",
-			  //     "Erlang",
-			  //     "Fortran",
-			  //     "Groovy",
-			  //     "Haskell",
-			  //     "Java",
-			  //     "JavaScript",
-			  //     "Lisp",
-			  //     "Perl",
-			  //     "PHP",
-			  //     "Python",
-			  //     "Ruby",
-			  //     "Scala",
-			  //     "Scheme"
-			  //   ];
-
+       	return response()->json($hasil);
+ 	
     }
 }
