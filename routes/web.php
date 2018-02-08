@@ -23,8 +23,8 @@ Route::get('/login', function(){
 	return view('login');
 });
 
-Route::post('/login', 'anggotaController@testLogin');
-Route::post('/', 'anggotaController@testLogin');
+Route::post('/login', 'loginController@testLogin');
+Route::post('/', 'loginController@testLogin');
 
 Route::get('/blank', function() {
 	return view('blank');
