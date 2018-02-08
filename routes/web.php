@@ -35,19 +35,20 @@ Route::get('/blank', function() {
 Route::group(['middleware' => ['web']], function() {
   // Anggota
   Route::resource('anggota','anggotaController');
-  Route::post('daftarAnggota','anggotaController@tambahAnggota');
-  Route::post('editAnggota','anggotaController@updateAnggota');
-  Route::post('hapusAnggota','anggotaController@hapusAnggota');
+  Route::post('anggota/daftar','anggotaController@tambah');
+  Route::post('anggota/edit','anggotaController@update');
+  Route::post('anggota/hapus','anggotaController@hapus');
 
   // Barang
   Route::resource('barang','barangController');
-  Route::post('daftarBarang','barangController@tambahBarang');
-  Route::post('editBarang', 'barangController@updateBarang');
-  Route::post('hapusBarang','barangController@hapusBarang');
+  Route::post('barang/daftar','barangController@tambah');
+  Route::post('barang/edit', 'barangController@update');
+  Route::post('barang/hapus','barangController@hapus');
 
-  Route::get('pembelian', function(){
-  	return view('pembelian');
-  });
-
+  // Pembelian
+  Route::get('pembelian', 'pembelianController@tampil');
   Route::get('pembelian/autocomplete', 'pembelianController@autocomplete');
+  Route::post('pembelian/input', 'pembelianController@input');
+  Route::post('pembelian/edit', 'pembelianController@update');
+  Route::post('pembelian/hapus', 'pembelianController@hapus');
 });

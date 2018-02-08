@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pembelian;
 use App\Barang;
+use App\PembelianView;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\input;
 
 class pembelianController extends Controller
 {
-    public function index() {
-    	return view('pembelian');
+    public function tampil() {
+    	$tanggal = date('Y-m-d');
+      $pembelian = PembelianView::where('tanggal','=',$tanggal)->get();
+
+      return view('pembelian',compact('pembelian'));
     }
 
     public function autocomplete(Request $req) {
-
-
     	$term = $req->term;
     	$barang = Barang::where('nama','LIKE','%'.$term.'%')->get();
     	$hasil = array();
@@ -26,6 +31,69 @@ class pembelianController extends Controller
        	}
 
        	return response()->json($hasil);
- 	
     }
+
+    public function input(Request $req) {
+      $rules = array(
+        'tanggal' => 'required',
+        'harga' => 'required',
+        'kuantitas' => 'required',
+        'barang_id' => 'required',
+      );
+
+      $validator = Validator::make(input::all(),$rules);
+
+      if ($validator->fails()) {
+        return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }
+      else {
+        $pembelian = new Pembelian;
+          $pembelian->tanggal = $req->tanggal;
+          $pembelian->harga = $req->harga;
+          $pembelian->kuantitas = $req->kuantitas;
+          $pembelian->barang_id = $req->barang_id;  
+        $pembelian->save();
+
+        return response()->json($pembelian);
+      }
+    }
+
+    public function update(Request $req) {
+      $rules = array(
+        'id' => 'required',
+        'harga' => 'required',
+        'kuantitas' => 'required',
+      );
+
+      $validator = Validator::make(input::all(),$rules);
+
+      if ($validator->fails()) {
+        return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }
+      else {
+        $pembelian = Pembelian::find($req->id);
+          $pembelian->harga = $req->harga;
+          $pembelian->kuantitas = $req->kuantitas;
+        $pembelian->save();
+
+        return response()->json($pembelian);
+      }
+    }
+
+    public function hapus(Request $req) {
+      $rules = array(
+        'id' => 'required',
+      );
+
+      $validator = Validator::make(input::all(),$rules);
+
+      if ($validator->fails()) {
+        return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }
+      else {
+        $pembelian = Pembelian::find($req->id)->delete();
+        return response()->json($pembelian);
+      }
+    }
+    
 }

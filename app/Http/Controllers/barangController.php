@@ -7,7 +7,6 @@ use App\Barang;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\input;
-use App\Http\Requests;
 
 class barangController extends Controller
 {
@@ -18,7 +17,7 @@ class barangController extends Controller
     	return view('barang',compact('barang'));
     }
 
-    public function tambahBarang(Request $req) {
+    public function tambah(Request $req) {
 
     	$rules = array(
     		'nama' => 'required',
@@ -38,7 +37,7 @@ class barangController extends Controller
     	}
     }
 
-    public function updateBarang(Request $req) {
+    public function update(Request $req) {
 
     	$rules = array(
     		'id' => 'required',
@@ -59,7 +58,7 @@ class barangController extends Controller
     	}    	
     }
 
-    public function hapusBarang(Request $req) {
+    public function hapus(Request $req) {
     	
     	$rules = array(
     		'id' => 'required',

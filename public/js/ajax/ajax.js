@@ -10,7 +10,7 @@
   $('#tambahAnggota').click(function(){
   	$.ajax({
   		type: 'POST',
-  		url: 'daftarAnggota',
+  		url: 'anggota/daftar',
   		data: {
   			'_token': $('input[name=_token]').val(),
         'noAnggota': $('input[name=noAnggota').val(),
@@ -64,7 +64,7 @@
   $('#updateAnggota').click(function() {
     $.ajax({
       type: 'POST',
-      url: 'editAnggota',
+      url: 'anggota/edit',
       data: {
         '_token': $('input[name=_token]').val(),
         'id': $('#editId').val(),
@@ -103,7 +103,7 @@
   $('#buangAnggota').click(function() {
     $.ajax({
       type: 'POST',
-      url: 'hapusAnggota',
+      url: 'anggota/hapus',
       data: {
         '_token': $('input[name=_token]').val(),
         'id': $('#hapusId').val(),
@@ -133,7 +133,7 @@
  $('#tambahBarang').click(function() {
   $.ajax({
     type: 'POST',
-    url: 'daftarBarang',
+    url: 'barang/daftar',
     data: {
       '_token': $('input[name=_token]').val(),
       'nama': $('input[name=nama]').val(),
@@ -163,7 +163,7 @@
  $('#updateBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'editBarang',
+    url: 'barang/edit',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#editId').val(),
@@ -193,7 +193,7 @@
  $('#buangBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'hapusBarang',
+    url: 'barang/hapus',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#hapusId').val(),
@@ -220,14 +220,108 @@
     $('.modal-title').text('Input Pembelian');
     $('.form-horizontal').show();
  });
- // autocomplete namaBarang
-   // $( function() {
-    $( '.namaBarang' ).autocomplete({
-      source: '/pembelian/autocomplete',
-      select: function(event,ui) {
-        event.preventDefault();
-        $('.namaBarang').val(ui.item.label);
-        $('.idBarang').val(ui.item.value);
+ // autocomplete namaBarang   
+ $( '.namaBarang' ).autocomplete({
+    source: '/pembelian/autocomplete',
+    select: function(event,ui) {
+      event.preventDefault();
+      $('.namaBarang').val(ui.item.label);
+      $('.idBarang').val(ui.item.value);
+    }
+ });
+ // fungsi inputPembelian
+ $('#_inputPembelian').click(function(){
+    $.ajax({
+      type: 'POST',
+      url: 'pembelian/input',
+      data: {
+        '_token': $('input[name=_token]').val(),
+        'tanggal': $('input[name=tanggal]').val(),
+        'harga': $('input[name=harga]').val(),
+        'kuantitas': $('input[name=kuantitas]').val(),
+        'barang_id': $('input[name=barang_id]').val(),
+      },
+      success:function(data){
+        if (data.errors) {
+          toastr.error('Input pembelian gagal!','Error Alert',{timeout:5000});
+        }
+        else {
+          toastr.success('Input pembelian berhasil','Success Alert',{timeout:5000});
+          // $('#inputPembelian').modal('hide');
+          $('#dataTable').load('pembelian #dataTable');
+        }
       }
     });
-  // });
+    $('#barang_id').val('');
+    $('#namaBarang').val('');
+    $('#harga').val('');
+    $('#kuantitas').val('');
+ });
+ // ajax tampil modal editPembelian
+ $(document).on('click','.editPembelian',function(){
+  $('#editPembelian').modal('show');
+  $('.modal-title').text('Edit Pembelian');
+  $('.form-horizontal').show();
+  $('#editId').val($(this).data('id'));
+  $('#editTanggal').val($(this).data('tanggal'));
+  $('#editBarang_id').val($(this).data('barang_id'));
+  $('#editNamaBarang').val($(this).data('nama'));
+  $('#editHarga').val($(this).data('harga'));
+  $('#editKuantitas').val($(this).data('kuantitas'));
+ });
+ // fungsi editPembelian
+ $('#_editPembelian').click(function(){
+  $.ajax({
+    type: 'POST',
+    url: 'pembelian/edit',
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'id': $('#editId').val(),
+      'harga': $('#editHarga').val(),
+      'kuantitas': $('#editKuantitas').val(),
+    },
+    success:function(data){
+      if (data.errors) {
+          toastr.error('Edit pembelian gagal!','Error Alert',{timeout:5000});
+        }
+        else {
+          toastr.success('Edit pembelian berhasil','Success Alert',{timeout:5000});
+          $('#editPembelian').modal('hide');
+          $('#dataTable').load('pembelian #dataTable');
+        }
+    }
+  });
+ });
+ // ajax tampil modal hapusPembelian
+ $(document).on('click','.hapusPembelian',function(){
+  $('#hapusPembelian').modal('show');
+  $('.modal-title').text('Hapus Pembelian');
+  $('.form-horizontal').show();
+  $('#hapusId').val($(this).data('id'));
+  $('#hapusTanggal').val($(this).data('tanggal'));
+  $('#hapusBarang_id').val($(this).data('barang_id'));
+  $('#hapusNamaBarang').val($(this).data('nama'));
+  $('#hapusHarga').val($(this).data('harga'));
+  $('#hapusKuantitas').val($(this).data('kuantitas'));
+ });
+ // fungsi hapusPembelian
+ $('#_hapusPembelian').click(function(){
+  $.ajax({
+    type: 'POST',
+    url: 'pembelian/hapus',
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'id': $('#hapusId').val(),      
+    },
+    success:function(data){
+      if (data.errors) {
+          toastr.error('Hapus pembelian gagal!','Error Alert',{timeout:5000});
+        }
+        else {
+          toastr.success('Hapus pembelian berhasil','Success Alert',{timeout:5000});
+          $('#hapusPembelian').modal('hide');
+          $('#dataTable').load('pembelian #dataTable');
+        }
+    }
+  });
+ });

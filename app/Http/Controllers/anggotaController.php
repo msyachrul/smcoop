@@ -7,7 +7,6 @@ use App\Anggota;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\input;
-use App\Http\Requests;
 
 class anggotaController extends Controller
 {
@@ -19,7 +18,7 @@ class anggotaController extends Controller
 
     }
 
-    public function tambahAnggota(Request $req) {
+    public function tambah(Request $req) {
 
     	$rules = array(
             'noAnggota' => 'required',
@@ -51,7 +50,7 @@ class anggotaController extends Controller
 
     }
 
-    public function updateAnggota(Request $req) {
+    public function update(Request $req) {
 
         $rules = array(
             'noAnggota' => 'required',
@@ -83,7 +82,7 @@ class anggotaController extends Controller
 
     }
 
-    public function hapusAnggota(Request $req) {
+    public function hapus(Request $req) {
 
         $rules = array(
             'id' => 'required',
