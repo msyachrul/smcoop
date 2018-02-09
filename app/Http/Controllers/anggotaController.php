@@ -11,30 +11,32 @@ use Illuminate\Support\Facades\input;
 class anggotaController extends Controller
 {
     public function index()	{
-
     	$anggota = Anggota::all();
 
     	return view('anggota',compact('anggota'));
-
     }
 
     public function tambah(Request $req) {
-
     	$rules = array(
             'noAnggota' => 'required',
     		'nama' => 'required',
     		'departemen' => 'required',
     		'posisi' => 'required',
+            'totalSimpanan' => 'numeric|min:0',
     	);
 
     	$validator = Validator::make(input::all(),$rules);
 
     	if ($validator->fails()) {
-
     		return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
     	}
-
     	else {
+            $cek = Anggota::where('noAnggota',$req->noAnggota)->get();
+
+            if (count($cek) > 0) {
+                return response::json(array('errors'=>'ada'));
+            }
+            else {
     		$anggota = new Anggota;
 
     			$anggota->noAnggota = $req->noAnggota;
@@ -46,26 +48,24 @@ class anggotaController extends Controller
     		$anggota->save();
 
     		return response()->json($anggota);
+            }
     	}
-
     }
 
     public function update(Request $req) {
-
         $rules = array(
             'noAnggota' => 'required',
             'nama' => 'required',
             'departemen' => 'required',
             'posisi' => 'required',
+            'totalSimpanan' => 'numeric|min:0',
         );
 
         $validator = Validator::make(input::all(),$rules);
 
         if ($validator->fails()) {
-
             return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
         }
-
         else {
             $anggota = Anggota::find($req->id);
 
@@ -79,46 +79,21 @@ class anggotaController extends Controller
 
             return response()->json($anggota);
         }
-
     }
 
     public function hapus(Request $req) {
-
         $rules = array(
             'id' => 'required',
         );
-
         $validator = Validator::make(input::all(),$rules);
 
         if ($validator->fails()) {
-
             return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
         }        
-
         else {
-
             $anggota = Anggota::find($req->id)->delete();
             return response()->json($anggota);
-        }
-        
-    }
-
-    public function testLogin(Request $req) {
-        $noAnggota = $req->noAnggota;
-        $noPin = $req->noPin;
-
-        if ($noAnggota == '123456789' && $noPin == '12345') {
-            return view('user');
-        }
-
-        elseif ($noAnggota == 'admin' && $noPin == 'admin') {
-            return redirect('anggota');
-        }
-
-        else {
-            return redirect('login');
-        }
-
+        }   
     }
 
 }

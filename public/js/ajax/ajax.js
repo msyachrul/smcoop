@@ -21,9 +21,12 @@
   		},
       // Validasi
   		success: function(data){
-  			if (data.errors) {
+  			if (data.errors == 'ada') {
+          toastr.error('Anggota sudah terdaftar!','Error alert',{timeout:5000});
+        }
+        else if (data.errors) {
           toastr.error('Anggota gagal ditambahkan!','Error alert',{timeout:5000});
-  			}
+  			}       
   			else {
   				toastr.success('Anggota berhasil ditambahkan','Success alert',{timeout:5000});
           $('#daftarAnggota').modal('hide');
@@ -31,6 +34,7 @@
   			}
   		},
   	});
+   $('#noAnggota').val('');
    $('#nama').val('');
    $('#departemen').val('null');
    $('#posisi').val('');
@@ -68,7 +72,7 @@
       data: {
         '_token': $('input[name=_token]').val(),
         'id': $('#editId').val(),
-        'noAnggota': $('#noAnggota').val(),
+        'noAnggota': $('#editNoAnggota').val(),
         'nama': $('#editNama').val(),
         'departemen': $('#editDepartemen').val(),
         'posisi': $('#editPosisi').val(),
@@ -139,7 +143,10 @@
       'nama': $('input[name=nama]').val(),
     },
     success: function(data) {
-      if (data.errors) {
+      if (data.errors == 'ada') {
+        toastr.error('Barang sudah terdaftar!','Error Alert',{timeout:5000});
+      }
+      else if (data.errors) {
         toastr.error('Barang gagal ditambahkan!','Error Alert',{timeout:5000});
       }
       else {
@@ -242,7 +249,10 @@
         'barang_id': $('input[name=barang_id]').val(),
       },
       success:function(data){
-        if (data.errors) {
+        if (data.errors == 'ada') {
+          toastr.error('Data pembelian sudah ada!','Error Alert',{timeout:5000});
+        }
+        else if (data.errors) {
           toastr.error('Input pembelian gagal!','Error Alert',{timeout:5000});
         }
         else {

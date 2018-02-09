@@ -29,11 +29,19 @@ class barangController extends Controller
     		return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
     	}
     	else {
+
+            $cek = Barang::where('nama',$req->nama)->get();
+
+            if(count($cek)>0) {
+                return response::json(array('errors'=>'ada'));
+            }
+            else {
     		$barang = new Barang;
     			$barang->nama = $req->nama;
     		$barang->save();
 
     		return response()->json($barang);
+            }
     	}
     }
 

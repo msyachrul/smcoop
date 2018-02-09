@@ -15,7 +15,7 @@ class CreateAnggotasTable extends Migration
     {
         Schema::create('anggotas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('noAnggota',30);
+            $table->string('noAnggota',30)->unique();
             $table->string('nama',30);
             $table->string('departemen',30);
             $table->string('posisi',30);

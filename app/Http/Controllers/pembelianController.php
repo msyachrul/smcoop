@@ -35,9 +35,9 @@ class pembelianController extends Controller
 
     public function input(Request $req) {
       $rules = array(
-        'tanggal' => 'required',
-        'harga' => 'required',
-        'kuantitas' => 'required',
+        'tanggal' => 'required|date_format:Y-m-d',
+        'harga' => 'required|numeric|min:0',
+        'kuantitas' => 'required|numeric|min:0',
         'barang_id' => 'required',
       );
 
@@ -47,6 +47,13 @@ class pembelianController extends Controller
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }
       else {
+
+        $cek = Pembelian::where('tanggal',$req->tanggal)->where('barang_id',$req->barang_id)->where('harga',$req->harga)->get();
+
+        if (count($cek) > 0) {
+          return response::json(array('errors'=>'ada'));
+        }
+        else {
         $pembelian = new Pembelian;
           $pembelian->tanggal = $req->tanggal;
           $pembelian->harga = $req->harga;
@@ -55,14 +62,15 @@ class pembelianController extends Controller
         $pembelian->save();
 
         return response()->json($pembelian);
+        }
       }
     }
 
     public function update(Request $req) {
       $rules = array(
         'id' => 'required',
-        'harga' => 'required',
-        'kuantitas' => 'required',
+        'harga' => 'required|numeric|min:0',
+        'kuantitas' => 'required|numeric|min:0',
       );
 
       $validator = Validator::make(input::all(),$rules);
