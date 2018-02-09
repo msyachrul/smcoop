@@ -1,8 +1,6 @@
-<?php date_default_timezone_set("Asia/Jakarta") ?>
-
 @extends('layouts.layout')
 
-@section('breadcrumb','Pembelian')
+@section('breadcrumb','Pembelian / Laporan')
 
 @section('content')
 
@@ -36,7 +34,7 @@
       <div class="card mb-3">
         <div class="card-header">
           <form >
-          <i class="fa fa-table"></i> Data Pembelian Hari ini <b>{{ date('Y-m-d') }}</b>
+          <i class="fa fa-table"></i> Data Pembelian
           </form>
         </div>
         <div class="card-body">
@@ -55,8 +53,8 @@
               </thead>
               <tbody>
                 <?php $i=1; ?>
-                @foreach($pembelian as $key => $value)
-                <tr class="pembelian{{$value->id}}">
+                @foreach($laporan as $key => $value)
+                <tr>
                   <td>{{ $i++ }}</td>
                   <td>{{ $value->tanggal }}</td>
                   <td>{{ $value->nama }}</td>

@@ -294,11 +294,11 @@
       if (data.errors) {
           toastr.error('Edit pembelian gagal!','Error Alert',{timeout:5000});
         }
-        else {
+      else {
           toastr.success('Edit pembelian berhasil','Success Alert',{timeout:5000});
           $('#editPembelian').modal('hide');
           $('#dataTable').load('pembelian #dataTable');
-        }
+      }
     }
   });
  });
@@ -327,11 +327,40 @@
       if (data.errors) {
           toastr.error('Hapus pembelian gagal!','Error Alert',{timeout:5000});
         }
-        else {
+      else {
           toastr.success('Hapus pembelian berhasil','Success Alert',{timeout:5000});
           $('#hapusPembelian').modal('hide');
           $('#dataTable').load('pembelian #dataTable');
         }
+    }
+  });
+ });
+
+ // ajax tampil modal cariLaporan
+ $(document).on('click','.cariLaporan',function(){
+  $('#cariLaporan').modal('show');
+  $('.modal-title').text('Laporan Pembelian');
+  $('.form-horizontal').show();
+ });
+ // fungsi cariLaporan
+ $('#_cariLaporan').click(function(){
+  $.ajax({
+    type: 'POST',
+    url: 'pembelian/laporan',
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'dariTanggal': $('input[name=dariTanggal]').val(),
+      'sampaiTanggal': $('input[name=sampaiTanggal]').val(),
+    },
+    success:function(data){
+      if (data.errors) {
+          toastr.error('Cari laporan pembelian gagal!','Error Alert',{timeout:5000});
+      }
+      else {
+          toastr.success('Cari laporan pembelian berhasil','Success Alert',{timeout:5000});
+          $('#cariLaporan').modal('hide');
+          location.replace('pembelian/laporan');
+      }
     }
   });
  });
