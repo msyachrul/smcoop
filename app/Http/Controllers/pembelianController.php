@@ -104,7 +104,7 @@ class pembelianController extends Controller
       }
     }
 
-    public function laporan(Request $req) {
+    public function data(Request $req) {
       $rules = array(
         'dariTanggal' => 'required|date_format:Y-m-d',
         'sampaiTanggal' => 'required|date_format:Y-m-d',
@@ -116,16 +116,8 @@ class pembelianController extends Controller
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }
       else {
-
-        $laporan = PembelianView::whereBetween('tanggal',[$req->dariTanggal,$req->sampaiTanggal])->orderBy('tanggal','asc')->get();
-
-        return view('laporan',compact('laporan'));
-        // $pembelian = Pembelian::find($req->id);
-        //   $pembelian->harga = $req->harga;
-        //   $pembelian->kuantitas = $req->kuantitas;
-        // $pembelian->save();
-
-        // return response()->json($pembelian);
+        $data = PembelianView::whereBetween('tanggal',[$req->dariTanggal,$req->sampaiTanggal])->orderBy('tanggal','asc')->get();
+        return response()->json($data);
       }
     }
     

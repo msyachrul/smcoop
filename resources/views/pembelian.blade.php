@@ -7,37 +7,10 @@
 @section('content')
 
       {{ csrf_field() }}
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-         <a href="#" class="inputPembelian">
-          <div class="card text-white bg-primary o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-plus"></i>
-              </div>
-              <div class="mr-5">Input Pembelian</div>
-            </div>
-          </div>
-      	 </a>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-         <a href="#" class="cariLaporan">
-          <div class="card text-white bg-info o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-list"></i>
-              </div>
-              <div class="mr-5">Laporan Pembelian</div>
-            </div>
-          </div>
-         </a>
-        </div>
-      </div>
       <div class="card mb-3">
         <div class="card-header">
-          <form >
-          <i class="fa fa-table"></i> Data Pembelian Hari ini <b>{{ date('Y-m-d') }}</b>
-          </form>
+          <i class="fa fa-table"></i> Data Pembelian <span id="keteranganTanggal">Hari ini <b>{{ date('Y-m-d') }}</b></span>
+          <a href="#" class="cariData btn btn-success btn-sm pull-right"><i class="fa fa-search"></i></a>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -50,13 +23,15 @@
                   <th class="text-right">Harga</th>
                   <th class="text-right">Kuantitas</th>
                   <th class="text-right">Sub Total</th>
-                  <th width="10%" class="text-center">Aksi</th>
+                  <th width="10%" class="text-center">
+                    <a href="#" class="inputPembelian btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                  </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="tbodyCari">
                 <?php $i=1; ?>
                 @foreach($pembelian as $key => $value)
-                <tr class="pembelian{{$value->id}}">
+                <tr class="pembelian">
                   <td>{{ $i++ }}</td>
                   <td>{{ $value->tanggal }}</td>
                   <td>{{ $value->nama }}</td>
@@ -209,7 +184,7 @@
         </div>
     </div>
     <!-- Modal pilih tanggal -->
-    <div id="cariLaporan" class="modal fade" role="dialog">
+    <div id="cariData" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -229,7 +204,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info" id="_cariLaporan">
+              <button type="submit" class="btn btn-info" id="_cariData">
                 <span class="fa fa-search"></span> Cari
               </button>
               <button type="button" class="btn btn-warning" data-dismiss="modal">

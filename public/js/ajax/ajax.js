@@ -22,13 +22,13 @@
       // Validasi
   		success: function(data){
   			if (data.errors == 'ada') {
-          toastr.error('Anggota sudah terdaftar!','Error alert',{timeout:5000});
+          toastr.error('Anggota sudah terdaftar!','Error',{timeout:5000});
         }
         else if (data.errors) {
-          toastr.error('Anggota gagal ditambahkan!','Error alert',{timeout:5000});
+          toastr.error('Anggota gagal ditambahkan!','Error',{timeout:5000});
   			}       
   			else {
-  				toastr.success('Anggota berhasil ditambahkan','Success alert',{timeout:5000});
+  				toastr.success('Anggota berhasil ditambahkan','Success',{timeout:5000});
           $('#daftarAnggota').modal('hide');
           $('#dataTable').load('anggota #dataTable');
   			}
@@ -81,10 +81,10 @@
       // Validasi
       success: function(data) {
         if (data.errors) {
-          toastr.error('Anggota gagal di update!','Error alert',{timeout:5000});
+          toastr.error('Anggota gagal di update!','Error',{timeout:5000});
         }
         else {
-          toastr.success('Anggota berhasil di update','Success alert',{timeout:5000});
+          toastr.success('Anggota berhasil di update','Success',{timeout:5000});
           $('#editAnggota').modal('hide');
           $('#dataTable').load('anggota #dataTable');          
         }
@@ -114,10 +114,10 @@
       },
       success: function(data) {
         if (data.errors) {
-          toastr.error('Anggota gagal dihapus!','Error alert',{timeout:5000});
+          toastr.error('Anggota gagal dihapus!','Error',{timeout:5000});
         }
         else {
-          toastr.success('Anggota berhasil dihapus','Success alert',{timeout:5000});
+          toastr.success('Anggota berhasil dihapus','Success',{timeout:5000});
           $('#hapusAnggota').modal('hide');
           $('#dataTable').load('anggota #dataTable');          
         }
@@ -144,13 +144,13 @@
     },
     success: function(data) {
       if (data.errors == 'ada') {
-        toastr.error('Barang sudah terdaftar!','Error Alert',{timeout:5000});
+        toastr.error('Barang sudah terdaftar!','Error',{timeout:5000});
       }
       else if (data.errors) {
-        toastr.error('Barang gagal ditambahkan!','Error Alert',{timeout:5000});
+        toastr.error('Barang gagal ditambahkan!','Error',{timeout:5000});
       }
       else {
-        toastr.success('Barang berhasil ditambahkan','Success Alert',{timeout:5000});
+        toastr.success('Barang berhasil ditambahkan','Success',{timeout:5000});
         $('#daftarBarang').modal('hide');
         $('#dataTable').load('barang #dataTable');
       }
@@ -178,10 +178,10 @@
     },
     success: function(data) {
       if (data.errors) {
-        toastr.error('Barang gagal di update!','Error Alert',{timeout:5000});
+        toastr.error('Barang gagal di update!','Error',{timeout:5000});
       }
       else {
-        toastr.success('Barang berhasil di update','Success Alert',{timeout:5000});
+        toastr.success('Barang berhasil di update','Success',{timeout:5000});
         $('#editBarang').modal('hide');
         $('#dataTable').load('barang #dataTable');
       }
@@ -208,10 +208,10 @@
     },
     success: function(data) {
       if (data.errors) {
-        toastr.error('Barang gagal dihapus!','Error Alert',{timeout:5000});
+        toastr.error('Barang gagal dihapus!','Error',{timeout:5000});
       }
       else {
-        toastr.success('Barang berhasil dihapus','Success Alert',{timeout:5000});
+        toastr.success('Barang berhasil dihapus','Success',{timeout:5000});
         $('#hapusBarang').modal('hide');
         $('#dataTable').load('barang #dataTable');        
       }
@@ -250,13 +250,13 @@
       },
       success:function(data){
         if (data.errors == 'ada') {
-          toastr.error('Data pembelian sudah ada!','Error Alert',{timeout:5000});
+          toastr.error('Data pembelian sudah ada!','Error',{timeout:5000});
         }
         else if (data.errors) {
-          toastr.error('Input pembelian gagal!','Error Alert',{timeout:5000});
+          toastr.error('Input pembelian gagal!','Error',{timeout:5000});
         }
         else {
-          toastr.success('Input pembelian berhasil','Success Alert',{timeout:5000});
+          toastr.success('Input pembelian berhasil','Success',{timeout:5000});
           // $('#inputPembelian').modal('hide');
           $('#dataTable').load('pembelian #dataTable');
         }
@@ -292,10 +292,10 @@
     },
     success:function(data){
       if (data.errors) {
-          toastr.error('Edit pembelian gagal!','Error Alert',{timeout:5000});
+          toastr.error('Edit pembelian gagal!','Error',{timeout:5000});
         }
       else {
-          toastr.success('Edit pembelian berhasil','Success Alert',{timeout:5000});
+          toastr.success('Edit pembelian berhasil','Success',{timeout:5000});
           $('#editPembelian').modal('hide');
           $('#dataTable').load('pembelian #dataTable');
       }
@@ -325,10 +325,10 @@
     },
     success:function(data){
       if (data.errors) {
-          toastr.error('Hapus pembelian gagal!','Error Alert',{timeout:5000});
+          toastr.error('Hapus pembelian gagal!','Error',{timeout:5000});
         }
       else {
-          toastr.success('Hapus pembelian berhasil','Success Alert',{timeout:5000});
+          toastr.success('Hapus pembelian berhasil','Success',{timeout:5000});
           $('#hapusPembelian').modal('hide');
           $('#dataTable').load('pembelian #dataTable');
         }
@@ -336,17 +336,17 @@
   });
  });
 
- // ajax tampil modal cariLaporan
- $(document).on('click','.cariLaporan',function(){
-  $('#cariLaporan').modal('show');
+ // ajax tampil modal cariData
+ $(document).on('click','.cariData',function(){
+  $('#cariData').modal('show');
   $('.modal-title').text('Laporan Pembelian');
   $('.form-horizontal').show();
  });
- // fungsi cariLaporan
- $('#_cariLaporan').click(function(){
+ // fungsi cariData
+ $('#_cariData').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'pembelian/laporan',
+    url: 'pembelian/data',
     data: {
       '_token': $('input[name=_token]').val(),
       'dariTanggal': $('input[name=dariTanggal]').val(),
@@ -354,12 +354,27 @@
     },
     success:function(data){
       if (data.errors) {
-          toastr.error('Cari laporan pembelian gagal!','Error Alert',{timeout:5000});
+          toastr.error('Cari laporan pembelian gagal!','Error',{timeout:5000});
       }
       else {
-          toastr.success('Cari laporan pembelian berhasil','Success Alert',{timeout:5000});
-          $('#cariLaporan').modal('hide');
-          location.replace('pembelian/laporan');
+          toastr.success('Cari laporan pembelian berhasil','Success',{timeout:5000});
+          // ACAN PATI NGARTI
+          $('#cariData').modal('hide');
+          $('#keteranganTanggal').html('Tanggal <b>' + $('input[name=dariTanggal]').val() + '</b> sampai <b>' + $('input[name=sampaiTanggal]').val()) + '</b>';
+          var html = '';
+          for (var i = 0; i < data.length; i++) {
+            html += '<tr>';
+            html += '<td>' + (i+1) + '</td>';
+            html += '<td>' + data[i].tanggal + '</td>';
+            html += '<td>' + data[i].nama + '</td>';
+            html += '<td class="text-right">Rp ' + data[i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + '</td>';
+            html += '<td class="text-right">' + data[i].kuantitas + '</td>';
+            html += '<td class="text-right">Rp ' + (data[i].harga * data[i].kuantitas).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + '</td>';
+            html += '<td><a href="#" class="editPembelian btn btn-info btn-sm" data-id="' + data[i].id + '" data-tanggal="' + data[i].tanggal + '" data-nama="' + data[i].nama + '" data-harga="' + data[i].harga + '" data-kuantitas="' + data[i].kuantitas + '" data-barang_id="' + data[i].barang_id + '"><i class="fa fa-pencil"></i></a> <a href="#" class="hapusPembelian btn btn-danger btn-sm" data-id="' + data[i].id + '" data-tanggal="' + data[i].tanggal + '" data-nama="' + data[i].nama + '" data-harga="' + data[i].harga + '" data-kuantitas="' + data[i].kuantitas + '" data-barang_id="' + data[i].barang_id + '"><i class="fa fa-trash"></i></a></td>';
+            html += '</tr>';
+          }
+          $('#tbodyCari').html(html);
+          // NEPI DIEU
       }
     }
   });
