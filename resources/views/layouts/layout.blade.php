@@ -59,7 +59,7 @@
               <a href="/pembelian">Pembelian</a>
             </li>
             <li>
-              <a href="#">Penjualan</a>
+              <a href="/penjualan">Penjualan</a>
             </li>
           </ul>
         </li>

@@ -10,7 +10,7 @@
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-table"></i> Data Pembelian <span id="keteranganTanggal">Hari ini <b>{{ date('Y-m-d') }}</b></span>
-          <a href="#" class="cariData btn btn-success btn-sm pull-right"><i class="fa fa-search"></i></a>
+          <a href="#" class="cari btn btn-success btn-sm pull-right"><i class="fa fa-search"></i></a>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -127,7 +127,7 @@
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-info" id="_editPembelian">
-                <span class="fa fa-check"></span> Input
+                <span class="fa fa-check"></span> Update
               </button>
               <button type="button" class="btn btn-warning" data-dismiss="modal">
                 <span class="fa fa-close"></span> Batal
@@ -184,7 +184,7 @@
         </div>
     </div>
     <!-- Modal pilih tanggal -->
-    <div id="cariData" class="modal fade" role="dialog">
+    <div id="cari" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -204,7 +204,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info" id="_cariData">
+              <button type="submit" class="btn btn-info" id="_cari">
                 <span class="fa fa-search"></span> Cari
               </button>
               <button type="button" class="btn btn-warning" data-dismiss="modal">

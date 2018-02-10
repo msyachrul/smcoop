@@ -21,6 +21,7 @@ class barangController extends Controller
 
     	$rules = array(
     		'nama' => 'required',
+            'harga' => 'required|numeric|min:0',
     	);
 
     	$validator = Validator::make(input::all(),$rules);
@@ -37,7 +38,8 @@ class barangController extends Controller
             }
             else {
     		$barang = new Barang;
-    			$barang->nama = $req->nama;
+    			$barang->nama = ucwords($req->nama);
+                $barang->harga = $req->harga;
     		$barang->save();
 
     		return response()->json($barang);
@@ -50,6 +52,7 @@ class barangController extends Controller
     	$rules = array(
     		'id' => 'required',
     		'nama' => 'required',
+            'harga' => 'required|numeric|min:0',
     	);
 
     	$validator = Validator::make(input::all(),$rules);
@@ -59,7 +62,8 @@ class barangController extends Controller
     	}
     	else {
     		$barang = Barang::find($req->id);
-    			$barang->nama = $req->nama;
+    			$barang->nama = ucwords($req->nama);
+                $barang->harga = $req->harga;
     		$barang->save();
 
     		return response()->json($barang);

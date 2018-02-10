@@ -51,5 +51,13 @@ Route::group(['middleware' => ['web']], function() {
   Route::post('pembelian/input', 'pembelianController@input');
   Route::post('pembelian/edit', 'pembelianController@update');
   Route::post('pembelian/hapus', 'pembelianController@hapus');
-  Route::post('pembelian/data', 'pembelianController@data');
+  Route::post('pembelian/cari', 'pembelianController@cari');
+
+  // Penjualan
+  Route::get('penjualan', function(){
+    return view('penjualan');
+  });
+  Route::get('inputpenjualan', function(){
+    return view('inputpenjualan');
+  });
 });

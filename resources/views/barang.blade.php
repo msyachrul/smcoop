@@ -14,7 +14,8 @@
 					<thead>
 						<tr>
 							<th width="5%">#</th>
-							<th>Nama Barang</th>
+							<th>Nama</th>
+							<th width="20%" class="text-right">Harga</th>
 							<th width="10%" class="text-center">
 								<a href="#" class="daftarBarang btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
 							</th> 
@@ -27,10 +28,11 @@
 						<tr class="barang{{ $value->id }}">
 							<td>{{ $i++ }}</td>
 							<td>{{ $value->nama }}</td>
+							<td class="text-right">Rp {{ number_format($value->harga) }}</td>
 							<!-- Trigger Modal -->
 							<td class="text-center">
-								<a href="#" class="editBarang btn btn-info btn-sm" data-id="{{ $value->id }}" data-nama="{{ $value->nama }}"><i class="fa fa-pencil"></i></a>
-								<a href="#" class="hapusBarang btn btn-danger btn-sm" data-id="{{ $value->id }}" data-nama="{{ $value->nama }}"><i class="fa fa-trash"></i></a>
+								<a href="#" class="editBarang btn btn-info btn-sm" data-id="{{ $value->id }}" data-nama="{{ $value->nama }}" data-harga="{{ $value->harga }}"><i class="fa fa-pencil"></i></a>
+								<a href="#" class="hapusBarang btn btn-danger btn-sm" data-id="{{ $value->id }}" data-nama="{{ $value->nama }}" data-harga="{{ $value->harga }}"><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -51,8 +53,12 @@
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
 					 <div class="form-group">
-					 	<label class="control-label col-sm-8">Nama Barang</label>
+					 	<label class="control-label col-sm-8">Nama</label>
 					 	<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Barang" required>
+					 </div>
+					 <div class="form-group">
+					 	<label class="control-label col-sm-8">Harga</label>
+					 	<input type="number" class="form-control" name="harga" id="harga" placeholder="Harga Barang" required>
 					 </div>
 					</form>
 				<div class="modal-footer">
@@ -82,8 +88,12 @@
 						<input type="text" class="form-control" name="id" id="editId" disabled>
 					 </div>
 					 <div class="form-group">
-					 	<label class="control-label col-sm-8">Nama Barang</label>
+					 	<label class="control-label col-sm-8">Nama</label>
 					 	<input type="text" class="form-control" name="nama" id="editNama" placeholder="Nama Barang" required>
+					 </div>
+					 <div class="form-group">
+					 	<label class="control-label col-sm-8">Harga</label>
+					 	<input type="number" class="form-control" name="harga" id="editHarga" placeholder="Harga Barang" required>
 					 </div>
 					</form>
 				<div class="modal-footer">
@@ -116,8 +126,12 @@
 						<input type="text" class="form-control" name="id" id="hapusId" disabled>
 					 </div>
 					 <div class="form-group">
-					 	<label class="control-label col-sm-8">Nama Barang</label>
+					 	<label class="control-label col-sm-8">Nama</label>
 					 	<input type="text" class="form-control" name="nama" id="hapusNama" placeholder="Nama Barang" disabled>
+					 </div>
+					 <div class="form-group">
+					 	<label class="control-label col-sm-8">Harga</label>
+					 	<input type="number" class="form-control" name="harga" id="hapusHarga" placeholder="Harga Barang" disabled>
 					 </div>
 					</form>
 				<div class="modal-footer">

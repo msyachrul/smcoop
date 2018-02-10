@@ -141,6 +141,7 @@
     data: {
       '_token': $('input[name=_token]').val(),
       'nama': $('input[name=nama]').val(),
+      'harga': $('input[name=harga]').val(),
     },
     success: function(data) {
       if (data.errors == 'ada') {
@@ -157,6 +158,7 @@
     }
   });
   $('#nama').val('');
+  $('#harga').val('');
  });
  // ajax tampil modal editBarang
  $(document).on('click','.editBarang',function(){
@@ -165,6 +167,7 @@
     $('.form-horizontal').show();
     $('#editId').val($(this).data('id'));
     $('#editNama').val($(this).data('nama'));
+    $('#editHarga').val($(this).data('harga'));
  });
  // fungsi editBarang
  $('#updateBarang').click(function(){
@@ -175,6 +178,7 @@
       '_token': $('input[name=_token]').val(),
       'id': $('#editId').val(),
       'nama': $('#editNama').val(),
+      'harga': $('#editHarga').val(),
     },
     success: function(data) {
       if (data.errors) {
@@ -195,6 +199,7 @@
     $('.form-horizontal').show();
     $('#hapusId').val($(this).data('id'));
     $('#hapusNama').val($(this).data('nama'));
+    $('#hapusHarga').val($(this).data('harga'));
  });
  // fungsi hapusBarang
  $('#buangBarang').click(function(){
@@ -204,7 +209,6 @@
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#hapusId').val(),
-      'nama': $('#hapusNama').val(),
     },
     success: function(data) {
       if (data.errors) {
@@ -336,17 +340,17 @@
   });
  });
 
- // ajax tampil modal cariData
- $(document).on('click','.cariData',function(){
-  $('#cariData').modal('show');
+ // ajax tampil modal cari
+ $(document).on('click','.cari',function(){
+  $('#cari').modal('show');
   $('.modal-title').text('Laporan Pembelian');
   $('.form-horizontal').show();
  });
- // fungsi cariData
- $('#_cariData').click(function(){
+ // fungsi cari
+ $('#_cari').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'pembelian/data',
+    url: 'pembelian/cari',
     data: {
       '_token': $('input[name=_token]').val(),
       'dariTanggal': $('input[name=dariTanggal]').val(),
@@ -358,8 +362,7 @@
       }
       else {
           toastr.success('Cari laporan pembelian berhasil','Success',{timeout:5000});
-          // ACAN PATI NGARTI
-          $('#cariData').modal('hide');
+          $('#cari').modal('hide');
           $('#keteranganTanggal').html('Tanggal <b>' + $('input[name=dariTanggal]').val() + '</b> sampai <b>' + $('input[name=sampaiTanggal]').val()) + '</b>';
           var html = '';
           for (var i = 0; i < data.length; i++) {
@@ -374,8 +377,24 @@
             html += '</tr>';
           }
           $('#tbodyCari').html(html);
-          // NEPI DIEU
       }
     }
   });
+ });
+
+ // Penjualan
+
+ // ajax tampil modal cariPenjualan
+ $(document).on('click','.cariPenjualan',function(){
+  $('#cariPenjualan').modal('show');
+  $('.modal-title').text('Cari Penjualan');
+  $('.form-horziontal').show();
+ });
+ // BELUM BERES
+
+ // ajax tampil modal inputPenjualan
+ $(document).on('click','.inputPenjualan',function(){
+  $('#inputPenjualan').modal('show');
+  $('.modal-title').text('Input Penjualan');
+  $('.form-horizontal').show();
  });

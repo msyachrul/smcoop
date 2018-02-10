@@ -104,7 +104,7 @@ class pembelianController extends Controller
       }
     }
 
-    public function data(Request $req) {
+    public function cari(Request $req) {
       $rules = array(
         'dariTanggal' => 'required|date_format:Y-m-d',
         'sampaiTanggal' => 'required|date_format:Y-m-d',

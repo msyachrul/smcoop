@@ -40,9 +40,9 @@ class anggotaController extends Controller
     		$anggota = new Anggota;
 
     			$anggota->noAnggota = $req->noAnggota;
-                $anggota->nama = $req->nama;
+                $anggota->nama = ucwords($req->nama);
     			$anggota->departemen = $req->departemen;
-    			$anggota->posisi = $req->posisi;
+    			$anggota->posisi = ucwords($req->posisi);
                 $anggota->totalSimpanan = $req->totalSimpanan;
 
     		$anggota->save();
@@ -70,9 +70,9 @@ class anggotaController extends Controller
             $anggota = Anggota::find($req->id);
 
                 $anggota->noAnggota = $req->noAnggota;
-                $anggota->nama = $req->nama;
+                $anggota->nama = ucwords($req->nama);
                 $anggota->departemen = $req->departemen;
-                $anggota->posisi = $req->posisi;
+                $anggota->posisi = ucwords($req->posisi);
                 $anggota->totalSimpanan = $req->totalSimpanan;
 
             $anggota->save();
