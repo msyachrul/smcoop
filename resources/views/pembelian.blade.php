@@ -9,8 +9,8 @@
       {{ csrf_field() }}
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i> Data Pembelian <span id="keteranganTanggal">Hari ini <b>{{ date('Y-m-d') }}</b></span>
-          <a href="#" class="cari btn btn-success btn-sm pull-right"><i class="fa fa-search"></i></a>
+          <i class="fa fa-table"></i> Data Pembelian <span id="keteranganTanggal"></span>
+          <a href="#" class="cariPembelian btn btn-success btn-sm pull-right"><i class="fa fa-search"></i></a>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -184,7 +184,7 @@
         </div>
     </div>
     <!-- Modal pilih tanggal -->
-    <div id="cari" class="modal fade" role="dialog">
+    <div id="cariPembelian" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -195,16 +195,16 @@
               <form class="form-horizontal" role="form">
                 <div class="form-group">
                   <label class="control-label col-sm-6">Dari</label>
-                  <input type="date" class="form-control" name="dariTanggal" id="dariTanggal" required>
+                  <input type="date" class="form-control" name="dariTanggal" placeholder="YYYY-MM-DD" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-6">Sampai</label>
-                  <input type="date" class="form-control" name="sampaiTanggal" id="sampaiTanggal" required>
+                  <input type="date" class="form-control" name="sampaiTanggal" placeholder="YYYY-MM-DD" required>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info" id="_cari">
+              <button type="submit" class="btn btn-info" id="_cariPembelian">
                 <span class="fa fa-search"></span> Cari
               </button>
               <button type="button" class="btn btn-warning" data-dismiss="modal">

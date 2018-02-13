@@ -9,17 +9,26 @@
   <meta name="author" content="">
   <title>Koperasi Marbella Suites Bandung</title>
   <!-- Bootstrap core CSS-->
-  <link href="template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ URL::asset('template/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- Custom fonts for this template-->
-  <link href="template/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="{{ URL::asset('template/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
   <!-- Page level plugin CSS-->
-  <link href="template/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="{{ URL::asset('template/vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
   <!-- Custom styles for this template-->
-  <link href="template/css/sb-admin.css" rel="stylesheet">
+  <link href="{{ URL::asset('template/css/sb-admin.css') }}" rel="stylesheet">
   <!-- toastr Notification -->
-  <link href="toastr/toastr.min.css" rel="stylesheet" type="text/css">
+  <link href="{{ URL::asset('toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">
 
-  <link rel="stylesheet" href="js/jquery-ui/jquery-ui.min.css" />
+  <link href="{{ URL::asset('js/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet"  />
+
+  <style type="text/css">
+    .ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+  </style>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -32,19 +41,19 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="/blank">
+          <a class="nav-link" href="{{ URL::asset('blank') }}">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Anggota">
-          <a class="nav-link" href="/anggota">
+          <a class="nav-link" href="{{ URL::asset('anggota') }}">
             <i class="fa fa-fw fa-sitemap"></i>
             <span class="nav-link-text">Anggota</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
-          <a class="nav-link" href="/barang">
+          <a class="nav-link" href="{{ URL::asset('barang') }}">
             <i class="fa fa-fw fa-archive"></i>
             <span class="nav-link-text">Barang</span>
           </a>
@@ -56,10 +65,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseTransaksi">
             <li>
-              <a href="/pembelian">Pembelian</a>
+              <a href="{{ URL::asset('pembelian') }}">Pembelian</a>
             </li>
             <li>
-              <a href="/penjualan">Penjualan</a>
+              <a href="{{ URL::asset('penjualan') }}">Penjualan</a>
             </li>
           </ul>
         </li>
@@ -151,23 +160,23 @@
       </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="template/vendor/jquery/jquery.min.js"></script>
-    <script src="template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ URL::asset('template/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ URL::asset('template/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Core plugin JavaScript-->
-    <script src="template/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ URL::asset('template/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="template/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="template/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="{{ URL::asset('template/vendor/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ URL::asset('template/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
     <!-- Custom scripts for all pages-->
-    <script src="template/js/sb-admin.min.js"></script>
+    <script src="{{ URL::asset('template/js/sb-admin.min.js') }}"></script>
     <!-- Custom scripts for this page-->
-    <script src="template/js/sb-admin-datatables.min.js"></script>
+    <script src="{{ URL::asset('template/js/sb-admin-datatables.min.js') }}"></script>
     <!-- toastr Notification -->
-    <script src="toastr/toastr.min.js"></script>
+    <script src="{{ URL::asset('toastr/toastr.min.js') }}"></script>
 
-    <script src="js/jquery-ui/jquery-ui.min.js"></script>
+    <script src="{{ URL::asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Ajax -->
-    <script src="js/ajax/ajax.js"></script>
+    <script src="{{ URL::asset('js/ajax/ajax.js') }}"></script>
   </div>
 </body>
 

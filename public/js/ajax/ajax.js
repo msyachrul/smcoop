@@ -301,6 +301,7 @@
       else {
           toastr.success('Edit pembelian berhasil','Success',{timeout:5000});
           $('#editPembelian').modal('hide');
+          $('#keteranganTanggal').text('');
           $('#dataTable').load('pembelian #dataTable');
       }
     }
@@ -340,14 +341,14 @@
   });
  });
 
- // ajax tampil modal cari
- $(document).on('click','.cari',function(){
-  $('#cari').modal('show');
+ // ajax tampil modal cariPembelian
+ $(document).on('click','.cariPembelian',function(){
+  $('#cariPembelian').modal('show');
   $('.modal-title').text('Laporan Pembelian');
   $('.form-horizontal').show();
  });
- // fungsi cari
- $('#_cari').click(function(){
+ // fungsi cariPembelian
+ $('#_cariPembelian').click(function(){
   $.ajax({
     type: 'POST',
     url: 'pembelian/cari',
@@ -362,7 +363,7 @@
       }
       else {
           toastr.success('Cari laporan pembelian berhasil','Success',{timeout:5000});
-          $('#cari').modal('hide');
+          $('#cariPembelian').modal('hide');
           $('#keteranganTanggal').html('Tanggal <b>' + $('input[name=dariTanggal]').val() + '</b> sampai <b>' + $('input[name=sampaiTanggal]').val()) + '</b>';
           var html = '';
           for (var i = 0; i < data.length; i++) {
@@ -397,4 +398,23 @@
   $('#inputPenjualan').modal('show');
   $('.modal-title').text('Input Penjualan');
   $('.form-horizontal').show();
+ });
+
+  // autocomplete i_penjualanNamaAnggota
+ $( '.i_penjualanNamaAnggota' ).autocomplete({
+    source: '/penjualan/autocomplete/anggota',
+    select: function(event,ui) {
+      event.preventDefault();
+      $('.i_penjualanNamaAnggota').val(ui.item.label);
+      $('.i_penjualanIdAnggota').val(ui.item.value);
+    }
+ });
+ // autocomplete i_penjualanNamaBarang
+ $( '.i_penjualanNamaBarang' ).autocomplete({
+    source: '/penjualan/autocomplete/barang',
+    select: function(event,ui) {
+      event.preventDefault();
+      $('.i_penjualanNamaBarang').val(ui.item.label);
+      $('.i_penjualanIdBarang').val(ui.item.value);
+    }
  });

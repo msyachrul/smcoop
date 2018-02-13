@@ -11,10 +11,10 @@
 
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i> Data Penjualan <span id="keteranganTanggal">Hari ini <b>{{ date('Y-m-d') }}</b></span>
+          <i class="fa fa-table"></i> Data Penjualan <span id="keteranganTanggal"></span>
           <div class="pull-right">
             <a href="#" class="cariPenjualan btn btn-success btn-sm"><i class="fa fa-search"></i></a>
-            <a href="/inputpenjualan" class="cariPenjualan btn btn-warning btn-sm"><i class="fa fa-plus"></i></a>
+            <a href="{{ URL::asset('penjualan/input') }}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i></a>
           </div>
         </div>
         <div class="card-body">
@@ -27,7 +27,6 @@
                   <th>No Transaksi</th>
                   <th class="text-right">Total</th>
                   <th width="10%" class="text-center">
-                    <a href="#" class="inputPenjualan btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                   </th>
                 </tr>
               </thead>
@@ -81,11 +80,11 @@
               <form class="form-horizontal" role="form">
                 <div class="form-group">
                   <label class="control-label col-sm-6">Dari</label>
-                  <input type="date" class="form-control" name="dariTanggal" id="dariTanggal" required>
+                  <input type="date" class="form-control" name="dariTanggal" placeholder="YYYY-MM-DD" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-6">Sampai</label>
-                  <input type="date" class="form-control" name="sampaiTanggal" id="sampaiTanggal" required>
+                  <input type="date" class="form-control" name="sampaiTanggal" placeholder="YYYY-MM-DD" required>
                 </div>
               </form>
             </div>

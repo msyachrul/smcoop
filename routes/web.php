@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('blank');
 });
 
 Route::get('/home', function () {
@@ -54,10 +54,8 @@ Route::group(['middleware' => ['web']], function() {
   Route::post('pembelian/cari', 'pembelianController@cari');
 
   // Penjualan
-  Route::get('penjualan', function(){
-    return view('penjualan');
-  });
-  Route::get('inputpenjualan', function(){
-    return view('inputpenjualan');
-  });
+  Route::get('penjualan', 'penjualanController@index');
+  Route::get('penjualan/input', 'penjualanController@input');
+  Route::get('penjualan/autocomplete/anggota', 'penjualanController@autocompleteAnggota');
+  Route::get('penjualan/autocomplete/barang', 'penjualanController@autocompleteBarang');
 });

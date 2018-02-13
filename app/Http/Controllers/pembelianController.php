@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pembelian;
 use App\Barang;
-use App\PembelianView;
+use App\Pembelian_View;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\input;
+use Illuminate\Support\Facades\DB;
 
 class pembelianController extends Controller
 {
     public function tampil() {
-    	$tanggal = date('Y-m-d');
-      $pembelian = PembelianView::where('tanggal',$tanggal)->get();
+    	
+      // $pembelian = Pembelian_View::where('tanggal',$tanggal)->get();
+      $pembelian = DB::table('pembelians_view')->orderBy('tanggal')->get();
 
       return view('pembelian',compact('pembelian'));
     }
@@ -116,7 +118,7 @@ class pembelianController extends Controller
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }
       else {
-        $data = PembelianView::whereBetween('tanggal',[$req->dariTanggal,$req->sampaiTanggal])->orderBy('tanggal','asc')->get();
+        $data = Pembelian_View::whereBetween('tanggal',[$req->dariTanggal,$req->sampaiTanggal])->orderBy('tanggal','asc')->get();
         return response()->json($data);
       }
     }
