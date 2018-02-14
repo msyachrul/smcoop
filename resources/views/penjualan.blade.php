@@ -1,6 +1,5 @@
 <?php date_default_timezone_set("Asia/Jakarta"); ?>
 
-
 @extends('layouts.layout')
 
 @section('breadcrumb','Penjualan')
@@ -8,7 +7,6 @@
 @section('content')
 
       {{ csrf_field() }}
-
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-table"></i> Data Penjualan <span id="keteranganTanggal"></span>

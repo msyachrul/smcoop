@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web']], function() {
   // Penjualan
   Route::get('penjualan', 'penjualanController@index');
   Route::get('penjualan/input', 'penjualanController@input');
-  Route::get('penjualan/autocomplete/anggota', 'penjualanController@autocompleteAnggota');
-  Route::get('penjualan/autocomplete/barang', 'penjualanController@autocompleteBarang');
+  Route::get('penjualan/input/autocomplete/anggota', 'penjualanController@autocompleteAnggota');
+  Route::get('penjualan/input/autocomplete/barang', 'penjualanController@autocompleteBarang');
+  Route::post('penjualan/input/barang', 'penjualanController@inputBarang');
 });

@@ -11,17 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-      	// $faker = Faker\Factory::create();
-
-      	// $limit = 2;
-
-      	// for ($i=0; $i < $limit ; $i++) { 
-      	// 	DB::table('anggotas')->insert([
-      	// 		'nama' => $faker->name,
-      	// 		'departemen' => $faker->name,
-      	// 	]);
-
-      	// }
+        
+      	$this->call(AnggotaTableSeeder::class);
+        $this->call(BarangTableSeeder::class);
     }
 }

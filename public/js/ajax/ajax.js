@@ -22,7 +22,7 @@
       // Validasi
   		success: function(data){
   			if (data.errors == 'ada') {
-          toastr.error('Anggota sudah terdaftar!','Error',{timeout:5000});
+          toastr.error('No anggota sudah terdaftar!','Error',{timeout:5000});
         }
         else if (data.errors) {
           toastr.error('Anggota gagal ditambahkan!','Error',{timeout:5000});
@@ -400,21 +400,72 @@
   $('.form-horizontal').show();
  });
 
-  // autocomplete i_penjualanNamaAnggota
+ // autocomplete i_penjualanNamaAnggota
  $( '.i_penjualanNamaAnggota' ).autocomplete({
-    source: '/penjualan/autocomplete/anggota',
+    source: '/penjualan/input/autocomplete/anggota',
     select: function(event,ui) {
       event.preventDefault();
       $('.i_penjualanNamaAnggota').val(ui.item.label);
       $('.i_penjualanIdAnggota').val(ui.item.value);
+      $('.i_penjualanNamaAnggota').attr('disabled','disabled');
     }
  });
+
+ // enable i_penjualanNamaAnggota
+ $('.enable_penjualanNamaAnggota').click(function(){
+    $('.i_penjualanIdAnggota').val('');
+    $('.i_penjualanNamaAnggota').removeAttr('disabled').val('').focus();
+ });
+
  // autocomplete i_penjualanNamaBarang
  $( '.i_penjualanNamaBarang' ).autocomplete({
-    source: '/penjualan/autocomplete/barang',
+    source: '/penjualan/input/autocomplete/barang',
     select: function(event,ui) {
       event.preventDefault();
       $('.i_penjualanNamaBarang').val(ui.item.label);
       $('.i_penjualanIdBarang').val(ui.item.value);
+      $('.i_penjualanNamaBarang').attr('disabled','disabled');
     }
+ });
+
+ // enable i_penjualanNamaBarang
+ $('.enable_penjualanNamaBarang').click(function(){
+    $('.i_penjualanIdBarang').val('');
+    $('.i_penjualanNamaBarang').removeAttr('disabled').val('').focus();
+ });
+
+ // fungsi input i_penjualanBarang
+ $('#penjualanInputBarang').click(function(){
+  $.ajax({
+    type: 'POST',
+    url: '/penjualan/input/barang',
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'noPenjualan': $('input[name=noPenjualan]').val(),
+      'barang_id': $('input[name=barang_id]').val(),
+      'kuantitas': $('input[name=kuantitas]').val(),
+    },
+    success:function(data){
+      if (data.errors) {
+          toastr.error('Input barang gagal!','Error',{timeout:5000});
+        }
+      else {
+          toastr.success('Input barang berhasil','Success',{timeout:5000});
+          var html = '';
+          for (var i = 0; i < data.length; i++) {
+            html += '<tr>';
+            html += '<td>' + (i+1) + '</td>';
+            html += '<td>' + data[i].nama + '</td>';
+            html += '<td>' + data[i].kuantitas + '</td>';
+            html += '<td class="text-right">Rp ' + data[i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + '</td>';
+            html += '<td><a href="#" class="btn btn-danger btn-sm" data-id="' + data[i].id + '"><i class="fa fa-trash"></i></a></td>';
+            html += '</tr>';
+          }
+          $('#tbodyPenjualanBarang').html(html);
+          $('.i_penjualanIdBarang').val('');
+          $('.i_penjualanNamaBarang').removeAttr('disabled').val('').focus();
+          $('.i_penjualanKuantitas').val('');
+        }
+    }
+  });
  });
