@@ -19,7 +19,6 @@ class CreateDetailPenjualansTable extends Migration
             $table->integer('barang_id');
             $table->integer('kuantitas');
             $table->bigInteger('subTotal');
-            $table->timestamps();
         });
     }
 

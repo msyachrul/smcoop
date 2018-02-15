@@ -15,11 +15,9 @@ class CreateTmpDetailPenjualans extends Migration
     {
         Schema::create('tmp_detail_penjualans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('noPenjualan',30);
             $table->integer('barang_id');
             $table->integer('kuantitas');
             $table->bigInteger('subTotal');
-            $table->timestamps();
         });
     }
 

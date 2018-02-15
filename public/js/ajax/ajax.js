@@ -22,13 +22,13 @@
       // Validasi
   		success: function(data){
   			if (data.errors == 'ada') {
-          toastr.error('No anggota sudah terdaftar!','Error',{timeout:5000});
+          toastr.error('No anggota sudah terdaftar!','Error',{timeOut:5000});
         }
         else if (data.errors) {
-          toastr.error('Anggota gagal ditambahkan!','Error',{timeout:5000});
+          toastr.error('Anggota gagal ditambahkan!','Error',{timeOut:5000});
   			}       
   			else {
-  				toastr.success('Anggota berhasil ditambahkan','Success',{timeout:5000});
+  				toastr.success('Anggota berhasil ditambahkan','Success',{timeOut:5000});
           $('#daftarAnggota').modal('hide');
           $('#dataTable').load('anggota #dataTable');
   			}
@@ -81,10 +81,10 @@
       // Validasi
       success: function(data) {
         if (data.errors) {
-          toastr.error('Anggota gagal di update!','Error',{timeout:5000});
+          toastr.error('Anggota gagal di update!','Error',{timeOut:5000});
         }
         else {
-          toastr.success('Anggota berhasil di update','Success',{timeout:5000});
+          toastr.success('Anggota berhasil di update','Success',{timeOut:5000});
           $('#editAnggota').modal('hide');
           $('#dataTable').load('anggota #dataTable');          
         }
@@ -114,10 +114,10 @@
       },
       success: function(data) {
         if (data.errors) {
-          toastr.error('Anggota gagal dihapus!','Error',{timeout:5000});
+          toastr.error('Anggota gagal dihapus!','Error',{timeOut:5000});
         }
         else {
-          toastr.success('Anggota berhasil dihapus','Success',{timeout:5000});
+          toastr.success('Anggota berhasil dihapus','Success',{timeOut:5000});
           $('#hapusAnggota').modal('hide');
           $('#dataTable').load('anggota #dataTable');          
         }
@@ -145,13 +145,13 @@
     },
     success: function(data) {
       if (data.errors == 'ada') {
-        toastr.error('Barang sudah terdaftar!','Error',{timeout:5000});
+        toastr.error('Barang sudah terdaftar!','Error',{timeOut:5000});
       }
       else if (data.errors) {
-        toastr.error('Barang gagal ditambahkan!','Error',{timeout:5000});
+        toastr.error('Barang gagal ditambahkan!','Error',{timeOut:5000});
       }
       else {
-        toastr.success('Barang berhasil ditambahkan','Success',{timeout:5000});
+        toastr.success('Barang berhasil ditambahkan','Success',{timeOut:5000});
         $('#daftarBarang').modal('hide');
         $('#dataTable').load('barang #dataTable');
       }
@@ -182,10 +182,10 @@
     },
     success: function(data) {
       if (data.errors) {
-        toastr.error('Barang gagal di update!','Error',{timeout:5000});
+        toastr.error('Barang gagal di update!','Error',{timeOut:5000});
       }
       else {
-        toastr.success('Barang berhasil di update','Success',{timeout:5000});
+        toastr.success('Barang berhasil di update','Success',{timeOut:5000});
         $('#editBarang').modal('hide');
         $('#dataTable').load('barang #dataTable');
       }
@@ -212,10 +212,10 @@
     },
     success: function(data) {
       if (data.errors) {
-        toastr.error('Barang gagal dihapus!','Error',{timeout:5000});
+        toastr.error('Barang gagal dihapus!','Error',{timeOut:5000});
       }
       else {
-        toastr.success('Barang berhasil dihapus','Success',{timeout:5000});
+        toastr.success('Barang berhasil dihapus','Success',{timeOut:5000});
         $('#hapusBarang').modal('hide');
         $('#dataTable').load('barang #dataTable');        
       }
@@ -254,13 +254,13 @@
       },
       success:function(data){
         if (data.errors == 'ada') {
-          toastr.error('Data pembelian sudah ada!','Error',{timeout:5000});
+          toastr.error('Data pembelian sudah ada!','Error',{timeOut:5000});
         }
         else if (data.errors) {
-          toastr.error('Input pembelian gagal!','Error',{timeout:5000});
+          toastr.error('Input pembelian gagal!','Error',{timeOut:5000});
         }
         else {
-          toastr.success('Input pembelian berhasil','Success',{timeout:5000});
+          toastr.success('Input pembelian berhasil','Success',{timeOut:5000});
           // $('#inputPembelian').modal('hide');
           $('#dataTable').load('pembelian #dataTable');
         }
@@ -296,10 +296,10 @@
     },
     success:function(data){
       if (data.errors) {
-          toastr.error('Edit pembelian gagal!','Error',{timeout:5000});
+          toastr.error('Edit pembelian gagal!','Error',{timeOut:5000});
         }
       else {
-          toastr.success('Edit pembelian berhasil','Success',{timeout:5000});
+          toastr.success('Edit pembelian berhasil','Success',{timeOut:5000});
           $('#editPembelian').modal('hide');
           $('#keteranganTanggal').text('');
           $('#dataTable').load('pembelian #dataTable');
@@ -330,10 +330,10 @@
     },
     success:function(data){
       if (data.errors) {
-          toastr.error('Hapus pembelian gagal!','Error',{timeout:5000});
+          toastr.error('Hapus pembelian gagal!','Error',{timeOut:5000});
         }
       else {
-          toastr.success('Hapus pembelian berhasil','Success',{timeout:5000});
+          toastr.success('Hapus pembelian berhasil','Success',{timeOut:5000});
           $('#hapusPembelian').modal('hide');
           $('#dataTable').load('pembelian #dataTable');
         }
@@ -359,10 +359,10 @@
     },
     success:function(data){
       if (data.errors) {
-          toastr.error('Cari laporan pembelian gagal!','Error',{timeout:5000});
+          toastr.error('Cari laporan pembelian gagal!','Error',{timeOut:5000});
       }
       else {
-          toastr.success('Cari laporan pembelian berhasil','Success',{timeout:5000});
+          toastr.success('Cari laporan pembelian berhasil','Success',{timeOut:5000});
           $('#cariPembelian').modal('hide');
           $('#keteranganTanggal').html('Tanggal <b>' + $('input[name=dariTanggal]').val() + '</b> sampai <b>' + $('input[name=sampaiTanggal]').val()) + '</b>';
           var html = '';
@@ -406,7 +406,8 @@
     select: function(event,ui) {
       event.preventDefault();
       $('.i_penjualanNamaAnggota').val(ui.item.label);
-      $('.i_penjualanIdAnggota').val(ui.item.value);
+      $('.i_penjualanIdAnggota').val(ui.item.id);
+      $('.i_penjualanNoAnggota').val(ui.item.value);
       $('.i_penjualanNamaAnggota').attr('disabled','disabled');
     }
  });
@@ -414,6 +415,7 @@
  // enable i_penjualanNamaAnggota
  $('.enable_penjualanNamaAnggota').click(function(){
     $('.i_penjualanIdAnggota').val('');
+    $('.i_penjualanNoAnggota').val('');
     $('.i_penjualanNamaAnggota').removeAttr('disabled').val('').focus();
  });
 
@@ -424,14 +426,7 @@
       event.preventDefault();
       $('.i_penjualanNamaBarang').val(ui.item.label);
       $('.i_penjualanIdBarang').val(ui.item.value);
-      $('.i_penjualanNamaBarang').attr('disabled','disabled');
     }
- });
-
- // enable i_penjualanNamaBarang
- $('.enable_penjualanNamaBarang').click(function(){
-    $('.i_penjualanIdBarang').val('');
-    $('.i_penjualanNamaBarang').removeAttr('disabled').val('').focus();
  });
 
  // fungsi input i_penjualanBarang
@@ -446,26 +441,66 @@
       'kuantitas': $('input[name=kuantitas]').val(),
     },
     success:function(data){
-      if (data.errors) {
-          toastr.error('Input barang gagal!','Error',{timeout:5000});
+      if (data.errors == 'ada') {
+          toastr.error('Barang sudah ada!','Error',{timeOut:5000});
+          $('.i_penjualanIdBarang').val('');
+          $('.i_penjualanNamaBarang').removeAttr('disabled').val('').focus();
+          $('.i_penjualanKuantitas').val('');
+      }
+      else if (data.errors) {
+          toastr.error('Lengkapi data yang dibutuhkan!','Error',{timeOut:5000});
+          $('.i_penjualanKuantitas').focus();
         }
       else {
-          toastr.success('Input barang berhasil','Success',{timeout:5000});
+          toastr.success('Input barang berhasil','Success',{timeOut:5000});
           var html = '';
-          for (var i = 0; i < data.length; i++) {
+          for (var i = 0; i < data.tampil.length; i++) {
             html += '<tr>';
             html += '<td>' + (i+1) + '</td>';
-            html += '<td>' + data[i].nama + '</td>';
-            html += '<td>' + data[i].kuantitas + '</td>';
-            html += '<td class="text-right">Rp ' + data[i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + '</td>';
-            html += '<td><a href="#" class="btn btn-danger btn-sm" data-id="' + data[i].id + '"><i class="fa fa-trash"></i></a></td>';
+            html += '<td>' + data.tampil[i].nama + '</td>';
+            html += '<td>' + data.tampil[i].kuantitas + '</td>';
+            html += '<td class="text-right">Rp ' + data.tampil[i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + '</td>';
+            html += '<td><a href="#" class="btn btn-danger btn-sm" data-id="' + data.tampil[i].id + '"><i class="fa fa-trash"></i></a></td>';
             html += '</tr>';
           }
           $('#tbodyPenjualanBarang').html(html);
           $('.i_penjualanIdBarang').val('');
           $('.i_penjualanNamaBarang').removeAttr('disabled').val('').focus();
           $('.i_penjualanKuantitas').val('');
+          $('.i_penjualanHiddenTotal').val(data.tmpTotal);
+          $('.i_penjualanTotal').val('Rp ' + data.tmpTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         }
+    }
+  });
+  $('.enable_penjualanNamaAnggota').remove();
+ });
+
+ // fungsi i_penjualan
+ $('.i_penjualan').click(function() {
+  $.ajax({
+    type: 'POST',
+    url: '/penjualan/input/transaksi',
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'noPenjualan': $('input[name=noPenjualan]').val(),
+      'anggota_id': $('input[name=anggota_id]').val(),
+      'tanggal': $('input[name=tanggal]').val(),
+      'total': $('input[name=total]').val()
+    },
+    success:function(data) {
+      if (data.errors == 'kosong') {
+          toastr.error('Barang tidak boleh kosong!','Error',{timeOut:5000});
+      }
+      else if (data.errors) {
+          toastr.error('Anggota belum terpilih!','Error',{timeOut:5000});
+          $('.i_penjualanNamaAnggota').focus();
+      }
+      else {
+          toastr.success('Input data penjualan berhasil','Success',{timeOut:1000});
+          setTimeout(function(){
+            location.reload();
+          },1000);
+      }
     }
   });
  });

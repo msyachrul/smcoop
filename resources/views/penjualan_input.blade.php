@@ -12,25 +12,26 @@
 		<div class="card-body">
 			<form role="form">
 				{{ csrf_field() }}
+				<input type="hidden" name="noPenjualan" value="{{ $noPenjualan }}" required>
 				<div class="form-group row">
-					<input type="hidden" class="form-control form-control-sm" name="noPenjualan" value="{{ $noPenjualan }}" required>
 					<label for="tanggal" class="col-sm-1 col-form-label col-form-label-sm">Tanggal</label>
 					<div class="col-sm-2">
 						<input type="date" class="form-control form-control-sm" name="tanggal" value="{{ date('Y-m-d') }}" required>
 					</div>
 					<div class="col-sm">
-						<a href="#" class="btn btn-success btn-sm pull-right"><i class="fa fa-save"></i> Simpan Transaksi</a>
+						<a href="#" class="i_penjualan btn btn-success btn-sm pull-right"><i class="fa fa-save"></i> Simpan Transaksi</a>
 					</div>
 				</div>
 				<div class="form-group row">
 				    <label for="namaAnggota" class="col-sm-1 col-form-label col-form-label-sm">Anggota</label>
 				    <div class="col-sm-3">
-						<input type="text" class="i_penjualanIdAnggota form-control form-control-sm" name="anggota_id" placeholder="No Anggota" disabled required>
+				    	<input type="hidden" class="i_penjualanIdAnggota" name="anggota_id" required>
+						<input type="text" class="i_penjualanNoAnggota form-control form-control-sm" name="anggota_noAnggota" placeholder="No Anggota" disabled required>
 				    </div>
 				    <div class="col-sm">
 					    <input type="text" class="i_penjualanNamaAnggota form-control form-control-sm" name="anggota_nama" placeholder="Nama Anggota" required>
 				    </div>
-				    <div class="col-sm-1">
+				    <div class="enable_penjualanNamaAnggota col-sm-1">
 				    	<a href="#" class="enable_penjualanNamaAnggota btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
 				    </div>
 				</div>
@@ -42,9 +43,6 @@
 					<div class="col-sm">
 					    <input type="text" class="i_penjualanNamaBarang form-control form-control-sm" id="barang_nama" placeholder="Nama Barang" required>
 					</div>
-					<div class="col-sm-1">
-				    	<a href="#" class="enable_penjualanNamaBarang btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
-				    </div>
 				</div>
 				<div class="form-group row">
 					<label for="kuantitas" class="col-sm-1 col-form-label col-form-label-sm">Kuantitas</label>
@@ -53,7 +51,8 @@
 					</div>
 				    <label for="total" class="col-sm-1 col-form-label col-form-label-sm">Total</label>
 				    <div class="col-sm">
-			    		<input type="number" class="form-control form-control-sm" name="total" placeholder="Total" disabled required>
+				    	<input type="hidden" class="i_penjualanHiddenTotal" name="total" value="{{ $tmpTotal }}" required>
+			    		<input type="text" class="i_penjualanTotal form-control form-control-sm" placeholder="Total" value="Rp {{ number_format($tmpTotal) }}" disabled required>
 					</div>
 				</div>
 				<div class="form-group row">

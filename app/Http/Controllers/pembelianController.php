@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\DB;
 class pembelianController extends Controller
 {
     public function tampil() {
-    	
-      // $pembelian = Pembelian_View::where('tanggal',$tanggal)->get();
       $pembelian = DB::table('pembelians_view')->orderBy('tanggal')->get();
 
       return view('pembelian',compact('pembelian'));
