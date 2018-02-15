@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\DB;
 class penjualanController extends Controller
 {
     public function index() {
-    	return view('penjualan');
+        $penjualan = DB::table('penjualans')->orderBy('tanggal','ASC')->get();
+
+    	return view('penjualan',compact('penjualan'));
     }
 
     public function input() {

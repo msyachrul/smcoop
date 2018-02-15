@@ -484,7 +484,7 @@
  });
 
  // ajax modal hapusPenjualanBarang
- $('.hapusPenjualanBarang').click(function(){
+ $(document).on('click','.hapusPenjualanBarang', function(){
   $('#hapusPenjualanBarang').modal('show');
   $('.modal-title').text('hapus Barang');
   $('.form-horizontal').show();

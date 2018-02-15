@@ -12,7 +12,6 @@
           <i class="fa fa-table"></i> Data Penjualan <span id="keteranganTanggal"></span>
           <div class="pull-right">
             <a href="#" class="cariPenjualan btn btn-success btn-sm"><i class="fa fa-search"></i></a>
-            <a href="{{ URL::asset('penjualan/input') }}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i></a>
           </div>
         </div>
         <div class="card-body">
@@ -22,14 +21,28 @@
                 <tr>
                   <th width="5%">#</th>
                   <th>Tanggal</th>
-                  <th>No Transaksi</th>
+                  <th>No Penjualan</th>
                   <th class="text-right">Total</th>
-                  <th width="10%" class="text-center">
+                  <th width="15%" class="text-center">
+                    <a href="{{ URL::asset('penjualan/input') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                   </th>
                 </tr>
               </thead>
               <tbody id="tbodyCari">
-
+                <?php $no=1; ?>
+                @foreach ( $penjualan as $key => $value )
+                <tr>
+                  <td>{{ $no++ }}</td>
+                  <td>{{ $value->tanggal }}</td>
+                  <td>{{ $value->noPenjualan }}</td>
+                  <td class="text-right">Rp {{ number_format($value->total) }}</td>
+                  <td>
+                    <a href="#" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
