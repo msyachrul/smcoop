@@ -19,7 +19,7 @@ class CreateAnggotasTable extends Migration
             $table->string('nama',30);
             $table->string('departemen',30);
             $table->string('posisi',30);
-            $table->bigInteger('totalSimpanan');
+            $table->integer('totalSimpanan');
             $table->timestamps();
         });
     }

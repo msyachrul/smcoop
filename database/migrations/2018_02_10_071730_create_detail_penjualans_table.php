@@ -17,8 +17,9 @@ class CreateDetailPenjualansTable extends Migration
             $table->increments('id');
             $table->string('noPenjualan',30);
             $table->integer('barang_id');
+            $table->integer('harga');
             $table->integer('kuantitas');
-            $table->bigInteger('subTotal');
+            $table->integer('subTotal');
         });
     }
 

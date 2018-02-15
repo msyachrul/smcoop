@@ -10,7 +10,7 @@
   $('#tambahAnggota').click(function(){
   	$.ajax({
   		type: 'POST',
-  		url: 'anggota/daftar',
+  		url: '/anggota/daftar',
   		data: {
   			'_token': $('input[name=_token]').val(),
         'noAnggota': $('input[name=noAnggota').val(),
@@ -68,7 +68,7 @@
   $('#updateAnggota').click(function() {
     $.ajax({
       type: 'POST',
-      url: 'anggota/edit',
+      url: '/anggota/edit',
       data: {
         '_token': $('input[name=_token]').val(),
         'id': $('#editId').val(),
@@ -107,7 +107,7 @@
   $('#buangAnggota').click(function() {
     $.ajax({
       type: 'POST',
-      url: 'anggota/hapus',
+      url: '/anggota/hapus',
       data: {
         '_token': $('input[name=_token]').val(),
         'id': $('#hapusId').val(),
@@ -137,7 +137,7 @@
  $('#tambahBarang').click(function() {
   $.ajax({
     type: 'POST',
-    url: 'barang/daftar',
+    url: '/barang/daftar',
     data: {
       '_token': $('input[name=_token]').val(),
       'nama': $('input[name=nama]').val(),
@@ -173,7 +173,7 @@
  $('#updateBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'barang/edit',
+    url: '/barang/edit',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#editId').val(),
@@ -205,7 +205,7 @@
  $('#buangBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'barang/hapus',
+    url: '/barang/hapus',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#hapusId').val(),
@@ -244,7 +244,7 @@
  $('#_inputPembelian').click(function(){
     $.ajax({
       type: 'POST',
-      url: 'pembelian/input',
+      url: '/pembelian/input',
       data: {
         '_token': $('input[name=_token]').val(),
         'tanggal': $('input[name=tanggal]').val(),
@@ -287,7 +287,7 @@
  $('#_editPembelian').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'pembelian/edit',
+    url: '/pembelian/edit',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#editId').val(),
@@ -323,7 +323,7 @@
  $('#_hapusPembelian').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'pembelian/hapus',
+    url: '/pembelian/hapus',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#hapusId').val(),      
@@ -351,7 +351,7 @@
  $('#_cariPembelian').click(function(){
   $.ajax({
     type: 'POST',
-    url: 'pembelian/cari',
+    url: '/pembelian/cari',
     data: {
       '_token': $('input[name=_token]').val(),
       'dariTanggal': $('input[name=dariTanggal]').val(),
@@ -392,13 +392,6 @@
   $('.form-horziontal').show();
  });
  // BELUM BERES
-
- // ajax tampil modal inputPenjualan
- $(document).on('click','.inputPenjualan',function(){
-  $('#inputPenjualan').modal('show');
-  $('.modal-title').text('Input Penjualan');
-  $('.form-horizontal').show();
- });
 
  // autocomplete i_penjualanNamaAnggota
  $( '.i_penjualanNamaAnggota' ).autocomplete({
@@ -442,37 +435,22 @@
     },
     success:function(data){
       if (data.errors == 'ada') {
-          toastr.error('Barang sudah ada!','Error',{timeOut:5000});
-          $('.i_penjualanIdBarang').val('');
-          $('.i_penjualanNamaBarang').removeAttr('disabled').val('').focus();
-          $('.i_penjualanKuantitas').val('');
+          toastr.error('Barang sudah ada!','Error',{timeOut:5000});   
       }
       else if (data.errors) {
           toastr.error('Lengkapi data yang dibutuhkan!','Error',{timeOut:5000});
-          $('.i_penjualanKuantitas').focus();
         }
       else {
           toastr.success('Input barang berhasil','Success',{timeOut:5000});
-          var html = '';
-          for (var i = 0; i < data.tampil.length; i++) {
-            html += '<tr>';
-            html += '<td>' + (i+1) + '</td>';
-            html += '<td>' + data.tampil[i].nama + '</td>';
-            html += '<td>' + data.tampil[i].kuantitas + '</td>';
-            html += '<td class="text-right">Rp ' + data.tampil[i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + '</td>';
-            html += '<td><a href="#" class="btn btn-danger btn-sm" data-id="' + data.tampil[i].id + '"><i class="fa fa-trash"></i></a></td>';
-            html += '</tr>';
-          }
-          $('#tbodyPenjualanBarang').html(html);
-          $('.i_penjualanIdBarang').val('');
-          $('.i_penjualanNamaBarang').removeAttr('disabled').val('').focus();
-          $('.i_penjualanKuantitas').val('');
-          $('.i_penjualanHiddenTotal').val(data.tmpTotal);
-          $('.i_penjualanTotal').val('Rp ' + data.tmpTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+          $('#detailTotal').load('/penjualan/input #detailTotal');
+          $('#barangTable').load('/penjualan/input #barangTable');
         }
     }
   });
   $('.enable_penjualanNamaAnggota').remove();
+  $('.i_penjualanIdBarang').val('');
+  $('.i_penjualanNamaBarang').val('').focus();
+  $('.i_penjualanKuantitas').val('');
  });
 
  // fungsi i_penjualan
@@ -501,6 +479,35 @@
             location.reload();
           },1000);
       }
+    }
+  });
+ });
+
+ // ajax modal hapusPenjualanBarang
+ $('.hapusPenjualanBarang').click(function(){
+  $('#hapusPenjualanBarang').modal('show');
+  $('.modal-title').text('hapus Barang');
+  $('.form-horizontal').show();
+  $('.hapusPenjualanIdBarang').val($(this).data('id'));
+  $('.hapusPenjualanNamaBarang').val($(this).data('nama'));
+  $('.hapusPenjualanKuantitasBarang').val($(this).data('kuantitas'));
+ });
+
+ // fungsi hapusPenjualanBarang
+ $('._hapusPenjualanBarang').click(function(){
+  $.ajax({
+    type: 'POST',
+    url: '/penjualan/hapus/barang',
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'id': $('.hapusPenjualanIdBarang').val(),
+      'kuantitas': $('.hapusPenjualanKuantitasBarang').val(),
+    },
+    success:function(data) {
+      toastr.success('Barang berhasil dihapus!','Success',{timeOut:5000});
+      $('#hapusPenjualanBarang').modal('hide');
+      $('#detailTotal').load('/penjualan/input #detailTotal');
+      $('#barangTable').load('/penjualan/input #barangTable');
     }
   });
  });

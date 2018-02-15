@@ -16,7 +16,7 @@ class CreateBarangsTable extends Migration
         Schema::create('barangs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama',30)->unique();
-            $table->bigInteger('harga');
+            $table->integer('harga');
             $table->timestamps();
         });
     }

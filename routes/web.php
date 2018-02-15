@@ -60,4 +60,5 @@ Route::group(['middleware' => ['web']], function() {
   Route::get('penjualan/input/autocomplete/barang', 'penjualanController@autocompleteBarang');
   Route::post('penjualan/input/barang', 'penjualanController@inputBarang');
   Route::post('penjualan/input/transaksi', 'penjualanController@inputTransaksi');
+  Route::post('penjualan/hapus/barang', 'penjualanController@hapusBarang');
 });

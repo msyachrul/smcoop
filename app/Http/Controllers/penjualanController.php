@@ -25,8 +25,9 @@ class penjualanController extends Controller
     		$cek = count($get);
     	} while ( $cek == 1 );
 
+        // ambil nama barang
         $tmpBarang = DB::table('tmp_detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->select('a.id','b.nama','a.kuantitas','a.subTotal')->get();
-
+        // ambil total barang
         $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
 
     	return view('penjualan_input',compact('noPenjualan','tmpBarang','tmpTotal'));
@@ -82,16 +83,12 @@ class penjualanController extends Controller
         // masukan data barang ke tabel sementara
         $barang = DB::table('tmp_detail_penjualans')->insert([
             'barang_id' => $req->barang_id,
+            'harga' => $harga,
             'kuantitas' => $req->kuantitas,
             'subTotal' => $harga*$req->kuantitas,
         ]);
 
-        // ambil nama barang di tabel barangs lalu ditampilkan
-        $tampil = DB::table('tmp_detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->select('a.id','b.nama','a.kuantitas','a.subTotal')->get();
-        // ambil total penjualan barang
-        $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
-
-        return response::json(array('tampil' => $tampil, 'tmpTotal' => $tmpTotal));
+        return response()->json($barang);
         }
       }
     }
@@ -121,6 +118,7 @@ class penjualanController extends Controller
                 DB::table('detail_penjualans')->insert([
                     'noPenjualan' => $req->noPenjualan,
                     'barang_id' => $value->barang_id,
+                    'harga' => $value->harga,
                     'kuantitas' => $value->kuantitas,
                     'subTotal' => $value->subTotal,
                 ]);
@@ -139,4 +137,12 @@ class penjualanController extends Controller
         }
       }
     }
+
+    public function hapusBarang(Request $req) {
+        
+        $barang = DB::table('tmp_detail_penjualans')->where('id',$req->id)->delete();
+
+        return response()->json($barang);
+    }
+
 }

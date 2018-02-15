@@ -35,37 +35,6 @@
           </div>
         </div>
       </div>
-    <!-- Modal inputPembelian -->
-    <div id="inputPenjualan" class="modal fade" role="dialog">
-      	<div class="modal-dialog">
-      		<div class="modal-content">
-      			<div class="modal-header">
-      				<h4 class="modal-title"></h4>
-      				<button type="button" class="close" data-dismiss="modal">&times;</button>
-      			</div>
-      			<div class="modal-body">
-      				<form class="form-horizontal" role="form">
-      					<div class="form-group">
-      						<label class="control-label col-sm-6">Tanggal</label>
-      						<input type="date" class="form-control" name="tanggal" id="tanggal" value="{{ date('Y-m-d') }}" required>
-      					</div>
-                <div class="form-group ui-front">
-                  <label class="control-label col-sm-6">No Transaksi</label>
-                  <input type="text" class="idBarang form-control" name="noTransaksi" id="noTransaksi" value="KRDT{{ date('Ymis') }}" disabled>
-                </div>
-      				</form>
-      			</div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" id="_inputPenjualan">
-                <span class="fa fa-plus"></span> Input
-              </button>
-              <button type="button" class="btn btn-warning" data-dismiss="modal">
-                <span class="fa fa-close"></span> Batal
-              </button>
-            </div>
-      		</div>
-      	</div>
-    </div>
     <!-- Modal pilih tanggal -->
     <div id="cariPenjualan" class="modal fade" role="dialog">
       <div class="modal-dialog">

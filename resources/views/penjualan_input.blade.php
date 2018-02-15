@@ -29,7 +29,7 @@
 						<input type="text" class="i_penjualanNoAnggota form-control form-control-sm" name="anggota_noAnggota" placeholder="No Anggota" disabled required>
 				    </div>
 				    <div class="col-sm">
-					    <input type="text" class="i_penjualanNamaAnggota form-control form-control-sm" name="anggota_nama" placeholder="Nama Anggota" required>
+					    <input type="text" class="i_penjualanNamaAnggota form-control form-control-sm" placeholder="Nama Anggota" required>
 				    </div>
 				    <div class="enable_penjualanNamaAnggota col-sm-1">
 				    	<a href="#" class="enable_penjualanNamaAnggota btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
@@ -41,18 +41,20 @@
 					    <input type="text" class="i_penjualanIdBarang form-control form-control-sm" name="barang_id" placeholder="No Barang" disabled required>
 					</div>
 					<div class="col-sm">
-					    <input type="text" class="i_penjualanNamaBarang form-control form-control-sm" id="barang_nama" placeholder="Nama Barang" required>
+					    <input type="text" class="i_penjualanNamaBarang form-control form-control-sm" placeholder="Nama Barang" required>
 					</div>
 				</div>
-				<div class="form-group row">
+				<div class="form-group row">  
 					<label for="kuantitas" class="col-sm-1 col-form-label col-form-label-sm">Kuantitas</label>
 					<div class="col-sm-3">
 						<input type="number" class="i_penjualanKuantitas form-control form-control-sm" name="kuantitas" placeholder="Kuantitas" required>
 					</div>
 				    <label for="total" class="col-sm-1 col-form-label col-form-label-sm">Total</label>
 				    <div class="col-sm">
-				    	<input type="hidden" class="i_penjualanHiddenTotal" name="total" value="{{ $tmpTotal }}" required>
-			    		<input type="text" class="i_penjualanTotal form-control form-control-sm" placeholder="Total" value="Rp {{ number_format($tmpTotal) }}" disabled required>
+				    	<div id="detailTotal">
+					    	<input type="hidden" class="i_penjualanHiddenTotal" name="total" value="{{ $tmpTotal }}" required>
+				    		<input type="text" class="i_penjualanTotal form-control form-control-sm" placeholder="Total" value="Rp {{ number_format($tmpTotal) }}" disabled required>
+			    		</div>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -71,8 +73,8 @@
 							<th width="5%">#</th>
 							<th>Nama Barang</th>
 							<th>Kuantitas</th>
-							<th>Sub total</th>
-							<th width="10%"></th>
+							<th class="text-right">Sub total</th>
+							<th width="5%"></th>
 						</tr>
 					</thead>
 					<tbody id="tbodyPenjualanBarang">
@@ -83,11 +85,41 @@
 							<td>{{ $value->nama }}</td>
 							<td>{{ $value->kuantitas }}</td>
 							<td class="text-right">Rp {{ number_format($value->subTotal) }}</td>
-							<td><a href="#" class="btn btn-danger btn-sm" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></a></td>
+							<td>
+								<a href="#" class="hapusPenjualanBarang btn btn-danger btn-sm" data-id="{{ $value->id }}" data-nama="{{ $value->nama }}" data-kuantitas="{{ $value->kuantitas }}"><i class="fa fa-trash"></i></a>
+							</td>
 						</tr>
 						@endforeach
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+	<!-- Modal hapusPenjualanBarang -->
+	<div id="hapusPenjualanBarang" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<input type="hidden" class="hapusPenjualanIdBarang" name="id">
+						<div class="form-group">
+							<label class="control-label col-sm-4">Nama Barang</label>
+							<input type="text" class="hapusPenjualanNamaBarang form-control" disabled>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-4">Kuantitas</label>
+							<input type="number" class="hapusPenjualanKuantitasBarang form-control" disabled>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="_hapusPenjualanBarang btn btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
+				</div>
 			</div>
 		</div>
 	</div>
