@@ -13,7 +13,7 @@
           <a href="#" class="cariPembelian btn btn-success btn-sm pull-right"><i class="fa fa-search"></i></a>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
+          <div class="table-responsive" id="reloadTable">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>

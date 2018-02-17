@@ -55,10 +55,11 @@ Route::group(['middleware' => ['web']], function() {
 
   // Penjualan
   Route::get('penjualan', 'penjualanController@index');
-  Route::get('penjualan/input', 'penjualanController@input');
+  Route::get('penjualan/input', 'penjualanController@inputPenjualan');
   Route::get('penjualan/input/autocomplete/anggota', 'penjualanController@autocompleteAnggota');
   Route::get('penjualan/input/autocomplete/barang', 'penjualanController@autocompleteBarang');
   Route::post('penjualan/input/barang', 'penjualanController@inputBarang');
   Route::post('penjualan/input/transaksi', 'penjualanController@inputTransaksi');
   Route::post('penjualan/hapus/barang', 'penjualanController@hapusBarang');
+  Route::post('penjualan/batal', 'penjualanController@batal');
 });

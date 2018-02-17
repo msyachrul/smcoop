@@ -17,7 +17,7 @@ class penjualanController extends Controller
     	return view('penjualan',compact('penjualan'));
     }
 
-    public function input() {
+    public function inputPenjualan() {
         $nomor = 0;
 
     	do {
@@ -77,17 +77,26 @@ class penjualanController extends Controller
         $cek = DB::table('tmp_detail_penjualans')->where('barang_id',$req->barang_id)->get();
 
         if (count($cek) > 0) {
-          return response::json(array('errors'=>'ada'));
+            $kuantitas = $cek[0]->kuantitas+$req->kuantitas;
+            $subTotal = $cek[0]->harga*$kuantitas;
+
+            $barang = DB::table('tmp_detail_penjualans')->where('barang_id',$req->barang_id)->update([
+                'kuantitas' => $kuantitas,
+                'subTotal' => $subTotal,
+            ]);
+
+            return response()->json($barang);
         }
         else {
         // ambil harga barang
         $harga = DB::table('barangs')->select('harga')->where('id',$req->barang_id)->get()[0]->harga;
+        $subTotal = $harga*$req->kuantitas;
         // masukan data barang ke tabel sementara
         $barang = DB::table('tmp_detail_penjualans')->insert([
             'barang_id' => $req->barang_id,
             'harga' => $harga,
             'kuantitas' => $req->kuantitas,
-            'subTotal' => $harga*$req->kuantitas,
+            'subTotal' => $subTotal,
         ]);
 
         return response()->json($barang);
@@ -145,6 +154,10 @@ class penjualanController extends Controller
         $barang = DB::table('tmp_detail_penjualans')->where('id',$req->id)->delete();
 
         return response()->json($barang);
+    }
+
+    public function batal() {
+        DB::table('tmp_detail_penjualans')->delete();
     }
 
 }

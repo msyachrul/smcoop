@@ -30,7 +30,7 @@
   			else {
   				toastr.success('Anggota berhasil ditambahkan','Success',{timeOut:5000});
           $('#daftarAnggota').modal('hide');
-          $('#dataTable').load('anggota #dataTable');
+          $('#reloadTable').load('anggota #dataTable');
   			}
   		},
   	});
@@ -86,7 +86,7 @@
         else {
           toastr.success('Anggota berhasil di update','Success',{timeOut:5000});
           $('#editAnggota').modal('hide');
-          $('#dataTable').load('anggota #dataTable');          
+          $('#reloadTable').load('anggota #dataTable');          
         }
       }
     });
@@ -119,7 +119,7 @@
         else {
           toastr.success('Anggota berhasil dihapus','Success',{timeOut:5000});
           $('#hapusAnggota').modal('hide');
-          $('#dataTable').load('anggota #dataTable');          
+          $('#reloadTable').load('anggota #dataTable');          
         }
       }
     });
@@ -153,7 +153,7 @@
       else {
         toastr.success('Barang berhasil ditambahkan','Success',{timeOut:5000});
         $('#daftarBarang').modal('hide');
-        $('#dataTable').load('barang #dataTable');
+        $('#reloadTable').load('barang #dataTable');
       }
     }
   });
@@ -187,7 +187,7 @@
       else {
         toastr.success('Barang berhasil di update','Success',{timeOut:5000});
         $('#editBarang').modal('hide');
-        $('#dataTable').load('barang #dataTable');
+        $('#reloadTable').load('barang #dataTable');
       }
     }
   });
@@ -217,7 +217,7 @@
       else {
         toastr.success('Barang berhasil dihapus','Success',{timeOut:5000});
         $('#hapusBarang').modal('hide');
-        $('#dataTable').load('barang #dataTable');        
+        $('#reloadTable').load('barang #dataTable');        
       }
     }
   });
@@ -262,7 +262,7 @@
         else {
           toastr.success('Input pembelian berhasil','Success',{timeOut:5000});
           // $('#inputPembelian').modal('hide');
-          $('#dataTable').load('pembelian #dataTable');
+          $('#reloadTable').load('pembelian #dataTable');
         }
       }
     });
@@ -302,7 +302,7 @@
           toastr.success('Edit pembelian berhasil','Success',{timeOut:5000});
           $('#editPembelian').modal('hide');
           $('#keteranganTanggal').text('');
-          $('#dataTable').load('pembelian #dataTable');
+          $('#reloadTable').load('pembelian #dataTable');
       }
     }
   });
@@ -335,7 +335,7 @@
       else {
           toastr.success('Hapus pembelian berhasil','Success',{timeOut:5000});
           $('#hapusPembelian').modal('hide');
-          $('#dataTable').load('pembelian #dataTable');
+          $('#reloadTable').load('pembelian #dataTable');
         }
     }
   });
@@ -438,19 +438,36 @@
           toastr.error('Barang sudah ada!','Error',{timeOut:5000});   
       }
       else if (data.errors) {
-          toastr.error('Lengkapi data yang dibutuhkan!','Error',{timeOut:5000});
+          toastr.error('Pilih barang terlebih dahulu!','Error',{timeOut:5000});
         }
       else {
           toastr.success('Input barang berhasil','Success',{timeOut:5000});
-          $('#detailTotal').load('/penjualan/input #detailTotal');
-          $('#barangTable').load('/penjualan/input #barangTable');
+          $('.detailTotal').load('/penjualan/input .detailTotal');
+          $('#reloadTable').load('/penjualan/input #barangTable');
         }
     }
   });
   $('.enable_penjualanNamaAnggota').remove();
   $('.i_penjualanIdBarang').val('');
   $('.i_penjualanNamaBarang').val('').focus();
-  $('.i_penjualanKuantitas').val('');
+  $('.i_penjualanKuantitas').val('1');
+ });
+
+ // fungsi batalInputPenjualan
+ $('#batalInputPenjualan').click(function(){
+  var x = confirm('Batal input Penjualan?');
+  if (x == true) {
+    $.ajax({
+      type: 'POST',
+      url: '/penjualan/batal',
+      data: {
+        '_token': $('input[name=_token]').val(),
+      },
+      success:function(){
+        document.location.href = '/penjualan';
+      }
+    });
+  }
  });
 
  // fungsi i_penjualan
@@ -475,9 +492,10 @@
       }
       else {
           toastr.success('Input data penjualan berhasil','Success',{timeOut:1000});
-          setTimeout(function(){
-            location.reload();
-          },1000);
+          $('.i_penjualanNoAnggota').val('');
+          $('.i_penjualanNamaAnggota').removeAttr('disabled').val('').focus();
+          $('.detailTotal').load('/penjualan/input .detailTotal');
+          $('#reloadTable').load('/penjualan/input #barangTable');
       }
     }
   });
@@ -506,8 +524,8 @@
     success:function(data) {
       toastr.success('Barang berhasil dihapus!','Success',{timeOut:5000});
       $('#hapusPenjualanBarang').modal('hide');
-      $('#detailTotal').load('/penjualan/input #detailTotal');
-      $('#barangTable').load('/penjualan/input #barangTable');
+      $('.detailTotal').load('/penjualan/input .detailTotal');
+      $('#reloadTable').load('/penjualan/input #barangTable');
     }
   });
  });
