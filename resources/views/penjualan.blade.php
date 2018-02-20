@@ -37,7 +37,7 @@
                   <td>{{ $value->noPenjualan }}</td>
                   <td class="text-right">Rp {{ number_format($value->total) }}</td>
                   <td>
-                    <a href="#" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                    <a href="{{ URL::asset('penjualan/'.$value->noPenjualan) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
                     <a href="#" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                     <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                   </td>

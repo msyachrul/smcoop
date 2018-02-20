@@ -160,4 +160,12 @@ class penjualanController extends Controller
         DB::table('tmp_detail_penjualans')->delete();
     }
 
+    public function detail(Request $req) {
+
+        $detail = DB::table('detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->where('a.noPenjualan',$req->noPenjualan)->get();
+        $total = Penjualan::where('noPenjualan',$req->noPenjualan)->select('total')->get()[0]->total;
+
+        return view('penjualan_detail',compact('detail','total'));
+    }
+
 }
