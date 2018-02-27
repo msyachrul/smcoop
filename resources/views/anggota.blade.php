@@ -28,14 +28,14 @@
                 @foreach($anggota as $key => $value)
                 <tr class="anggota{{ $value->id }}">
                 	<td>{{ $i++ }}</td>
-              		<td>{{ $value->noAnggota }}</td>
+              		<td>{{ $value->no }}</td>
               		<td>{{ $value->nama }}</td>
                   <td>Rp <?php echo number_format($value->totalSimpanan); ?></td>
                   <!-- Trigger Modal -->
                   <td class="text-center">
-                    <a href="#" class="tampilAnggota btn btn-success btn-sm" data-id="{{ $value->id }}" data-noanggota="{{ $value->noAnggota }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-eye"></i></a>
-                    <a href="#" class="editAnggota btn btn-info btn-sm" data-id="{{ $value->id }}" data-noanggota="{{ $value->noAnggota }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="hapusAnggota btn btn-danger btn-sm" data-id="{{ $value->id }}" data-noanggota="{{ $value->noAnggota }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-trash"></i></a>
+                    <a href="#" class="tampilAnggota btn btn-success btn-sm" data-no="{{ $value->no }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-eye"></i></a>
+                    <a href="#" class="editAnggota btn btn-info btn-sm" data-no="{{ $value->no }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="hapusAnggota btn btn-danger btn-sm" data-no="{{ $value->no }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -57,7 +57,7 @@
                   <form class="form-horizontal" role="form">
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
-                    <input type="text" class="form-control" name="noAnggota" id="noAnggota" placeholder="No Anggota" required>
+                    <input type="text" class="form-control" name="no" id="no" placeholder="No Anggota" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="nama">Nama</label>
@@ -110,7 +110,7 @@
                     <input type="hidden" name="id" id="tampilId" disabled>
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
-                    <input type="text" class="form-control" name="noAnggota" id="tampilNoAnggota" placeholder="No Anggota" disabled>
+                    <input type="text" class="form-control" name="no" id="tampilNoAnggota" placeholder="No Anggota" disabled>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="tampilNama">Nama</label>
@@ -160,7 +160,7 @@
                     <input type="hidden" name="id" id="editId" disabled>
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
-                    <input type="text" class="form-control" name="noAnggota" id="editNoAnggota" placeholder="No Anggota" disabled>
+                    <input type="text" class="form-control" name="no" id="editNoAnggota" placeholder="No Anggota" disabled>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="editNama">Nama</label>
@@ -210,13 +210,12 @@
                 </div>
                 <div class="modal-body">
                   <form class="form-horizontal" role="form">
-                    <input type="hidden" name="id" id="hapusId">
                   <div class="form-group">
                     <label class="control-label col-sm-12 text-center"><b>Apakah anda yakin menghapus anggota ini?</b></label>  
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
-                    <input type="text" class="form-control" name="noAnggota" id="hapusNoAnggota" placeholder="No Anggota" disabled>
+                    <input type="text" class="form-control" name="no" id="hapusNoAnggota" placeholder="No Anggota" disabled>
                   </div>                  
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="hapusNama">Nama</label>

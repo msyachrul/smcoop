@@ -18,12 +18,12 @@ class penjualanController extends Controller
     }
 
     public function inputPenjualan() {
-        $nomor = 0;
+        $i = 0;
 
     	do {
-    		$nomor++;
-            $noPenjualan = 'P-'.$nomor;
-    		$get = Penjualan::where('noPenjualan',$noPenjualan)->get();
+    		$i++;
+            $no = 'P-'.$i;
+    		$get = Penjualan::where('no',$no)->get();
     		$cek = count($get);
     	} while ( $cek == 1 );
 
@@ -32,7 +32,7 @@ class penjualanController extends Controller
         // ambil total barang
         $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
 
-    	return view('penjualan_input',compact('noPenjualan','tmpBarang','tmpTotal'));
+    	return view('penjualan_input',compact('no','tmpBarang','tmpTotal'));
     }
 
     public function autocompleteAnggota(Request $req) {
@@ -41,8 +41,7 @@ class penjualanController extends Controller
         $item = [];
 
         foreach ($anggota as $key => $value) {
-            $item[$key]['id'] = $value->id;
-            $item[$key]['value'] = $value->noAnggota;
+            $item[$key]['no'] = $value->no;
             $item[$key]['label'] = $value->nama;
         }
 
@@ -55,7 +54,7 @@ class penjualanController extends Controller
         $item = [];
 
         foreach ($barang as $key => $value) {
-            $item[$key]['value'] = $value->id;
+            $item[$key]['id'] = $value->id;
             $item[$key]['label'] = $value->nama;
         }
 
@@ -63,7 +62,7 @@ class penjualanController extends Controller
     }
 
     public function inputBarang(Request $req) {
-        $rules = array(
+      $rules = array(
         'barang_id' => 'required|numeric|min:0',
         'kuantitas' => 'required|numeric|min:0',
       );
@@ -106,8 +105,8 @@ class penjualanController extends Controller
 
     public function inputTransaksi(Request $req) {
         $rules = array(
-        'noPenjualan' => 'required',
-        'anggota_id' => 'required',
+        'no' => 'required',
+        'anggota_no' => 'required',
         'tanggal' => 'required|date_format:Y-m-d',
         'total' => 'required|numeric|min:0',
       );
@@ -127,7 +126,7 @@ class penjualanController extends Controller
         else {
             foreach ($tmpBarang as $key => $value) {
                 DB::table('detail_penjualans')->insert([
-                    'noPenjualan' => $req->noPenjualan,
+                    'penjualan_no' => $req->no,
                     'barang_id' => $value->barang_id,
                     'harga' => $value->harga,
                     'kuantitas' => $value->kuantitas,
@@ -138,8 +137,8 @@ class penjualanController extends Controller
             DB::table('tmp_detail_penjualans')->delete();
 
             $penjualan = new Penjualan;
-                $penjualan->noPenjualan = $req->noPenjualan;
-                $penjualan->anggota_id = $req->anggota_id;
+                $penjualan->no = $req->no;
+                $penjualan->anggota_no = $req->anggota_no;
                 $penjualan->tanggal = $req->tanggal;
                 $penjualan->total = $req->total;
             $penjualan->save();
@@ -162,10 +161,67 @@ class penjualanController extends Controller
 
     public function detail(Request $req) {
 
-        $detail = DB::table('detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->where('a.noPenjualan',$req->noPenjualan)->get();
-        $total = Penjualan::where('noPenjualan',$req->noPenjualan)->select('total')->get()[0]->total;
+        $detail = DB::table('detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->where('a.penjualan_no',$req->no)->get();
+        // $penjualan = Penjualan::where('no',$req->no)->get();
+        $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->get();
 
-        return view('penjualan_detail',compact('detail','total'));
+        return view('penjualan_detail',compact('detail','penjualan'));
+    }
+
+    public function edit(Request $req) {
+
+        $detail = DB::table('detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->where('a.penjualan_no',$req->no)->get();
+        // $penjualan = Penjualan::where('no',$req->no)->get();
+        $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->get()[0];
+
+        return view('penjualan_edit',compact('detail','penjualan'));
+
+    }
+
+    public function editBarang(Request $req) {
+      $rules = array(
+        'barang_id' => 'required|numeric|min:0',
+        'kuantitas' => 'required|numeric|min:0',
+      );
+
+      $validator = Validator::make(input::all(),$rules);
+
+      if ($validator->fails()) {
+        return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }
+      else {
+        $cek = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->where('barang_id',$req->barang_id)->get();
+
+        if (count($cek) > 0) {
+            $kuantitas = $cek[0]->kuantitas+$req->kuantitas;
+            $subTotal = $cek[0]->harga*$kuantitas;
+
+            $barang = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->where('barang_id',$req->barang_id)->update([
+                'kuantitas' => $kuantitas,
+                'subTotal' => $subTotal,
+            ]);
+        }
+        else {
+            // ambil harga barang
+            $harga = DB::table('barangs')->select('harga')->where('id',$req->barang_id)->get()[0]->harga;
+            $subTotal = $harga*$req->kuantitas;
+            // masukan data barang ke tabel sementara
+            $barang = DB::table('detail_penjualans')->insert([
+                'penjualan_no' => $req->no,
+                'barang_id' => $req->barang_id,
+                'harga' => $harga,
+                'kuantitas' => $req->kuantitas,
+                'subTotal' => $subTotal,
+            ]);
+        }
+
+        $total = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->sum('subTotal');
+
+        Penjualan::where('no',$req->no)->update([
+            'total' => $total,
+        ]);
+        return response()->json($total);
+      }
     }
 
 }

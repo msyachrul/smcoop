@@ -18,7 +18,7 @@ class anggotaController extends Controller
 
     public function tambah(Request $req) {
     	$rules = array(
-            'noAnggota' => 'required',
+            'no' => 'required',
     		'nama' => 'required',
     		'departemen' => 'required',
     		'posisi' => 'required',
@@ -31,7 +31,7 @@ class anggotaController extends Controller
     		return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
     	}
     	else {
-            $cek = Anggota::where('noAnggota',$req->noAnggota)->get();
+            $cek = Anggota::where('no',$req->no)->get();
 
             if (count($cek) > 0) {
                 return response::json(array('errors'=>'ada'));
@@ -39,7 +39,7 @@ class anggotaController extends Controller
             else {
     		$anggota = new Anggota;
 
-    			$anggota->noAnggota = $req->noAnggota;
+    			$anggota->no = $req->no;
                 $anggota->nama = ucwords($req->nama);
     			$anggota->departemen = $req->departemen;
     			$anggota->posisi = ucwords($req->posisi);
@@ -54,7 +54,7 @@ class anggotaController extends Controller
 
     public function update(Request $req) {
         $rules = array(
-            'noAnggota' => 'required',
+            'no' => 'required',
             'nama' => 'required',
             'departemen' => 'required',
             'posisi' => 'required',
@@ -69,7 +69,7 @@ class anggotaController extends Controller
         else {
             $anggota = Anggota::find($req->id);
 
-                $anggota->noAnggota = $req->noAnggota;
+                $anggota->no = $req->no;
                 $anggota->nama = ucwords($req->nama);
                 $anggota->departemen = $req->departemen;
                 $anggota->posisi = ucwords($req->posisi);
@@ -83,7 +83,7 @@ class anggotaController extends Controller
 
     public function hapus(Request $req) {
         $rules = array(
-            'id' => 'required',
+            'no' => 'required',
         );
         $validator = Validator::make(input::all(),$rules);
 
@@ -91,7 +91,7 @@ class anggotaController extends Controller
             return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
         }        
         else {
-            $anggota = Anggota::find($req->id)->delete();
+            $anggota = Anggota::where('no',$req->no)->delete();
             return response()->json($anggota);
         }   
     }

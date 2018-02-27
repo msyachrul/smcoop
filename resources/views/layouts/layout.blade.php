@@ -54,23 +54,21 @@
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
           <a class="nav-link" href="{{ URL::asset('barang') }}">
-            <i class="fa fa-fw fa-archive"></i>
+            <i class="fa fa-fw fa-suitcase"></i>
             <span class="nav-link-text">Barang</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Transaksi">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseTransaksi" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Transaksi</span>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
+          <a class="nav-link" href="{{ URL::asset('penjualan') }}">
+            <i class="fa fa-fw fa-shopping-basket"></i>
+            <span class="nav-link-text">Penjualan</span>
           </a>
-          <ul class="sidenav-second-level collapse" id="collapseTransaksi">
-            <li>
-              <a href="{{ URL::asset('pembelian') }}">Pembelian</a>
-            </li>
-            <li>
-              <a href="{{ URL::asset('penjualan') }}">Penjualan</a>
-            </li>
-          </ul>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
+          <a class="nav-link" href="{{ URL::asset('pembelian') }}">
+            <i class="fa fa-fw fa-shopping-cart"></i>
+            <span class="nav-link-text">Pembelian</span>
+          </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Laporan">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseLaporan" data-parent="#exampleAccordion">

@@ -9,6 +9,6 @@ class Anggota extends Model
 	protected $table = "anggotas";
 
     protected $fillable = [
-        'noAnggota','nama', 'departemen','posisi','totalSimpanan',
+        'no','nama', 'departemen','posisi','totalSimpanan',
     ];
 }

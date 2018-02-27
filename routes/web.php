@@ -62,5 +62,7 @@ Route::group(['middleware' => ['web']], function() {
   Route::post('penjualan/input/transaksi', 'penjualanController@inputTransaksi');
   Route::post('penjualan/hapus/barang', 'penjualanController@hapusBarang');
   Route::post('penjualan/batal', 'penjualanController@batal');
-  Route::get('penjualan/{noPenjualan}', 'penjualanController@detail');
+  Route::get('penjualan/{no}', 'penjualanController@detail');
+  Route::get('penjualan/edit/{no}', 'penjualanController@edit');
+  Route::post('penjualan/edit/barang','penjualanController@editBarang');
 });

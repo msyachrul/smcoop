@@ -15,7 +15,7 @@ class CreateDetailPenjualansTable extends Migration
     {
         Schema::create('detail_penjualans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('noPenjualan',30);
+            $table->string('penjualan_no',30);
             $table->integer('barang_id');
             $table->integer('harga');
             $table->integer('kuantitas');

@@ -13,10 +13,10 @@ class CreatePembeliansView extends Migration
      */
     public function up()
     {
-        DB::statement('CREATE VIEW pembelians_view as 
-            SELECT a.id, a.tanggal, b.id as barang_id, b.nama, a.harga, a.kuantitas
-            FROM pembelians a, barangs b 
-            WHERE a.barang_id = b.id');
+        // DB::statement('CREATE VIEW pembelians_view as 
+        //     SELECT a.id, a.tanggal, b.id as barang_id, b.nama, a.harga, a.kuantitas
+        //     FROM pembelians a, barangs b 
+        //     WHERE a.barang_id = b.id');
     }
 
     /**
@@ -26,6 +26,6 @@ class CreatePembeliansView extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW pembelians_view');
+        // DB::statement('DROP VIEW pembelians_view');
     }
 }

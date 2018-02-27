@@ -14,10 +14,9 @@ class CreatePenjualansTable extends Migration
     public function up()
     {
         Schema::create('penjualans', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('noPenjualan',30)->unique();
+            $table->string('no',30)->primary();
             $table->date('tanggal');
-            $table->integer('anggota_id');
+            $table->string('anggota_no');
             $table->bigInteger('total');
             $table->timestamps();
         });

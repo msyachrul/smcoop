@@ -17,7 +17,7 @@ class AnggotaTableSeeder extends Seeder
  
         foreach (range(1, 20) as $loop) {
             DB::table('anggotas')->insert([
-                'noAnggota'      => $faker->ean13,
+                'no'      => $faker->ean13,
                 'nama'       => $faker->name,
                 'departemen' => 'Accounting',
                 'posisi'    => $faker->jobTitle,
