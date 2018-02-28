@@ -39,7 +39,7 @@
                   <td>
                     <a href="{{ URL::asset('penjualan/'.$value->no) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
                     <a href="{{ URL::asset('penjualan/edit/'.$value->no) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                    <a href="{{ URL::asset('penjualan/hapus/'.$value->no) }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin hapus data penjualan {{$value->no}}?')"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach

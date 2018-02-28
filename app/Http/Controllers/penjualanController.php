@@ -148,15 +148,23 @@ class penjualanController extends Controller
       }
     }
 
-    public function hapusBarang(Request $req) {
-        
-        $barang = DB::table('tmp_detail_penjualans')->where('id',$req->id)->delete();
-
-        return response()->json($barang);
+    public function hapusTmpBarang(Request $req) {
+        return DB::table('tmp_detail_penjualans')->where('id',$req->id)->delete();
     }
 
-    public function batal() {
-        DB::table('tmp_detail_penjualans')->delete();
+    public function cek() {
+        $cek = DB::table('tmp_detail_penjualans')->get();
+
+        if (count($cek) < 1) {
+            return response()->json($cek);
+        }
+        else {
+            return response()->json($cek);
+        }
+    }
+
+    public function batal() {        
+        return DB::table('tmp_detail_penjualans')->delete();
     }
 
     public function detail(Request $req) {
@@ -170,7 +178,7 @@ class penjualanController extends Controller
 
     public function edit(Request $req) {
 
-        $detail = DB::table('detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->where('a.penjualan_no',$req->no)->get();
+        $detail = DB::table('detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->where('a.penjualan_no',$req->no)->select('b.nama','a.barang_id','a.kuantitas','a.subTotal')->get();
         // $penjualan = Penjualan::where('no',$req->no)->get();
         $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->get()[0];
 
@@ -178,7 +186,7 @@ class penjualanController extends Controller
 
     }
 
-    public function editBarang(Request $req) {
+    public function tambahBarang(Request $req) {
       $rules = array(
         'barang_id' => 'required|numeric|min:0',
         'kuantitas' => 'required|numeric|min:0',
@@ -217,11 +225,42 @@ class penjualanController extends Controller
 
         $total = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->sum('subTotal');
 
-        Penjualan::where('no',$req->no)->update([
+        return Penjualan::where('no',$req->no)->update([
             'total' => $total,
         ]);
-        return response()->json($total);
       }
+    }
+
+    public function hapusBarang(Request $req) {
+    $rules = array(
+        'no' => 'required',
+        'barang_id' => 'required|numeric|min:0',
+      );
+
+      $validator = Validator::make(input::all(),$rules);
+
+      if ($validator->fails()) {
+        return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }
+      else {
+        DB::table('detail_penjualans')->where('penjualan_no',$req->no)->where('barang_id',$req->barang_id)->delete();
+        
+        $total = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->sum('subTotal');
+
+        return Penjualan::where('no',$req->no)->update([
+            'total' => $total,
+        ]);
+      }
+    }
+
+    public function hapusTransaksi(Request $req) {
+
+        Penjualan::where('no',$req->no)->delete();
+
+        DB::table('detail_penjualans')->where('penjualan_no',$req->no)->delete();
+
+        return redirect('penjualan');
+
     }
 
 }

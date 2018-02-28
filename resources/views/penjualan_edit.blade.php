@@ -15,6 +15,7 @@
 		<div class="card-body">
 			<form role="form">
 				{{ csrf_field() }}
+				<input type="hidden" name="no" value="{{ $penjualan->no }}" required>
 				<label for="tanggal">Tanggal /</label>
 				<label>No Penjualan</label>
 				<div class="form-group row">
@@ -22,11 +23,8 @@
 						<input type="date" class="form-control form-control-sm" name="tanggal" value="{{ $penjualan->tanggal }}" required disabled>
 					</div>
 					/
-					<div class="col-sm">
+					<div class="col-sm-2">
 						<input type="text" class="form-control form-control-sm" name="no" value="{{ $penjualan->no }}" required disabled>
-					</div>
-					<div class="col-sm-3">
-						<a href="#" class="e_penjualan btn btn-warning btn-sm pull-right"><i class="fa fa-save"></i> Simpan Transaksi</a>
 					</div>
 				</div>
 				<label for="namaAnggota">Anggota</label>
@@ -55,7 +53,6 @@
 					<div class="col-sm">
 						<div class="pull-right">
 							<a href="#" class="btn btn-primary btn-sm" id="e_penjualanInputBarang"><i class="fa fa-plus"></i> Tambah</a>
-							<a href="#" class="btn btn-danger btn-sm" id="batalInputPenjualan"><i class="fa fa-close"></i> Hapus</a>
 						</div>
 					</div>
 				</div>
@@ -80,7 +77,7 @@
 							<td class="text-right">{{ $value->kuantitas }}</td>
 							<td class="text-right">Rp {{ number_format($value->subTotal) }}</td>
 							<td>
-								<a href="#" class="hapusPenjualanBarang btn btn-danger btn-sm" data-id="{{ $value->id }}" data-nama="{{ $value->nama }}" data-kuantitas="{{ $value->kuantitas }}"><i class="fa fa-trash"></i></a>
+								<a href="#" class="e_hapusPenjualanBarang btn btn-danger btn-sm" data-barang_id="{{ $value->barang_id }}" data-nama="{{ $value->nama }}" data-kuantitas="{{ $value->kuantitas }}"><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -88,13 +85,9 @@
 							<td colspan="3"><b>Total</b></td>
 							<td class="detailTotal text-right">
 								Rp {{ number_format($penjualan->total) }}
-								<input type="hidden" name="no" value="{{ $penjualan->no }}" required>
 								<input type="hidden" class="e_penjualanHiddenTotal" name="total" value="{{ $penjualan->total }}" required disabled>
 							</td>
 					    	<td></td>
-			    		</div>
-					</div>
-				</div></td>
 						</tr>
 					</tbody>
 				</table>
@@ -102,7 +95,7 @@
 		</div>
 	</div>
 	<!-- Modal hapusPenjualanBarang -->
-	<div id="hapusPenjualanBarang" class="modal fade" role="dialog">
+	<div id="e_hapusPenjualanBarang" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -111,7 +104,7 @@
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
-						<input type="hidden" class="hapusPenjualanIdBarang" name="id">
+						<input type="hidden" class="hapusPenjualanIdBarang" name="barang_id">
 						<div class="form-group">
 							<label class="control-label col-sm-4">Nama Barang</label>
 							<input type="text" class="hapusPenjualanNamaBarang form-control" disabled>
@@ -123,7 +116,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="_hapusPenjualanBarang btn btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+					<button type="submit" class="_e_hapusPenjualanBarang btn btn-danger"><i class="fa fa-trash"></i> Hapus</button>
 					<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
 				</div>
 			</div>

@@ -395,7 +395,7 @@
 
  // autocomplete i_penjualanNamaAnggota
  $( '.i_penjualanNamaAnggota' ).autocomplete({
-    source: '/penjualan/input/autocomplete/anggota',
+    source: '/penjualan/input/anggota/autocomplete',
     select: function(event,ui) {
       event.preventDefault();
       $('.i_penjualanNamaAnggota').val(ui.item.label);
@@ -413,7 +413,7 @@
 
  // autocomplete i_penjualanNamaBarang
  $( '.i_penjualanNamaBarang' ).autocomplete({
-    source: '/penjualan/input/autocomplete/barang',
+    source: '/penjualan/input/barang/autocomplete',
     select: function(event,ui) {
       event.preventDefault();
       $('.i_penjualanNamaBarang').val(ui.item.label);
@@ -425,7 +425,7 @@
  $('#penjualanInputBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/penjualan/input/barang',
+    url: '/penjualan/input/barang/tambah',
     data: {
       '_token': $('input[name=_token]').val(),
       'no': $('input[name=no]').val(),
@@ -451,21 +451,35 @@
 
  // fungsi batalInputPenjualan
  $('#batalInputPenjualan').click(function(){
-  var x = confirm('Hapus semua barang?');
-  if (x == true) {
     $.ajax({
       type: 'POST',
-      url: '/penjualan/batal',
+      url: '/penjualan/input/barang/cek',
       data: {
         '_token': $('input[name=_token]').val(),
       },
-      success:function(){
-        toastr.success('Hapus semua barang berhasil','Success',{timeOut:5000});
-          $('.detailTotal').load('/penjualan/input .detailTotal');
-          $('#reloadTable').load('/penjualan/input #barangTable');
+      success:function(data){
+        if (data < 1) {
+          toastr.success('Belum ada barang yang dipilih','Success',{timeOut:5000});
+        }
+        else {
+          let x = confirm('Hapus semua barang?');
+          if (x == true) {
+            $.ajax({
+              type: 'POST',
+              url: '/penjualan/batal',
+              data: {
+                '_token': $('input[name=_token]').val(),
+              },
+              success:function(){
+                toastr.success('Hapus semua barang berhasil','Success',{timeOut:5000});
+              }
+            });
+          }
+        }
+        $('.detailTotal').load('/penjualan/input .detailTotal');
+        $('#reloadTable').load('/penjualan/input #barangTable');
       }
     });
-  }
  });
 
  // fungsi i_penjualan
@@ -513,7 +527,7 @@
  $('._hapusPenjualanBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/penjualan/hapus/barang',
+    url: '/penjualan/input/barang/hapus',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('.hapusPenjualanIdBarang').val(),
@@ -532,7 +546,7 @@
  $('#e_penjualanInputBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/penjualan/edit/barang',
+    url: '/penjualan/edit/barang/tambah',
     data: {
       '_token': $('input[name=_token]').val(),
       'no': $('input[name=no]').val(),
@@ -540,13 +554,42 @@
       'kuantitas': $('input[name=kuantitas]').val(),
     },
     success:function(data){
-        toastr.success('Input barang berhasil','Success',{timeOut:5000});
-          $('.detailTotal').load('/penjualan/edit/'+$('input[name=no]').val()+' .detailTotal');
-          $('#reloadTable').load('/penjualan/edit/'+$('input[name=no]').val()+' #barangTable');
+      toastr.success('Input barang berhasil','Success',{timeOut:5000});
+      $('.detailTotal').load('/penjualan/edit/'+$('input[name=no]').val()+' .detailTotal');
+      $('#reloadTable').load('/penjualan/edit/'+$('input[name=no]').val()+' #barangTable');
     }
   });
   $('.enable_penjualanNamaAnggota').remove();
   $('.i_penjualanIdBarang').val('');
   $('.i_penjualanNamaBarang').val('').focus();
-  $('.i_penjualanKuantitas').val('1');
+  $('.e_penjualanKuantitas').val('1');
+ });
+
+// ajax modal hapusPenjualanBarang
+ $(document).on('click','.e_hapusPenjualanBarang', function(){
+  $('#e_hapusPenjualanBarang').modal('show');
+  $('.modal-title').text('hapus Barang');
+  $('.form-horizontal').show();
+  $('.hapusPenjualanIdBarang').val($(this).data('barang_id'));
+  $('.hapusPenjualanNamaBarang').val($(this).data('nama'));
+  $('.hapusPenjualanKuantitasBarang').val($(this).data('kuantitas'));
+ });
+
+ // fungi _e_hapusPenjualanBarang
+ $('._e_hapusPenjualanBarang').click(function(){
+  $.ajax({
+    type: 'POST',
+    url: '/penjualan/edit/barang/hapus',
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'no': $('input[name=no]').val(),
+      'barang_id': $('.hapusPenjualanIdBarang').val(),
+    },
+    success:function(data) {
+      toastr.success('Barang berhasil dihapus!','Success',{timeOut:5000});
+      $('#e_hapusPenjualanBarang').modal('hide');
+      $('.detailTotal').load('/penjualan/edit/'+$('input[name=no]').val()+' .detailTotal');
+      $('#reloadTable').load('/penjualan/edit/'+$('input[name=no]').val()+' #barangTable');
+    }
+  });
  });
