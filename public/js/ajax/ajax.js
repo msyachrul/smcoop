@@ -30,7 +30,9 @@
   			else {
   				toastr.success('Anggota berhasil ditambahkan','Success',{timeOut:5000});
           $('#daftarAnggota').modal('hide');
-          $('#reloadTable').load('anggota #dataTable');
+          setTimeout(function(){
+            location.reload();
+          },500);
   			}
   		},
   	});
@@ -86,7 +88,9 @@
         else {
           toastr.success('Anggota berhasil di update','Success',{timeOut:5000});
           $('#editAnggota').modal('hide');
-          $('#reloadTable').load('anggota #dataTable');          
+          setTimeout(function(){
+            location.reload();
+          },500);          
         }
       }
     });
@@ -119,7 +123,9 @@
         else {
           toastr.success('Anggota berhasil dihapus','Success',{timeOut:5000});
           $('#hapusAnggota').modal('hide');
-          $('#reloadTable').load('anggota #dataTable');          
+          setTimeout(function(){
+            location.reload();
+          },500);
         }
       }
     });
@@ -153,7 +159,9 @@
       else {
         toastr.success('Barang berhasil ditambahkan','Success',{timeOut:5000});
         $('#daftarBarang').modal('hide');
-        $('#reloadTable').load('barang #dataTable');
+        setTimeout(function(){
+            location.reload();
+          },500);
       }
     }
   });
@@ -187,7 +195,9 @@
       else {
         toastr.success('Barang berhasil di update','Success',{timeOut:5000});
         $('#editBarang').modal('hide');
-        $('#reloadTable').load('barang #dataTable');
+        setTimeout(function(){
+            location.reload();
+          },500);
       }
     }
   });
@@ -217,7 +227,9 @@
       else {
         toastr.success('Barang berhasil dihapus','Success',{timeOut:5000});
         $('#hapusBarang').modal('hide');
-        $('#reloadTable').load('barang #dataTable');        
+        setTimeout(function(){
+            location.reload();
+          },500);
       }
     }
   });
@@ -262,7 +274,9 @@
         else {
           toastr.success('Input pembelian berhasil','Success',{timeOut:5000});
           // $('#inputPembelian').modal('hide');
-          $('#reloadTable').load('pembelian #dataTable');
+          setTimeout(function(){
+            location.reload();
+          },500);
         }
       }
     });
@@ -302,7 +316,9 @@
           toastr.success('Edit pembelian berhasil','Success',{timeOut:5000});
           $('#editPembelian').modal('hide');
           $('#keteranganTanggal').text('');
-          $('#reloadTable').load('pembelian #dataTable');
+          setTimeout(function(){
+            location.reload();
+          },500);
       }
     }
   });
@@ -335,7 +351,9 @@
       else {
           toastr.success('Hapus pembelian berhasil','Success',{timeOut:5000});
           $('#hapusPembelian').modal('hide');
-          $('#reloadTable').load('pembelian #dataTable');
+          setTimeout(function(){
+            location.reload();
+          },500);
         }
     }
   });

@@ -48,12 +48,12 @@ Route::get('/blank', function() {
 
   // Pembelian
   Route::prefix('pembelian')->group(function(){
-    Route::get('pembelian', 'pembelianController@tampil');
-    Route::get('pembelian/autocomplete', 'pembelianController@autocomplete');
-    Route::post('pembelian/input', 'pembelianController@input');
-    Route::post('pembelian/edit', 'pembelianController@update');
-    Route::post('pembelian/hapus', 'pembelianController@hapus');
-    Route::post('pembelian/cari', 'pembelianController@cari');
+    Route::get('/', 'pembelianController@tampil');
+    Route::get('/autocomplete', 'pembelianController@autocomplete');
+    Route::post('/input', 'pembelianController@input');
+    Route::post('/edit', 'pembelianController@update');
+    Route::post('/hapus', 'pembelianController@hapus');
+    Route::post('/cari', 'pembelianController@cari');
   });
 
   // Penjualan
