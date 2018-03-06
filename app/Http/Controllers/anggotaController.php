@@ -14,7 +14,7 @@ class anggotaController extends Controller
     public function index()	{
     	$anggota = Anggota::all();
 
-    	return view('anggota',compact('anggota'));
+    	return view('admin.anggota',compact('anggota'));
     }
 
     public function tambah(Request $req) {

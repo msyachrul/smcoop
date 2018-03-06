@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class LoginAuth
+class AdminAuth
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class LoginAuth
             return redirect('/masuk');
         }
 
-        if ($cek['admin'] == true) {
+        if ($cek['admin'] != true) {
             return redirect('/keluar');
         }
 

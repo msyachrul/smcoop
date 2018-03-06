@@ -1,3 +1,5 @@
+<?php $sesi = session('data') ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +42,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        @if(session('data')['admin'] == true)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
           <a class="nav-link" href="{{ URL::asset('/admin/') }}">
             <i class="fa fa-fw fa-dashboard"></i>
@@ -96,7 +99,33 @@
             <span class="nav-link-text">#</span>
           </a>
         </li>
-      </ul>
+        @else
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="{{ URL::asset('/') }}">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
+          <a class="nav-link" href="{{ URL::asset('/pembelian') }}">
+            <i class="fa fa-fw fa-shopping-cart"></i>
+            <span class="nav-link-text">Pembelian</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Laporan">
+          <a class="nav-link" href="{{ URL::asset('/laporan') }}">
+            <i class="fa fa-fw fa-file"></i>
+            <span class="nav-link-text">Laporan</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pengajuan">
+          <a class="nav-link" href="{{ URL::asset('/pengajuan') }}">
+            <i class="fa fa-fw fa-link"></i>
+            <span class="nav-link-text">Pengajuan</span>
+          </a>
+        </li>
+        @endif
+      </ul>      
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">
@@ -106,7 +135,11 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link">Administrator</a>
+          @if (session('data')['admin'] == true)
+          <a class="nav-link">Administrator | {{ session('data')['nama'] }}</a>
+          @else
+          <a class="nav-link">{{ session('data')['nama'] }}</a>
+          @endif
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#logoutModal">

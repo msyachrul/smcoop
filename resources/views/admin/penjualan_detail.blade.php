@@ -8,7 +8,7 @@
 		<div class="card-header">
 			<i class="fa fa-table"></i> Detail Penjualan
 			<div class="pull-right">
-				<a href="{{ URL::asset('/penjualan')}}" class="btn btn-success btn-sm"><i class="fa fa-angle-double-left"></i> Kembali</a>
+				<a href="{{ URL::asset('/admin/penjualan')}}" class="btn btn-success btn-sm"><i class="fa fa-angle-double-left"></i> Kembali</a>
 			</div>
 		</div>
 		<div class="card-body">

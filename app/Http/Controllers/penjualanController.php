@@ -14,7 +14,7 @@ class penjualanController extends Controller
     public function index() {
         $penjualan = DB::table('penjualans')->orderBy('tanggal','ASC')->get();
 
-    	return view('penjualan',compact('penjualan'));
+    	return view('admin.penjualan',compact('penjualan'));
     }
 
     public function inputPenjualan() {
@@ -32,7 +32,7 @@ class penjualanController extends Controller
         // ambil total barang
         $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
 
-    	return view('penjualan_input',compact('no','tmpBarang','tmpTotal'));
+    	return view('admin.penjualan_input',compact('no','tmpBarang','tmpTotal'));
     }
 
     public function autocompleteAnggota(Request $req) {
@@ -173,7 +173,7 @@ class penjualanController extends Controller
         // $penjualan = Penjualan::where('no',$req->no)->get();
         $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->get();
 
-        return view('penjualan_detail',compact('detail','penjualan'));
+        return view('admin.penjualan_detail',compact('detail','penjualan'));
     }
 
     public function edit(Request $req) {
@@ -182,7 +182,7 @@ class penjualanController extends Controller
         // $penjualan = Penjualan::where('no',$req->no)->get();
         $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->get()[0];
 
-        return view('penjualan_edit',compact('detail','penjualan'));
+        return view('admin.penjualan_edit',compact('detail','penjualan'));
 
     }
 

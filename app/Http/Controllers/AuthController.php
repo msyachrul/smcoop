@@ -12,18 +12,23 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $anggota = Anggota::where('no',$request->no)->first();
+        $anggota = Anggota::where(['no' => $request->no, 'pin' => $request->pin])->first();
 
         if ($anggota != null) {
 
             $data = [
                 'no' => $anggota->no,
                 'nama' => $anggota->nama,
+                'admin' => $anggota->admin,
             ];
 
             $request->session()->put('data',$data);
 
-            return redirect('/admin/');
+            if ($anggota->admin == true) {
+                return redirect('/admin/');
+            }
+
+            return redirect('/');
 
         }
 

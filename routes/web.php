@@ -12,21 +12,29 @@
 */
 
 
+
+Route::group(['middleware' => 'loginAuth'],function(){
+  Route::get('/',function(){
+    return view('home');
+  });
+  Route::get('/pembelian', 'userController@index');
+});
+
 Route::get('/masuk', function(){
 	return view('masuk');
 });
 
 Route::post('/masuk', 'AuthController@login');
 
-Route::get('/admin', function() {
-	return view('blank');
-})->middleware('loginAuth');
-
 Route::get('/keluar', 'AuthController@logout');
 
-Route::group(['prefix' => 'admin'],function() {
+Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
+  Route::get('/', function() {
+    return view('blank');
+  });
+
   // Anggota
-  Route::group(['prefix' => 'anggota', 'middleware' => 'loginAuth'], function(){    
+  Route::group(['prefix' => 'anggota'], function(){    
     Route::get('/','anggotaController@index');
     Route::post('/daftar','anggotaController@tambah');
     Route::post('/edit','anggotaController@update');
@@ -34,7 +42,7 @@ Route::group(['prefix' => 'admin'],function() {
   });
 
   // Barang
-  Route::group(['prefix' => 'barang', 'middleware' => 'loginAuth'], function(){
+  Route::group(['prefix' => 'barang'], function(){
     Route::get('/','barangController@index');
     Route::post('/daftar','barangController@tambah');
     Route::post('/edit', 'barangController@update');
@@ -42,7 +50,7 @@ Route::group(['prefix' => 'admin'],function() {
   });
 
   // Pembelian
-  Route::group(['prefix' => 'pembelian', 'middleware' => 'loginAuth'], function(){
+  Route::group(['prefix' => 'pembelian'], function(){
     Route::get('/', 'pembelianController@tampil');
     Route::get('/autocomplete', 'pembelianController@autocomplete');
     Route::post('/input', 'pembelianController@input');
@@ -52,7 +60,7 @@ Route::group(['prefix' => 'admin'],function() {
   });
 
   // Penjualan
-  Route::group(['prefix' => 'penjualan', 'middleware' => 'loginAuth'], function(){
+  Route::group(['prefix' => 'penjualan'], function(){
     Route::get('/', 'penjualanController@index');
     Route::prefix('input')->group(function(){
       Route::get('/', 'penjualanController@inputPenjualan');

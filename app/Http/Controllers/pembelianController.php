@@ -16,7 +16,7 @@ class pembelianController extends Controller
     public function tampil() {
       $pembelian = DB::table('pembelians_view')->orderBy('tanggal')->get();
 
-      return view('pembelian',compact('pembelian'));
+      return view('admin.pembelian',compact('pembelian'));
     }
 
     public function autocomplete(Request $req) {

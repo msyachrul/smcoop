@@ -14,7 +14,7 @@ class barangController extends Controller
 
     	$barang = Barang::all();
 
-    	return view('barang',compact('barang'));
+    	return view('admin.barang',compact('barang'));
     }
 
     public function tambah(Request $req) {

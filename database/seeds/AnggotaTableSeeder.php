@@ -17,11 +17,13 @@ class AnggotaTableSeeder extends Seeder
  
         foreach (range(1, 20) as $loop) {
             DB::table('anggotas')->insert([
-                'no'      => $faker->ean13,
-                'nama'       => $faker->name,
+                'no' => $faker->ean13,
+                'pin' =>$faker->randomNumber(6,true),
+                'nama' => $faker->name,
                 'departemen' => 'Accounting',
-                'posisi'    => $faker->jobTitle,
+                'posisi' => $faker->jobTitle,
                 'totalSimpanan' => $faker->randomNumber(6),
+                'admin' => false,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
