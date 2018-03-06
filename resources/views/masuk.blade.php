@@ -21,16 +21,21 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Koperasi Marbella Suites Bandung</div>
       <div class="card-body">
-        <form method="post" action="">
+        <form method="post" action="{{ URL::asset('masuk') }}">
           {{ csrf_field() }}
           <div class="form-group">
             <label for="noAnggota">No Anggota</label>
-            <input class="form-control" name="noAnggota" id="noAnggota" type="text" placeholder="Masukan No Anggota">
+            <input class="form-control" name="no" type="text" placeholder="Masukan No Anggota" required>
           </div>
           <div class="form-group">
             <label for="noPin">PIN</label>
-            <input class="form-control" name="noPin" id="noPin" type="password" placeholder="Masukan PIN Anggota">
+            <input class="form-control" name="pin" type="password" placeholder="Masukan PIN Anggota" required>
           </div>
+          @if ($errors->any())
+          <div class="form-group">
+            <strong>{{ $errors->first() }}</strong>
+          </div>
+          @endif
           <button type="submit" class="btn btn-primary btn-block">Masuk</button>
         </form>
 <!--         <div class="text-center">

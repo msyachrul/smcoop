@@ -10,7 +10,7 @@
   $('#tambahAnggota').click(function(){
   	$.ajax({
   		type: 'POST',
-  		url: '/anggota/daftar',
+  		url: '/admin/anggota/daftar',
   		data: {
   			'_token': $('input[name=_token]').val(),
         'no': $('input[name=no]').val(),
@@ -70,7 +70,7 @@
   $('#updateAnggota').click(function() {
     $.ajax({
       type: 'POST',
-      url: '/anggota/edit',
+      url: '/admin/anggota/edit',
       data: {
         '_token': $('input[name=_token]').val(),
         'id': $('#editId').val(),
@@ -111,7 +111,7 @@
   $('#buangAnggota').click(function() {
     $.ajax({
       type: 'POST',
-      url: '/anggota/hapus',
+      url: '/admin/anggota/hapus',
       data: {
         '_token': $('input[name=_token]').val(),
         'no': $('#hapusNoAnggota').val(),
@@ -143,7 +143,7 @@
  $('#tambahBarang').click(function() {
   $.ajax({
     type: 'POST',
-    url: '/barang/daftar',
+    url: '/admin/barang/daftar',
     data: {
       '_token': $('input[name=_token]').val(),
       'nama': $('input[name=nama]').val(),
@@ -181,7 +181,7 @@
  $('#updateBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/barang/edit',
+    url: '/admin/barang/edit',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#editId').val(),
@@ -215,7 +215,7 @@
  $('#buangBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/barang/hapus',
+    url: '/admin/barang/hapus',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#hapusId').val(),
@@ -245,7 +245,7 @@
  });
  // autocomplete namaBarang   
  $( '.namaBarang' ).autocomplete({
-    source: '/pembelian/autocomplete',
+    source: '/admin/pembelian/autocomplete',
     select: function(event,ui) {
       event.preventDefault();
       $('.namaBarang').val(ui.item.label);
@@ -256,7 +256,7 @@
  $('#_inputPembelian').click(function(){
     $.ajax({
       type: 'POST',
-      url: '/pembelian/input',
+      url: '/admin/pembelian/input',
       data: {
         '_token': $('input[name=_token]').val(),
         'tanggal': $('input[name=tanggal]').val(),
@@ -301,7 +301,7 @@
  $('#_editPembelian').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/pembelian/edit',
+    url: '/admin/pembelian/edit',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#editId').val(),
@@ -339,7 +339,7 @@
  $('#_hapusPembelian').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/pembelian/hapus',
+    url: '/admin/pembelian/hapus',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('#hapusId').val(),      
@@ -369,7 +369,7 @@
  $('#_cariPembelian').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/pembelian/cari',
+    url: '/admin/pembelian/cari',
     data: {
       '_token': $('input[name=_token]').val(),
       'dariTanggal': $('input[name=dariTanggal]').val(),
@@ -413,7 +413,7 @@
 
  // autocomplete i_penjualanNamaAnggota
  $( '.i_penjualanNamaAnggota' ).autocomplete({
-    source: '/penjualan/input/anggota/autocomplete',
+    source: '/admin/penjualan/input/anggota/autocomplete',
     select: function(event,ui) {
       event.preventDefault();
       $('.i_penjualanNamaAnggota').val(ui.item.label);
@@ -431,7 +431,7 @@
 
  // autocomplete i_penjualanNamaBarang
  $( '.i_penjualanNamaBarang' ).autocomplete({
-    source: '/penjualan/input/barang/autocomplete',
+    source: '/admin/penjualan/input/barang/autocomplete',
     select: function(event,ui) {
       event.preventDefault();
       $('.i_penjualanNamaBarang').val(ui.item.label);
@@ -443,7 +443,7 @@
  $('#penjualanInputBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/penjualan/input/barang/tambah',
+    url: '/admin/penjualan/input/barang/tambah',
     data: {
       '_token': $('input[name=_token]').val(),
       'no': $('input[name=no]').val(),
@@ -456,8 +456,8 @@
         }
       else {
           toastr.success('Input barang berhasil','Success',{timeOut:5000});
-          $('.detailTotal').load('/penjualan/input .detailTotal');
-          $('#reloadTable').load('/penjualan/input #barangTable');
+          $('.detailTotal').load('/admin/penjualan/input .detailTotal');
+          $('#reloadTable').load('/admin/penjualan/input #barangTable');
         }
     }
   });
@@ -471,7 +471,7 @@
  $('#batalInputPenjualan').click(function(){
     $.ajax({
       type: 'POST',
-      url: '/penjualan/input/barang/cek',
+      url: '/admin/penjualan/input/barang/cek',
       data: {
         '_token': $('input[name=_token]').val(),
       },
@@ -484,7 +484,7 @@
           if (x == true) {
             $.ajax({
               type: 'POST',
-              url: '/penjualan/batal',
+              url: '/admin/penjualan/batal',
               data: {
                 '_token': $('input[name=_token]').val(),
               },
@@ -494,8 +494,8 @@
             });
           }
         }
-        $('.detailTotal').load('/penjualan/input .detailTotal');
-        $('#reloadTable').load('/penjualan/input #barangTable');
+        $('.detailTotal').load('/admin/penjualan/input .detailTotal');
+        $('#reloadTable').load('/admin/penjualan/input #barangTable');
       }
     });
  });
@@ -504,7 +504,7 @@
  $('.i_penjualan').click(function() {
   $.ajax({
     type: 'POST',
-    url: '/penjualan/input/transaksi',
+    url: '/admin/penjualan/input/transaksi',
     data: {
       '_token': $('input[name=_token]').val(),
       'no': $('input[name=no]').val(),
@@ -524,8 +524,8 @@
           toastr.success('Input data penjualan berhasil','Success',{timeOut:1000});
           $('.i_penjualanNoAnggota').val('');
           $('.i_penjualanNamaAnggota').removeAttr('disabled').val('').focus();
-          $('.detailTotal').load('/penjualan/input .detailTotal');
-          $('#reloadTable').load('/penjualan/input #barangTable');
+          $('.detailTotal').load('/admin/penjualan/input .detailTotal');
+          $('#reloadTable').load('/admin/penjualan/input #barangTable');
       }
     }
   });
@@ -545,7 +545,7 @@
  $('._hapusPenjualanBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/penjualan/input/barang/hapus',
+    url: '/admin/penjualan/input/barang/hapus',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('.hapusPenjualanIdBarang').val(),
@@ -554,8 +554,8 @@
     success:function(data) {
       toastr.success('Barang berhasil dihapus!','Success',{timeOut:5000});
       $('#hapusPenjualanBarang').modal('hide');
-      $('.detailTotal').load('/penjualan/input .detailTotal');
-      $('#reloadTable').load('/penjualan/input #barangTable');
+      $('.detailTotal').load('/admin/penjualan/input .detailTotal');
+      $('#reloadTable').load('/admin/penjualan/input #barangTable');
     }
   });
  });
@@ -564,7 +564,7 @@
  $('#e_penjualanInputBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/penjualan/edit/barang/tambah',
+    url: '/admin/penjualan/edit/barang/tambah',
     data: {
       '_token': $('input[name=_token]').val(),
       'no': $('input[name=no]').val(),
@@ -573,8 +573,8 @@
     },
     success:function(data){
       toastr.success('Input barang berhasil','Success',{timeOut:5000});
-      $('.detailTotal').load('/penjualan/edit/'+$('input[name=no]').val()+' .detailTotal');
-      $('#reloadTable').load('/penjualan/edit/'+$('input[name=no]').val()+' #barangTable');
+      $('.detailTotal').load('/admin/penjualan/edit/'+$('input[name=no]').val()+' .detailTotal');
+      $('#reloadTable').load('/admin/penjualan/edit/'+$('input[name=no]').val()+' #barangTable');
     }
   });
   $('.enable_penjualanNamaAnggota').remove();
@@ -597,7 +597,7 @@
  $('._e_hapusPenjualanBarang').click(function(){
   $.ajax({
     type: 'POST',
-    url: '/penjualan/edit/barang/hapus',
+    url: '/admin/penjualan/edit/barang/hapus',
     data: {
       '_token': $('input[name=_token]').val(),
       'no': $('input[name=no]').val(),
@@ -606,8 +606,8 @@
     success:function(data) {
       toastr.success('Barang berhasil dihapus!','Success',{timeOut:5000});
       $('#e_hapusPenjualanBarang').modal('hide');
-      $('.detailTotal').load('/penjualan/edit/'+$('input[name=no]').val()+' .detailTotal');
-      $('#reloadTable').load('/penjualan/edit/'+$('input[name=no]').val()+' #barangTable');
+      $('.detailTotal').load('/admin/penjualan/edit/'+$('input[name=no]').val()+' .detailTotal');
+      $('#reloadTable').load('/admin/penjualan/edit/'+$('input[name=no]').val()+' #barangTable');
     }
   });
  });

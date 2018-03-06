@@ -11,27 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('blank');
+
+Route::get('/masuk', function(){
+	return view('masuk');
 });
 
-Route::get('/home', function () {
-    return view('user');
-});
+Route::post('/masuk', 'AuthController@login');
 
-Route::get('/login', function(){
-	return view('login');
-});
-
-Route::post('/login', 'loginController@testLogin');
-Route::post('/', 'loginController@testLogin');
-
-Route::get('/blank', function() {
+Route::get('/admin', function() {
 	return view('blank');
-});
+})->middleware('loginAuth');
 
+Route::get('/keluar', 'AuthController@logout');
+
+Route::group(['prefix' => 'admin'],function() {
   // Anggota
-  Route::prefix('anggota')->group(function(){
+  Route::group(['prefix' => 'anggota', 'middleware' => 'loginAuth'], function(){    
     Route::get('/','anggotaController@index');
     Route::post('/daftar','anggotaController@tambah');
     Route::post('/edit','anggotaController@update');
@@ -39,7 +34,7 @@ Route::get('/blank', function() {
   });
 
   // Barang
-  Route::prefix('barang')->group(function(){
+  Route::group(['prefix' => 'barang', 'middleware' => 'loginAuth'], function(){
     Route::get('/','barangController@index');
     Route::post('/daftar','barangController@tambah');
     Route::post('/edit', 'barangController@update');
@@ -47,7 +42,7 @@ Route::get('/blank', function() {
   });
 
   // Pembelian
-  Route::prefix('pembelian')->group(function(){
+  Route::group(['prefix' => 'pembelian', 'middleware' => 'loginAuth'], function(){
     Route::get('/', 'pembelianController@tampil');
     Route::get('/autocomplete', 'pembelianController@autocomplete');
     Route::post('/input', 'pembelianController@input');
@@ -57,7 +52,7 @@ Route::get('/blank', function() {
   });
 
   // Penjualan
-  Route::prefix('penjualan')->group(function(){
+  Route::group(['prefix' => 'penjualan', 'middleware' => 'loginAuth'], function(){
     Route::get('/', 'penjualanController@index');
     Route::prefix('input')->group(function(){
       Route::get('/', 'penjualanController@inputPenjualan');
@@ -77,3 +72,4 @@ Route::get('/blank', function() {
     });
     Route::get('/hapus/{no}','penjualanController@hapusTransaksi');
   });
+});

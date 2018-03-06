@@ -41,31 +41,31 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="{{ URL::asset('blank') }}">
+          <a class="nav-link" href="{{ URL::asset('/admin/') }}">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Anggota">
-          <a class="nav-link" href="{{ URL::asset('anggota') }}">
+          <a class="nav-link" href="{{ URL::asset('/admin/anggota') }}">
             <i class="fa fa-fw fa-sitemap"></i>
             <span class="nav-link-text">Anggota</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
-          <a class="nav-link" href="{{ URL::asset('barang') }}">
+          <a class="nav-link" href="{{ URL::asset('/admin/barang') }}">
             <i class="fa fa-fw fa-suitcase"></i>
             <span class="nav-link-text">Barang</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
-          <a class="nav-link" href="{{ URL::asset('penjualan') }}">
+          <a class="nav-link" href="{{ URL::asset('/admin/penjualan') }}">
             <i class="fa fa-fw fa-shopping-basket"></i>
             <span class="nav-link-text">Penjualan</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
-          <a class="nav-link" href="{{ URL::asset('pembelian') }}">
+          <a class="nav-link" href="{{ URL::asset('/admin/pembelian') }}">
             <i class="fa fa-fw fa-shopping-cart"></i>
             <span class="nav-link-text">Pembelian</span>
           </a>
@@ -109,8 +109,8 @@
           <a class="nav-link">Administrator</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+          <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
+            <i class="fa fa-fw fa-sign-out"></i>Keluar</a>
         </li>
       </ul>
     </div>
@@ -140,19 +140,19 @@
       <i class="fa fa-angle-up"></i>
     </a>
     <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="modalLabel">Ada yakin ingin keluar?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Pilih <b>"Keluar"</b> jika anda yakin.</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+            <a class="btn btn-primary" href="{{ URL::asset('keluar') }}">Keluar</a>
           </div>
         </div>
       </div>

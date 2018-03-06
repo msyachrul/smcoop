@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\input;
 
 class anggotaController extends Controller
 {
+
     public function index()	{
     	$anggota = Anggota::all();
 

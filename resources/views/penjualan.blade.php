@@ -24,7 +24,7 @@
                   <th>No Penjualan</th>
                   <th class="text-right">Total</th>
                   <th width="15%" class="text-center">
-                    <a href="{{ URL::asset('penjualan/input') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                    <a href="{{ URL::asset('/admin/penjualan/input') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                   </th>
                 </tr>
               </thead>
@@ -37,9 +37,9 @@
                   <td>{{ $value->no }}</td>
                   <td class="text-right">Rp {{ number_format($value->total) }}</td>
                   <td>
-                    <a href="{{ URL::asset('penjualan/'.$value->no) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
-                    <a href="{{ URL::asset('penjualan/edit/'.$value->no) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
-                    <a href="{{ URL::asset('penjualan/hapus/'.$value->no) }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin hapus data penjualan {{$value->no}}?')"><i class="fa fa-trash"></i></a>
+                    <a href="{{ URL::asset('/admin/penjualan/'.$value->no) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                    <a href="{{ URL::asset('/admin/penjualan/edit/'.$value->no) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
+                    <a href="{{ URL::asset('/admin/penjualan/hapus/'.$value->no) }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin hapus data penjualan {{$value->no}}?')"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach
