@@ -25,7 +25,7 @@
           {{ csrf_field() }}
           <div class="form-group">
             <label for="noAnggota">No Anggota</label>
-            <input class="form-control" name="no" type="text" placeholder="Masukan No Anggota" required>
+            <input class="form-control" name="no" type="text" placeholder="Masukan No Anggota" required autofocus>
           </div>
           <div class="form-group">
             <label for="noPin">PIN</label>

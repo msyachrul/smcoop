@@ -17,23 +17,23 @@
 					<tr>
 						<td width="20%"><b>No Transaksi</b></td>
 						<td width="1%">:</td>
-						<td width="39%">{{ $penjualan[0]->no }}</td>
+						<td width="39%">{{ $penjualan->no }}</td>
 						<td><b>Tanggal</b></td>
 						<td width="1%">:</td>
-						<td>{{ $penjualan[0]->tanggal }}</td>
+						<td>{{ $penjualan->tanggal }}</td>
 					</tr>
 					<tr>
 						<td><b>No Anggota</b></td>
 						<td>:</td>
-						<td colspan="4">{{ $penjualan[0]->anggota_no }}</td>
+						<td colspan="4">{{ $penjualan->anggota_no }}</td>
 					</tr>
 					<tr>
 						<td><b>Nama</b></td>
 						<td>:</td>
-						<td>{{ $penjualan[0]->nama }}</td>
+						<td>{{ $penjualan->nama }}</td>
 						<td><b>Total</b></td>
 						<td>:</td>
-						<td>Rp {{ number_format($penjualan[0]->total) }}</td>
+						<td>Rp {{ number_format($penjualan->total) }}</td>
 					</tr>
 				</table>
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

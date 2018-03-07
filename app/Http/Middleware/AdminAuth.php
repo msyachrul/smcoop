@@ -22,7 +22,7 @@ class AdminAuth
         }
 
         if ($cek['admin'] != true) {
-            return redirect('/keluar');
+            return redirect('/error');
         }
 
         return $next($request);

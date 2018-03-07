@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class LoginAuth
+class SessionAuth
 {
     /**
      * Handle an incoming request.
@@ -15,16 +15,13 @@ class LoginAuth
      */
     public function handle($request, Closure $next)
     {
+       
         $cek = session('data');
 
-        if (empty($cek)) {
-            return redirect('/masuk');
-        }
-
-        if ($cek['admin'] == true) {
+        if(!empty($cek)) {
             return redirect('/error');
         }
-
+        
         return $next($request);
     }
 }

@@ -16,9 +16,13 @@ class CreatePenjualansTable extends Migration
         Schema::create('penjualans', function (Blueprint $table) {
             $table->string('no',30)->primary();
             $table->date('tanggal');
-            $table->string('anggota_no');
             $table->bigInteger('total');
             $table->timestamps();
+        });
+
+        Schema::table('penjualans', function (Blueprint $table) {
+            $table->string('anggota_no');
+            $table->foreign('anggota_no')->references('no')->on('anggotas')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

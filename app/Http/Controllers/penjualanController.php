@@ -28,7 +28,7 @@ class penjualanController extends Controller
     	} while ( $cek == 1 );
 
         // ambil nama barang
-        $tmpBarang = DB::table('tmp_detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->select('a.id','b.nama','a.kuantitas','a.subTotal')->get();
+        $tmpBarang = DB::table('tmp_detail_penjualans')->get();
         // ambil total barang
         $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
 
@@ -73,32 +73,33 @@ class penjualanController extends Controller
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }
       else {
-        $cek = DB::table('tmp_detail_penjualans')->where('barang_id',$req->barang_id)->get();
+        $cek = DB::table('tmp_detail_penjualans')->where('barang_id',$req->barang_id)->first();
 
-        if (count($cek) > 0) {
-            $kuantitas = $cek[0]->kuantitas+$req->kuantitas;
-            $subTotal = $cek[0]->harga*$kuantitas;
+        if (!empty($cek)) {
+            $kuantitas = $cek->kuantitas+$req->kuantitas;
+            $subTotal = $cek->harga*$kuantitas;
 
-            $barang = DB::table('tmp_detail_penjualans')->where('barang_id',$req->barang_id)->update([
+            $tmpBarang = DB::table('tmp_detail_penjualans')->where('barang_id',$req->barang_id)->update([
                 'kuantitas' => $kuantitas,
                 'subTotal' => $subTotal,
             ]);
 
-            return response()->json($barang);
+            return response()->json($tmpBarang);
         }
         else {
-        // ambil harga barang
-        $harga = DB::table('barangs')->select('harga')->where('id',$req->barang_id)->get()[0]->harga;
-        $subTotal = $harga*$req->kuantitas;
+        // ambil data barang
+        $barang = DB::table('barangs')->where('id',$req->barang_id)->first();
+        $subTotal = $barang->harga*$req->kuantitas;
         // masukan data barang ke tabel sementara
-        $barang = DB::table('tmp_detail_penjualans')->insert([
+        $tmpBarang = DB::table('tmp_detail_penjualans')->insert([
             'barang_id' => $req->barang_id,
-            'harga' => $harga,
+            'nama' => $barang->nama,
+            'harga' => $barang->harga,
             'kuantitas' => $req->kuantitas,
             'subTotal' => $subTotal,
         ]);
 
-        return response()->json($barang);
+        return response()->json($tmpBarang);
         }
       }
     }
@@ -124,10 +125,18 @@ class penjualanController extends Controller
         }
 
         else {
+            $penjualan = new Penjualan;
+                $penjualan->no = $req->no;
+                $penjualan->anggota_no = $req->anggota_no;
+                $penjualan->tanggal = $req->tanggal;
+                $penjualan->total = $req->total;
+            $penjualan->save();
+
             foreach ($tmpBarang as $key => $value) {
                 DB::table('detail_penjualans')->insert([
                     'penjualan_no' => $req->no,
                     'barang_id' => $value->barang_id,
+                    'nama' => $value->nama,
                     'harga' => $value->harga,
                     'kuantitas' => $value->kuantitas,
                     'subTotal' => $value->subTotal,
@@ -136,12 +145,6 @@ class penjualanController extends Controller
 
             DB::table('tmp_detail_penjualans')->delete();
 
-            $penjualan = new Penjualan;
-                $penjualan->no = $req->no;
-                $penjualan->anggota_no = $req->anggota_no;
-                $penjualan->tanggal = $req->tanggal;
-                $penjualan->total = $req->total;
-            $penjualan->save();
 
             return response()->json($penjualan);
         }
@@ -169,18 +172,18 @@ class penjualanController extends Controller
 
     public function detail(Request $req) {
 
-        $detail = DB::table('detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->where('a.penjualan_no',$req->no)->get();
+        $detail = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->get();
         // $penjualan = Penjualan::where('no',$req->no)->get();
-        $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->get();
+        $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->first();
 
         return view('admin.penjualan_detail',compact('detail','penjualan'));
     }
 
     public function edit(Request $req) {
 
-        $detail = DB::table('detail_penjualans as a')->join('barangs as b','a.barang_id','b.id')->where('a.penjualan_no',$req->no)->select('b.nama','a.barang_id','a.kuantitas','a.subTotal')->get();
+        $detail = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->get();
         // $penjualan = Penjualan::where('no',$req->no)->get();
-        $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->get()[0];
+        $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$req->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->first();
 
         return view('admin.penjualan_edit',compact('detail','penjualan'));
 
@@ -198,11 +201,11 @@ class penjualanController extends Controller
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }
       else {
-        $cek = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->where('barang_id',$req->barang_id)->get();
+        $cek = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->where('barang_id',$req->barang_id)->first();
 
-        if (count($cek) > 0) {
-            $kuantitas = $cek[0]->kuantitas+$req->kuantitas;
-            $subTotal = $cek[0]->harga*$kuantitas;
+        if (!empty($cek)) {
+            $kuantitas = $cek->kuantitas+$req->kuantitas;
+            $subTotal = $cek->harga*$kuantitas;
 
             $barang = DB::table('detail_penjualans')->where('penjualan_no',$req->no)->where('barang_id',$req->barang_id)->update([
                 'kuantitas' => $kuantitas,
@@ -210,14 +213,15 @@ class penjualanController extends Controller
             ]);
         }
         else {
-            // ambil harga barang
-            $harga = DB::table('barangs')->select('harga')->where('id',$req->barang_id)->get()[0]->harga;
-            $subTotal = $harga*$req->kuantitas;
-            // masukan data barang ke tabel sementara
+            // ambil data barang
+            $data = DB::table('barangs')->where('id',$req->barang_id)->first();
+            $subTotal = $data->harga*$req->kuantitas;
+            // masukan data barang ke tabel
             $barang = DB::table('detail_penjualans')->insert([
                 'penjualan_no' => $req->no,
                 'barang_id' => $req->barang_id,
-                'harga' => $harga,
+                'nama' => $data->nama,
+                'harga' => $data->harga,
                 'kuantitas' => $req->kuantitas,
                 'subTotal' => $subTotal,
             ]);
@@ -259,7 +263,7 @@ class penjualanController extends Controller
 
         DB::table('detail_penjualans')->where('penjualan_no',$req->no)->delete();
 
-        return redirect('penjualan');
+        return redirect()->back();
 
     }
 

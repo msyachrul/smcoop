@@ -16,11 +16,11 @@ class CreateAnggotasTable extends Migration
         Schema::create('anggotas', function (Blueprint $table) {
             $table->string('no',30)->primary();
             $table->string('pin',6);
-            $table->string('nama',30);
+            $table->string('nama',50);
             $table->string('departemen',30);
             $table->string('posisi',30);
-            $table->integer('totalSimpanan');
-            $table->boolean('admin');
+            $table->integer('totalSimpanan')->nullable();
+            $table->boolean('admin')->nullable();
             $table->timestamps();
         });
     }

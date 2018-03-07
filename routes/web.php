@@ -14,15 +14,20 @@
 
 
 Route::group(['middleware' => 'loginAuth'],function(){
-  Route::get('/',function(){
-    return view('home');
+  Route::get('/', 'userController@index');
+  Route::group(['prefix' => 'pembelian'],function(){
+    Route::get('/', 'userController@pembelian');
+    Route::get('/{no}', 'userController@detail');
   });
-  Route::get('/pembelian', 'userController@index');
+});
+
+Route::get('/error', function(){
+  return view('layouts.error');
 });
 
 Route::get('/masuk', function(){
 	return view('masuk');
-});
+})->middleware('sessionAuth');
 
 Route::post('/masuk', 'AuthController@login');
 

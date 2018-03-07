@@ -33,9 +33,9 @@
                   <td>Rp <?php echo number_format($value->totalSimpanan); ?></td>
                   <!-- Trigger Modal -->
                   <td class="text-center">
-                    <a href="#" class="tampilAnggota btn btn-success btn-sm" data-no="{{ $value->no }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-eye"></i></a>
-                    <a href="#" class="editAnggota btn btn-info btn-sm" data-no="{{ $value->no }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="hapusAnggota btn btn-danger btn-sm" data-no="{{ $value->no }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-trash"></i></a>
+                    <a href="#" class="tampilAnggota btn btn-success btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-eye"></i></a>
+                    <a href="#" class="editAnggota btn btn-info btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="hapusAnggota btn btn-danger btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -107,10 +107,13 @@
                 </div>
                 <div class="modal-body">
                   <form class="form-horizontal" role="form">
-                    <input type="hidden" name="id" id="tampilId" disabled>
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
                     <input type="text" class="form-control" name="no" id="tampilNoAnggota" placeholder="No Anggota" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm">PIN</label>
+                    <input type="text" class="form-control" name="pin" id="tampilPin" disabled>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="tampilNama">Nama</label>
@@ -157,10 +160,13 @@
                 </div>
                 <div class="modal-body">
                   <form class="form-horizontal" role="form">
-                    <input type="hidden" name="id" id="editId" disabled>
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
                     <input type="text" class="form-control" name="no" id="editNoAnggota" placeholder="No Anggota" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm">PIN</label>
+                    <input type="text" class="form-control" name="pin" id="editPin" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="editNama">Nama</label>
@@ -216,7 +222,11 @@
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
                     <input type="text" class="form-control" name="no" id="hapusNoAnggota" placeholder="No Anggota" disabled>
-                  </div>                  
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm">PIN</label>
+                    <input type="text" class="form-control" name="pin" id="hapusPin" disabled>
+                  </div>                 
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="hapusNama">Nama</label>
                     <input type="text" class="form-control" id="hapusNama" name="nama" placeholder="Nama Anggota" disabled>

@@ -38,13 +38,15 @@ class anggotaController extends Controller
                 return response::json(array('errors'=>'ada'));
             }
             else {
-    		$anggota = new Anggota;
+            $anggota = new Anggota;
 
     			$anggota->no = $req->no;
+                $anggota->pin = rand(100000,999999);
                 $anggota->nama = ucwords($req->nama);
     			$anggota->departemen = $req->departemen;
     			$anggota->posisi = ucwords($req->posisi);
                 $anggota->totalSimpanan = $req->totalSimpanan;
+                $anggota->admin = false;
 
     		$anggota->save();
 
@@ -56,6 +58,7 @@ class anggotaController extends Controller
     public function update(Request $req) {
         $rules = array(
             'no' => 'required',
+            'pin' => 'required',
             'nama' => 'required',
             'departemen' => 'required',
             'posisi' => 'required',
@@ -68,15 +71,13 @@ class anggotaController extends Controller
             return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
         }
         else {
-            $anggota = Anggota::find($req->id);
-
-                $anggota->no = $req->no;
-                $anggota->nama = ucwords($req->nama);
-                $anggota->departemen = $req->departemen;
-                $anggota->posisi = ucwords($req->posisi);
-                $anggota->totalSimpanan = $req->totalSimpanan;
-
-            $anggota->save();
+            $anggota = Anggota::where('no',$req->no)->update([
+                'pin' => $req->pin,
+                'nama' => ucwords($req->nama),
+                'departemen' => $req->departemen,
+                'posisi' => ucwords($req->posisi),
+                'totalSimpanan' => $req->totalSimpanan,
+            ]);
 
             return response()->json($anggota);
         }

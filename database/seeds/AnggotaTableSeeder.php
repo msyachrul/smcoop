@@ -15,7 +15,7 @@ class AnggotaTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create('id_ID');
  
-        foreach (range(1, 20) as $loop) {
+        foreach (range(1, 5) as $loop) {
             DB::table('anggotas')->insert([
                 'no' => $faker->ean13,
                 'pin' =>$faker->randomNumber(6,true),

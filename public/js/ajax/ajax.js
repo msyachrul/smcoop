@@ -49,6 +49,7 @@
    $('.modal-title').text('Data Anggota');
    $('#tampilId').val($(this).data('id'));
    $('#tampilNoAnggota').val($(this).data('no'));
+   $('#tampilPin').val($(this).data('pin'));
    $('#tampilNama').val($(this).data('nama'));
    $('#tampilDepartemen').val($(this).data('departemen'));
    $('#tampilPosisi').val($(this).data('posisi'));
@@ -59,7 +60,8 @@
    $('#editAnggota').modal('show');
    $('.form-horizontal').show();
    $('.modal-title').text('Update Anggota');
-   $('#editId').val($(this).data('id'));  
+   $('#editId').val($(this).data('id'));
+   $('#editPin').val($(this).data('pin'));
    $('#editNoAnggota').val($(this).data('no'));
    $('#editNama').val($(this).data('nama'));
    $('#editDepartemen').val($(this).data('departemen'));
@@ -75,6 +77,7 @@
         '_token': $('input[name=_token]').val(),
         'id': $('#editId').val(),
         'no': $('#editNoAnggota').val(),
+        'pin': $('#editPin').val(),
         'nama': $('#editNama').val(),
         'departemen': $('#editDepartemen').val(),
         'posisi': $('#editPosisi').val(),
@@ -101,6 +104,7 @@
    $('.form-horizontal').show();
    $('.modal-title').text('Hapus Anggota');
    $('#hapusId').val($(this).data('id'));
+   $('#hapusPin').val($(this).data('pin'));
    $('#hapusNoAnggota').val($(this).data('no'));  
    $('#hapusNama').val($(this).data('nama'));
    $('#hapusDepartemen').val($(this).data('departemen'));

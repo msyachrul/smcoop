@@ -113,13 +113,13 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Laporan">
-          <a class="nav-link" href="{{ URL::asset('/laporan') }}">
+          <a class="nav-link" href="#">
             <i class="fa fa-fw fa-file"></i>
             <span class="nav-link-text">Laporan</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pengajuan">
-          <a class="nav-link" href="{{ URL::asset('/pengajuan') }}">
+          <a class="nav-link" href="#">
             <i class="fa fa-fw fa-link"></i>
             <span class="nav-link-text">Pengajuan</span>
           </a>

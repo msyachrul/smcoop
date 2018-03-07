@@ -15,7 +15,7 @@ class BarangTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create('id_ID');
  
-        foreach (range(1, 20) as $loop) {
+        foreach (range(1, 5) as $loop) {
             DB::table('barangs')->insert([
                 'nama'       => $faker->firstNameMale,               
                 'harga' => $faker->randomNumber(5),
