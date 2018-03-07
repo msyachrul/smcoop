@@ -4,12 +4,5 @@
 
 @section('content')
 
-<?php 
-
-$data = session('data');
-echo $data['no'].'<br>';
-echo $data['nama'];
-
-?>
 
 @endsection

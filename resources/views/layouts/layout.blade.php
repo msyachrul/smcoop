@@ -80,10 +80,7 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseLaporan">
             <li>
-              <a href="#">Inventory</a>
-            </li>
-            <li>
-              <a href="#">Penjualan</a>
+              <a href="{{ URL::asset('/admin/laporan/penjualan' )}}">Penjualan</a>
             </li>
           </ul>
         </li>        

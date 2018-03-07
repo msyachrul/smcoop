@@ -1,10 +1,16 @@
 @extends('layouts.layout')
 
-@section('breadcrumb','Pembelian / detail')
+@section('breadcrumb','Pembelian')
 
 @section('content')
 
 	<div class="card mb-3">
+		<div class="card-header">
+			<i class="fa fa-table"></i> Detail Pembelian
+			<div class="pull-right">
+				<a href="{{ URL::asset('/pembelian')}}" class="btn btn-success btn-sm"><i class="fa fa-angle-double-left"></i> Kembali</a>
+			</div>
+		</div>
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-striped" width="100%" cellspacing="0" cellpadding="0">

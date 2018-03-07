@@ -85,4 +85,6 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
     });
     Route::get('/hapus/{no}','penjualanController@hapusTransaksi');
   });
+
+  Route::get('/laporan/penjualan','laporanController@index');
 });

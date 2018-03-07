@@ -12,7 +12,7 @@ class anggotaController extends Controller
 {
 
     public function index()	{
-    	$anggota = Anggota::all();
+    	$anggota = Anggota::where('admin',false)->get();
 
     	return view('admin.anggota',compact('anggota'));
     }
