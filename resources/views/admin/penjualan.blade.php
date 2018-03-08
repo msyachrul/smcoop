@@ -9,13 +9,31 @@
       {{ csrf_field() }}
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i> Data Penjualan <span id="keteranganTanggal"></span>
+          <i class="fa fa-table"></i> Data Penjualan
           <div class="pull-right">
             <a href="#" class="cariPenjualan btn btn-success btn-sm"><i class="fa fa-search"></i></a>
           </div>
         </div>
         <div class="card-body">
+          @if(isset($tanggal))
           <div class="table-responsive">
+            <table class="table table-striped" width="100%">
+              <tr>
+                <td width="20%">Tanggal</td>
+                <td width="1%">:</td>
+                <td><b>{{ $tanggal['dari']." - ".$tanggal['sampai']}}</b></td>
+              </tr>
+            </table>
+          @else
+          <div class="table-responsive">
+            <table class="table table-striped" width="100%">
+              <tr>
+                <td width="20%">Tanggal</td>
+                <td width="1%">:</td>
+                <td><b>{{ date('Y-m-d') }}</b></td>
+              </tr>
+            </table>
+          @endif
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
@@ -50,6 +68,8 @@
       </div>
     <!-- Modal pilih tanggal -->
     <div id="cariPenjualan" class="modal fade" role="dialog">
+      <form method="POST" action="" class="form-horizontal" role="form">
+        {{ csrf_field() }}
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -57,19 +77,17 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-              <form class="form-horizontal" role="form">
                 <div class="form-group">
                   <label class="control-label col-sm-6">Dari</label>
-                  <input type="date" class="form-control" name="dariTanggal" placeholder="YYYY-MM-DD" required>
+                  <input type="date" class="form-control" name="dari" placeholder="YYYY-MM-DD" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-6">Sampai</label>
-                  <input type="date" class="form-control" name="sampaiTanggal" placeholder="YYYY-MM-DD" required>
+                  <input type="date" class="form-control" name="sampai" placeholder="YYYY-MM-DD" required>
                 </div>
-              </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info" id="_cariPenjualan">
+              <button type="submit" class="btn btn-info">
                 <span class="fa fa-search"></span> Cari
               </button>
               <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -78,6 +96,7 @@
             </div>
         </div>
       </div>
+      </form>
     </div>
 
 @endsection

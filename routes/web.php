@@ -67,6 +67,7 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
   // Penjualan
   Route::group(['prefix' => 'penjualan'], function(){
     Route::get('/', 'penjualanController@index');
+    Route::post('/', 'penjualanController@cari');
     Route::prefix('input')->group(function(){
       Route::get('/', 'penjualanController@inputPenjualan');
       Route::get('/anggota/autocomplete', 'penjualanController@autocompleteAnggota');
@@ -86,5 +87,9 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
     Route::get('/hapus/{no}','penjualanController@hapusTransaksi');
   });
 
-  Route::get('/laporan/penjualan','laporanController@index');
+  Route::group(['prefix' => 'laporan'],function() {
+    Route::get('/penjualan','laporanController@index');
+    Route::post('/penjualan','laporanController@cari');
+  });
+  
 });

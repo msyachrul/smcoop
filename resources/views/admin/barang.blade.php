@@ -2,8 +2,7 @@
 
 @section('breadcrumb','Barang')
 
-@section('content')
-	
+@section('content')	
 	<div class="card mb-3">
 		<div class="card-header">
 			<i class="fa fa-table"></i> Data Barang

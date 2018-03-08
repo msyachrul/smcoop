@@ -615,3 +615,26 @@
     }
   });
  });
+
+  // User Page
+
+  // enable edit Data Anggota
+  $(document).on('click','.edit',function(){
+    $('input').removeAttr('disabled');
+    $('select').removeAttr('disabled');
+    $('.update').removeAttr('disabled');
+    $('.batal').removeAttr('disabled');
+    $('.edit').attr('disabled','disabled');
+  });
+
+  $(document).on('click','.batal',function(){
+    $('input').attr('disabled','disabled');
+    $('select').attr('disabled','disabled');
+    $('.update').attr('disabled','disabled');
+    $('.batal').attr('disabled','disabled');
+    $('.edit').removeAttr('disabled');
+  });  
+
+  $(document).on('click','.update',function(){
+    event.preventDefault();
+  })

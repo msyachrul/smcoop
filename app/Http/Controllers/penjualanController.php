@@ -11,10 +11,19 @@ use Illuminate\Support\Facades\DB;
 
 class penjualanController extends Controller
 {
-    public function index() {
-        $penjualan = DB::table('penjualans')->orderBy('tanggal','ASC')->get();
+    public function index()
+    {
+        $penjualan = Penjualan::where('tanggal',date('Y-m-d'))->orderBy('tanggal','DESC')->get();
 
     	return view('admin.penjualan',compact('penjualan'));
+    }
+
+    public function cari(Request $request)
+    {
+        $tanggal = ['dari'=>$request->dari,'sampai'=>$request->sampai];
+        $penjualan = Penjualan::whereBetween('tanggal',[$request->dari,$request->sampai])->orderBy('tanggal','ASC')->get();
+
+        return view('admin.penjualan')->with('penjualan',$penjualan)->with('tanggal',$tanggal);
     }
 
     public function inputPenjualan() {
