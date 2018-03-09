@@ -15,6 +15,8 @@
 
 Route::group(['middleware' => 'loginAuth'],function(){
   Route::get('/', 'userController@index');
+  Route::get('/profile', 'userController@profile');
+  Route::post('/profile','userController@updateProfile');
   Route::group(['prefix' => 'pembelian'],function(){
     Route::get('/', 'userController@pembelian');
     Route::get('/{no}', 'userController@detail');
@@ -90,6 +92,7 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
   Route::group(['prefix' => 'laporan'],function() {
     Route::get('/penjualan','laporanController@index');
     Route::post('/penjualan','laporanController@cari');
+    Route::post('/penjualan/detail','laporanController@detail');
   });
   
 });

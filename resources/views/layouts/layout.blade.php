@@ -1,5 +1,3 @@
-<?php $sesi = session('data') ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +40,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-        @if(session('data')['admin'] == true)
+        <?php $sesi = session('data') ?>
+        @if($sesi['admin'] == true)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
           <a class="nav-link" href="{{ URL::asset('/admin/') }}">
             <i class="fa fa-fw fa-dashboard"></i>
@@ -103,6 +102,12 @@
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
+          <a class="nav-link" href="{{ URL::asset('/profile') }}">
+            <i class="fa fa-fw fa-user-circle"></i>
+            <span class="nav-link-text">Profile</span>
+          </a>
+        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
           <a class="nav-link" href="{{ URL::asset('/pembelian') }}">
             <i class="fa fa-fw fa-shopping-cart"></i>
@@ -132,10 +137,10 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          @if (session('data')['admin'] == true)
-          <a class="nav-link">Administrator | {{ session('data')['nama'] }}</a>
+          @if ($sesi['admin'] == true)
+          <a class="nav-link">Administrator | {{ $sesi['nama'] }}</a>
           @else
-          <a class="nav-link">{{ session('data')['nama'] }}</a>
+          <a href="{{ URL::asset('/profile') }}" class="nav-link">{{ $sesi['nama'] }}</a>
           @endif
         </li>
         <li class="nav-item">

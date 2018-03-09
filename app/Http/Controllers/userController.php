@@ -13,11 +13,28 @@ class userController extends Controller
     
     public function index()
     {
+        return view('home');
+    }
+
+    public function profile()
+    {
         $cek = session('data');
 
         $anggota = Anggota::where('no',$cek['no'])->first();
 
-        return view('home')->with('anggota',$anggota);
+        return view('profile')->with('anggota',$anggota);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        Anggota::where('no',session('data')['no'])->update([
+            'nama' => $request->nama,
+            'departemen' => $request->departemen,
+            'posisi' => $request->posisi
+        ]);
+        $anggota = Anggota::where('no',session('data')['no'])->first();
+
+        return view('profile')->with('anggota',$anggota);        
     }
 
     public function pembelian()

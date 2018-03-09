@@ -616,6 +616,32 @@
   });
  });
 
+  // Laporan
+  $(document).on('click','._modalDetail',function(){
+    $('#modalDetail').modal('show');
+    $('.modal-title').text('Detail Barang Transaksi '+$(this).data('no'));
+    $.ajax({
+      type: 'POST',
+      url: '/admin/laporan/penjualan/detail',
+      data: {
+        '_token': $('input[name=_token]').val(),
+        'no' : $(this).data('no'),
+      },
+      success: function(data){
+        let html = [];
+        for (let i = 0; i < data.length; i++) {
+          html += "<tr>";
+          html += "<td>"+ data[i].nama +"</td>";
+          html += "<td class='text-right'>Rp "+ data[i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
+          html += "<td class='text-right'>"+ data[i].kuantitas +"</td>";
+          html += "<td class='text-right'>Rp "+ data[i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
+          html += "</tr>";
+        }
+        $('.list').html(html);
+      }
+    });
+  });
+
   // User Page
 
   // enable edit Data Anggota
@@ -626,15 +652,3 @@
     $('.batal').removeAttr('disabled');
     $('.edit').attr('disabled','disabled');
   });
-
-  $(document).on('click','.batal',function(){
-    $('input').attr('disabled','disabled');
-    $('select').attr('disabled','disabled');
-    $('.update').attr('disabled','disabled');
-    $('.batal').attr('disabled','disabled');
-    $('.edit').removeAttr('disabled');
-  });  
-
-  $(document).on('click','.update',function(){
-    event.preventDefault();
-  })
