@@ -17,11 +17,10 @@ class CreateAnggotasTable extends Migration
             $table->string('no',30)->primary();
             $table->string('pin',6);
             $table->string('nama',50);
-            $table->string('departemen',30);
-            $table->string('posisi',30);
+            $table->string('departemen',30)->nullable();
+            $table->string('posisi',30)->nullable();
             $table->integer('totalSimpanan')->nullable();
-            $table->boolean('admin')->nullable();
-            $table->timestamps();
+            $table->boolean('admin')->default(false);
         });
     }
 

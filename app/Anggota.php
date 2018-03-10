@@ -11,4 +11,6 @@ class Anggota extends Model
     protected $fillable = [
         'no','pin','nama', 'departemen','posisi','totalSimpanan','admin',
     ];
+
+	public $timestamps = false;    
 }
