@@ -13,7 +13,7 @@
         	<div class="table-responsive">
         		<table class="table" width="100%" cellpadding="0" cellspacing="0">
         			<form method="POST" action="">
-        				{{ csrf_field() }}
+                        {{ csrf_field() }}
 	        			 <tr>
                             <td colspan="3">
                                 <label class="control-label col-sm">Anggota :</label>
@@ -97,54 +97,36 @@
         					<td>{{ $value->no }}</td>
         					<td class="text-right">Rp {{ number_format($value->total) }}</td>
                             <td><a href="#" class="_modalDetail fa fa-eye" data-no="{{ $value->no }}"></a></td>
-                        <!--     <td><a href="#{{ $value->no }}" class="detail fa fa-eye" data-toggle="collapse" data-no="{{ $value->no }}"></a></td>
-        				</tr>
-                        <tr class="collapse" id="{{ $value->no }}">
-                            <td></td>
-                            <td colspan="4">
-                                <table width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Barang</th>
-                                            <th class="text-right">Harga</th>
-                                            <th class="text-right">Kuantitas</th>
-                                            <th class="text-right">Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="list{{$value->no}}"></tbody>
-                                </table>
-                            </td>
-                        </tr> -->
         				@endforeach
         			</tbody>
         		</table>
         	</div>
         </div>
         <div id="modalDetail" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Nama Barang</th>
-                                    <th class="text-right">Harga</th>
-                                    <th class="text-right">Kuantitas</th>
-                                    <th class="text-right">Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody class="list"></tbody>
-                        </table>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Barang</th>
+                                        <th class="text-right">Harga</th>
+                                        <th class="text-right">Kuantitas</th>
+                                        <th class="text-right">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
         @endif
     </div>
 

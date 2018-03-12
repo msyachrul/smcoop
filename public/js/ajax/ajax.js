@@ -652,3 +652,29 @@
     $('.batal').removeAttr('disabled');
     $('.edit').attr('disabled','disabled');
   });
+
+  // Pembelian modalDetailUser
+  $(document).on('click','._modalDetailUser',function(){
+    $('#modalDetailUser').modal('show');
+    $('.modal-title').text('Detail Barang Transaksi '+$(this).data('no'));
+    $.ajax({
+      type: 'POST',
+      url: '/pembelian/detail',
+      data: {
+        '_token': $('input[name=_token]').val(),
+        'no' : $(this).data('no'),
+      },
+      success: function(data){
+        let html = [];
+        for (let i = 0; i < data.length; i++) {
+          html += "<tr>";
+          html += "<td>"+ data[i].nama +"</td>";
+          html += "<td class='text-right'>Rp "+ data[i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
+          html += "<td class='text-right'>"+ data[i].kuantitas +"</td>";
+          html += "<td class='text-right'>Rp "+ data[i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
+          html += "</tr>";
+        }
+        $('.list').html(html);
+      },
+    });
+  });

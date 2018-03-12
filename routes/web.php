@@ -17,10 +17,9 @@ Route::group(['middleware' => 'loginAuth'],function(){
   Route::get('/', 'userController@index');
   Route::get('/profile', 'userController@profile');
   Route::post('/profile','userController@updateProfile');
-  Route::group(['prefix' => 'pembelian'],function(){
-    Route::get('/', 'userController@pembelian');
-    Route::get('/{no}', 'userController@detail');
-  });
+  Route::get('/pembelian', 'userController@pembelian');
+  Route::post('/pembelian/detail','userController@detail');
+  Route::get('/tagihan','userController@tagihan');
 });
 
 Route::get('/error', function(){

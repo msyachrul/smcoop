@@ -114,10 +114,10 @@
             <span class="nav-link-text">Pembelian</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Laporan">
-          <a class="nav-link" href="#">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tagihan">
+          <a class="nav-link" href="{{ URL::asset('tagihan') }}">
             <i class="fa fa-fw fa-file"></i>
-            <span class="nav-link-text">Laporan</span>
+            <span class="nav-link-text">Tagihan</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pengajuan">

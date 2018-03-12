@@ -10,7 +10,6 @@ use App\DetailPenjualan;
 
 class userController extends Controller
 {
-    
     public function index()
     {
         return view('home');
@@ -44,6 +43,7 @@ class userController extends Controller
     	$penjualan = DB::table('penjualans as a')
     	->join('anggotas as b','a.anggota_no','b.no')
     	->where('b.no',$cek['no'])
+        ->where('a.tanggal',date('Y-m-d'))
     	->select(
     		'a.no',
     		'a.tanggal',
@@ -55,10 +55,13 @@ class userController extends Controller
 
     public function detail(Request $request)
     {
-        $pembelian = Penjualan::where('no',$request->no)->first();
-
         $detail = DetailPenjualan::where('penjualan_no',$request->no)->get();
 
-        return view('pembelian_detail')->with('pembelian',$pembelian)->with('detail',$detail);
+        return response()->json($detail);
+    }
+
+    public function tagihan()
+    {
+        return view('tagihan');
     }
 }
