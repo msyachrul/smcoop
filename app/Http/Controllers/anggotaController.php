@@ -98,4 +98,44 @@ class anggotaController extends Controller
         }   
     }
 
+    public function profile()
+    {
+        $cek = session('data');
+
+        $anggota = Anggota::where('no',$cek['no'])->first();
+
+        return view('profile')->with('anggota',$anggota);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        Anggota::where('no',session('data')['no'])->update([
+            'nama' => $request->nama,
+            'departemen' => $request->departemen,
+            'posisi' => $request->posisi
+        ]);
+        $anggota = Anggota::where('no',session('data')['no'])->first();
+
+        return view('profile')->with('anggota',$anggota);        
+    }
+
+    public function ubahPin(Request $request)
+    {
+        $cek = session('data');
+
+        $anggota = Anggota::where('no',$cek['no'])->first();
+
+        if ($request->oldPin != $anggota->pin) {
+            return redirect('/error');
+        }
+
+        if ($request->newPin != $request->confirmPin) {
+            return redirect('/error');
+        }
+
+        $updatePin = Anggota::where('no',$cek['no'])->update(['pin' => $request->newPin]);
+
+        return redirect()->back();
+    }
+
 }

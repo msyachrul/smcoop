@@ -102,12 +102,6 @@
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
-          <a class="nav-link" href="{{ URL::asset('/profile') }}">
-            <i class="fa fa-fw fa-user-circle"></i>
-            <span class="nav-link-text">Profile</span>
-          </a>
-        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
           <a class="nav-link" href="{{ URL::asset('/pembelian') }}">
             <i class="fa fa-fw fa-shopping-cart"></i>
@@ -137,15 +131,20 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+          <div class="dropdown">
           @if ($sesi['admin'] == true)
-          <a class="nav-link">Administrator | {{ $sesi['nama'] }}</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown">Administrator | <b>{{ $sesi['nama'] }}</b></a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li class="dropdown-item"><a href="{{ URL::asset('admin/profile') }}"><i class="fa fa-fw fa-user"></i>Profil</a></li>
           @else
-          <a href="{{ URL::asset('/profile') }}" class="nav-link">{{ $sesi['nama'] }}</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown">Pengguna | <b>{{ $sesi['nama'] }}</b></a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li class="dropdown-item"><a href="{{ URL::asset('/profile') }}"><i class="fa fa-fw fa-user"></i>Profil</a></li>
           @endif
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
-            <i class="fa fa-fw fa-sign-out"></i>Keluar</a>
+            <li class="dropdown-item"><a href="#" data-toggle="modal" data-target="#pinModal"><i class="fa fa-fw fa-gear"></i>Ganti PIN</a></li>
+            <li class="dropdown-item"><a href="#" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-fw fa-sign-out"></i>Keluar</a></li>
+          </ul>          
+          </div>
         </li>
       </ul>
     </div>
@@ -174,6 +173,46 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fa fa-angle-up"></i>
     </a>
+    <!-- Ganti Password Modal -->
+    <div class="modal fade" id="pinModal" role="dialog">
+      @if ($sesi['admin'] == true)
+      <form action="{{ URL::asset('/admin/pin')}}" method="POST">
+      @else
+      <form action="{{ URL::asset('/pin')}}" method="POST">
+      @endif
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Ganti PIN</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            </div>
+            <div class="modal-body">
+              {{ csrf_field() }}
+              <div class="form-group">
+                <label class="control-label col-sm">PIN Lama</label>
+                <input type="password" class="form-control" name="oldPin" placeholder="PIN Lama" required>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm">PIN Baru</label>
+                <input type="password" class="form-control" name="newPin" placeholder="PIN Baru" required>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm">PIN Konfirmasi</label>
+                <input type="password" class="form-control" name="confirmPin" placeholder="PIN Konfirmasi" required>
+              </div>
+              <div class="form-group">
+                <div class="pull-right">
+                  <button type="submit" class="btn btn-primary">Ubah</button>
+                  <button class="btn btn-danger" type="button" data-dismiss="modal">Batal</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">

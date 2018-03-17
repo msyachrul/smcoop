@@ -14,11 +14,31 @@
 					<tr>
 		                <td width="20%">Periode</td>
 		                <td width="1%">:</td>
-		                <td><b>{{ date('F Y')}}</b></td>
+		                <td><b>{{ date('Y-m-18',strtotime('last Month'))." - ".date('Y-m-17') }}</b></td>
 		              </tr>
 				</table>
+				<table class="table table-bordered" id="dataTable" width="100%">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Tanggal</th>
+							<th>No Transaksi</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php $i=1; ?>
+						@foreach ($penjualan as $key => $value)
+						<tr>
+							<td>{{ $i++ }}</td>
+							<td>{{ $value->tanggal }}</td>
+							<td>{{ $value->no }}</td>
+							<td>{{ $value->total }}</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
 			</div>
-			
 		</div>
 	</div>
 

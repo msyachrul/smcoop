@@ -62,6 +62,37 @@ class userController extends Controller
 
     public function tagihan()
     {
-        return view('tagihan');
+        $cek = session('data');
+    
+        $penjualan = DB::table('penjualans as a')
+        ->join('anggotas as b','a.anggota_no','b.no')
+        ->where('b.no',$cek['no'])
+        ->whereBetween('a.tanggal',[date('Y-m-18',strtotime('last Month')),date('Y-m-17')])
+        ->select(
+            'a.no',
+            'a.tanggal',
+            'a.total'
+        )->get();
+
+         return view('tagihan')->with('penjualan',$penjualan);
+    }
+
+    public function ubahPin(Request $request)
+    {
+        $cek = session('data');
+
+        $anggota = Anggota::where('no',$cek['no'])->first();
+
+        if ($request->oldPin != $anggota->pin) {
+            return redirect('/error');
+        }
+
+        if ($request->newPin != $request->confirmPin) {
+            return redirect('/error');
+        }
+
+        $updatePin = Anggota::where('no',$cek['no'])->update(['pin' => $request->newPin]);
+
+        return redirect()->back();
     }
 }
