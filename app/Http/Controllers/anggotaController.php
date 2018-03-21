@@ -115,8 +115,9 @@ class anggotaController extends Controller
             'posisi' => $request->posisi
         ]);
         $anggota = Anggota::where('no',session('data')['no'])->first();
-
-        return view('profile')->with('anggota',$anggota);        
+        $info = "Data berhasil diperbaharui!";
+        
+        return view('profile')->with('anggota',$anggota)->with('info',$info);
     }
 
     public function ubahPin(Request $request)

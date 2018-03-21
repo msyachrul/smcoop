@@ -11,6 +11,13 @@
 			</div>
 		</div>
 		<div class="card-body">
+			@if(isset($info))
+				<div class="form-group">
+					<div class="col-sm text-center">
+						<b>{{ $info }}</b>
+					</div>
+				</div>
+			@endif
 			<form class="form-horizontal" method="post" action="">
 				{{ csrf_field() }}
 				<div class="form-group">

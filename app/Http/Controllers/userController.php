@@ -32,25 +32,33 @@ class userController extends Controller
             'posisi' => $request->posisi
         ]);
         $anggota = Anggota::where('no',session('data')['no'])->first();
-
-        return view('profile')->with('anggota',$anggota);        
+        $info = "Data berhasil diperbaharui!";
+        
+        return view('profile')->with('anggota',$anggota)->with('info',$info);
     }
 
     public function pembelian()
     {
-    	$cek = session('data');
-   	
-    	$penjualan = DB::table('penjualans as a')
-    	->join('anggotas as b','a.anggota_no','b.no')
-    	->where('b.no',$cek['no'])
-        ->where('a.tanggal',date('Y-m-d'))
-    	->select(
-    		'a.no',
-    		'a.tanggal',
-    		'a.total'
-    	)->get();
+    	return view('pembelian');
+    }
 
-    	return view('pembelian')->with('penjualan',$penjualan);
+    public function daftarPembelian(Request $request)
+    {
+        $cek = session('data');
+
+        $tanggal = [ 'dari' => $request->dari, 'sampai' => $request->sampai ];
+    
+        $pembelian = DB::table('penjualans as a')
+        ->join('anggotas as b','a.anggota_no','b.no')
+        ->where('b.no',$cek['no'])
+        ->whereBetween('a.tanggal',[$request->dari,$request->sampai])
+        ->select(
+         'a.no',
+         'a.tanggal',
+         'a.total'
+        )->get();
+
+        return view('pembelian')->with('pembelian',$pembelian)->with('tanggal',$tanggal);
     }
 
     public function detail(Request $request)
@@ -64,7 +72,7 @@ class userController extends Controller
     {
         $cek = session('data');
     
-        $penjualan = DB::table('penjualans as a')
+        $pembelian = DB::table('penjualans as a')
         ->join('anggotas as b','a.anggota_no','b.no')
         ->where('b.no',$cek['no'])
         ->whereBetween('a.tanggal',[date('Y-m-18',strtotime('last Month')),date('Y-m-17')])
@@ -74,7 +82,7 @@ class userController extends Controller
             'a.total'
         )->get();
 
-         return view('tagihan')->with('penjualan',$penjualan);
+         return view('tagihan')->with('pembelian',$pembelian);
     }
 
     public function ubahPin(Request $request)

@@ -6,6 +6,33 @@
 
 	{{ csrf_field() }}
 	<div class="card mb-3">
+		@if(!isset($pembelian))
+		<div class="card-header">
+          <i class="fa fa-file"></i> Pembelian
+      	</div>
+        <div class="card-body">
+        	<div class="table-responsive">
+        		<table class="table" width="100%" cellpadding="0" cellspacing="0">
+        			<form method="POST" action="">
+                        {{ csrf_field() }}
+                        <tr>
+	        			 	<td>
+	        			 		<label class="control-label col-sm">Dari :</label>
+	        			 		<input type="date" class="form-control" name="dari" required>
+	        			 	</td>
+	        			 	<td>
+	        			 		<label class="control-label col-sm">Sampai :</label>
+	        			 		<input type="date" class="form-control" name="sampai" required>
+	        			 	</td>
+	        			 	<td width="10%" style="vertical-align:bottom;">
+	        			 		<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Cari</button>
+	        			 	</td>
+	        			 </tr>
+	        		</form>
+        		</table>
+        	</div>
+        </div>
+		@else
 		<div class="card-header">
 			<i class="fa fa-table"></i> Data Pembelian
 		</div>
@@ -15,7 +42,7 @@
               <tr>
                 <td width="20%">Tanggal</td>
                 <td width="1%">:</td>
-                <td><b>{{ date('Y-m-d') }}</b></td>
+                <td><b>{{ $tanggal['dari']." - ".$tanggal['sampai']}}</b></td>
               </tr>
             </table>
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" cellpadding="0">
@@ -30,7 +57,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						@foreach($penjualan as $key => $value)
+						@foreach($pembelian as $key => $value)
 						<tr>
 							<td>{{ $i++ }}</td>
 							<td>{{ $value->tanggal }}</td>
@@ -70,4 +97,5 @@
                 </div>
             </div>
         </div>
+        @endif
 @endsection

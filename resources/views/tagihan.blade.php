@@ -28,7 +28,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						@foreach ($penjualan as $key => $value)
+						@foreach ($pembelian as $key => $value)
 						<tr>
 							<td>{{ $i++ }}</td>
 							<td>{{ $value->tanggal }}</td>
