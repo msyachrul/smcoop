@@ -173,12 +173,12 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fa fa-angle-up"></i>
     </a>
-    <!-- Ganti Password Modal -->
+    <!-- Ganti PIN Modal -->
     <div class="modal fade" id="pinModal" role="dialog">
       @if ($sesi['admin'] == true)
-      <form action="{{ URL::asset('/admin/pin')}}" method="POST">
+      <form id="adminGantiPIN">
       @else
-      <form action="{{ URL::asset('/pin')}}" method="POST">
+      <form id="userGantiPIN">
       @endif
         <div class="modal-dialog">
           <div class="modal-content">
@@ -192,14 +192,14 @@
               {{ csrf_field() }}
               <div class="form-group">
                 <label class="control-label col-sm">PIN Lama</label>
-                <input type="password" class="form-control" name="oldPin" placeholder="PIN Lama" required>
+                <input type="password" class="form-control" name="oldPin" placeholder="PIN Lama" required autofocus>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm">PIN Baru</label>
                 <input type="password" class="form-control" name="newPin" placeholder="PIN Baru" required>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm">PIN Konfirmasi</label>
+                <label class="control-label col-sm">Konfirmasi PIN Baru</label>
                 <input type="password" class="form-control" name="confirmPin" placeholder="PIN Konfirmasi" required>
               </div>
               <div class="form-group">

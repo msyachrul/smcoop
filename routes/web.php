@@ -20,7 +20,7 @@ Route::group(['middleware' => 'loginAuth'],function(){
   Route::get('/pembelian', 'userController@pembelian');
   Route::post('/pembelian/detail','userController@detail');
   Route::get('/tagihan','userController@tagihan');
-  Route::post('/pin','userController@ubahPin');
+  Route::post('/ubahpin','userController@ubahPin');
 });
 
 Route::get('/error', function(){
@@ -45,7 +45,7 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
   Route::get('/profile','anggotaController@profile');
   Route::post('/profile','anggotaController@updateProfile');
   // Route::get('/password','anggotaController@password');
-  Route::post('/pin','anggotaController@ubahPin');
+  Route::post('/ubahpin','anggotaController@ubahPin');
 
   // Anggota
   Route::group(['prefix' => 'anggota'], function(){    

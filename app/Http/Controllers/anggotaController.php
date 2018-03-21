@@ -126,16 +126,16 @@ class anggotaController extends Controller
         $anggota = Anggota::where('no',$cek['no'])->first();
 
         if ($request->oldPin != $anggota->pin) {
-            return redirect('/error');
+            return response()->json(array('errors' => 'PIN lama salah!'));
         }
 
         if ($request->newPin != $request->confirmPin) {
-            return redirect('/error');
+            return response()->json(array('errors' => 'PIN baru tidak sama!'));
         }
 
         $updatePin = Anggota::where('no',$cek['no'])->update(['pin' => $request->newPin]);
 
-        return redirect()->back();
+        return response()->json('PIN berhasil diubah');
     }
 
 }
