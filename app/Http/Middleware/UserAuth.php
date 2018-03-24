@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class LoginAuth
+class UserAuth
 {
     /**
      * Handle an incoming request.

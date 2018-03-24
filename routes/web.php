@@ -13,15 +13,18 @@
 
 
 
-Route::group(['middleware' => 'loginAuth'],function(){
-  Route::get('/', 'userController@index');
-  Route::get('/profile', 'userController@profile');
-  Route::post('/profile','userController@updateProfile');
-  Route::get('/pembelian', 'userController@pembelian');
-  Route::post('/pembelian','userController@daftarPembelian');
-  Route::post('/pembelian/detail','userController@detail');
-  Route::get('/tagihan','userController@tagihan');
-  Route::post('/ubahpin','userController@ubahPin');
+Route::group(['middleware' => 'userAuth'],function(){
+  Route::get('/', function() {
+    return view('home');
+  });
+  Route::get('/profile','anggotaController@profile');
+  Route::post('/profile','anggotaController@updateProfile');
+  Route::get('/pembelian','penjualanController@index');
+  Route::post('/pembelian','penjualanController@pembelianAnggota');
+  Route::post('/pembelian/detail','penjualanController@detailPembelianAnggota');
+  Route::get('/tagihan','penjualanController@tagihan');
+  Route::post('/tagihan','penjualanController@cariTagihan');
+  Route::post('/ubahpin','anggotaController@ubahPin');
 });
 
 Route::get('/error', function(){
