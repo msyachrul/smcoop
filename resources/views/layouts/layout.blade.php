@@ -66,12 +66,6 @@
             <span class="nav-link-text">Penjualan</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
-          <a class="nav-link" href="{{ URL::asset('/admin/pembelian') }}">
-            <i class="fa fa-fw fa-shopping-cart"></i>
-            <span class="nav-link-text">Pembelian</span>
-          </a>
-        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Laporan">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseLaporan" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-file"></i>

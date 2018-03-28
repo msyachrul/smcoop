@@ -66,16 +66,6 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
     Route::post('/hapus','barangController@hapus');
   });
 
-  // Pembelian
-  Route::group(['prefix' => 'pembelian'], function(){
-    Route::get('/', 'pembelianController@tampil');
-    Route::get('/autocomplete', 'pembelianController@autocomplete');
-    Route::post('/input', 'pembelianController@input');
-    Route::post('/edit', 'pembelianController@update');
-    Route::post('/hapus', 'pembelianController@hapus');
-    Route::post('/cari', 'pembelianController@cari');
-  });
-
   // Penjualan
   Route::group(['prefix' => 'penjualan'], function(){
     Route::get('/', 'penjualanController@index');
