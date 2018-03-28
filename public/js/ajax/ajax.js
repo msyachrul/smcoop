@@ -1,21 +1,11 @@
  // Ganti PIN
  $('#adminGantiPIN').on('submit', function(){
   event.preventDefault();
-  // console.log($(this).serializeArray());
-  let data = {};
-  $.each($(this).serializeArray(),function (i,field){
-    data[field.name] = field.value;
-  });
-  // console.log(data);
+  // console.log($(this).serialize());
   $.ajax({
     type: 'POST',
     url: '/admin/ubahpin',
-    data: {
-      '_token': data._token,
-      'oldPin': data.oldPin,
-      'newPin': data.newPin,
-      'confirmPin': data.confirmPin,
-    },
+    data: $(this).serialize(),
     success: function(data){
       if (data.errors != null) {
         toastr.error(data.errors,'Error',{timeOut:5000});
@@ -32,21 +22,11 @@
 
  $('#userGantiPIN').on('submit', function(){
   event.preventDefault();
-  // console.log($(this).serializeArray());
-  let data = {};
-  $.each($(this).serializeArray(),function (i,field){
-    data[field.name] = field.value;
-  });
-  // console.log(data);
+  // console.log($(this).serialize());
   $.ajax({
     type: 'POST',
     url: '/ubahpin',
-    data: {
-      '_token': data._token,
-      'oldPin': data.oldPin,
-      'newPin': data.newPin,
-      'confirmPin': data.confirmPin,
-    },
+    data: $(this).serialize(),
     success: function(data){
       if (data.errors != null) {
         toastr.error(data.errors,'Error',{timeOut:5000});
@@ -62,7 +42,6 @@
  });
 
  // Anggota
-
 
  $(document).ready(function(){
   $('#anggotaTable').DataTable();
