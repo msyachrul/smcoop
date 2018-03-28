@@ -7,7 +7,7 @@ use App\Penjualan;
 use App\DetailPenjualan;
 use Validator;
 use Response;
-use Illuminate\Support\Facades\input;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 
 class penjualanController extends Controller
@@ -84,7 +84,7 @@ class penjualanController extends Controller
         'kuantitas' => 'required|numeric|min:0',
       );
 
-      $validator = Validator::make(input::all(),$rules);
+      $validator = Validator::make(Input::all(),$rules);
 
       if ($validator->fails()) {
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
@@ -129,7 +129,7 @@ class penjualanController extends Controller
         'total' => 'required|numeric|min:0',
       );
 
-      $validator = Validator::make(input::all(),$rules);
+      $validator = Validator::make(Input::all(),$rules);
 
       if ($validator->fails()) {
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
@@ -212,7 +212,7 @@ class penjualanController extends Controller
         'kuantitas' => 'required|numeric|min:0',
       );
 
-      $validator = Validator::make(input::all(),$rules);
+      $validator = Validator::make(Input::all(),$rules);
 
       if ($validator->fails()) {
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
@@ -258,7 +258,7 @@ class penjualanController extends Controller
         'barang_id' => 'required|numeric|min:0',
       );
 
-      $validator = Validator::make(input::all(),$rules);
+      $validator = Validator::make(Input::all(),$rules);
 
       if ($validator->fails()) {
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));

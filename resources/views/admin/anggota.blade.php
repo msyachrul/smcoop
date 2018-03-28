@@ -46,7 +46,7 @@
 
           <!-- Modal daftarAnggota -->
           <div id="daftarAnggota" class="modal fade" role="dialog">
-            <form class="form-horizontal" role="form" id="tambahAnggota">
+            <form class="form-horizontal" role="form" method="POST" action="{{ URL::asset('/admin/anggota/daftar')}}">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
@@ -152,7 +152,7 @@
           </div>
           <!-- Modal editAnggota -->
           <div id="editAnggota" class="modal fade" role="dialog">
-            <form class="form-horizontal" role="form" id="updateAnggota">
+            <form class="form-horizontal" role="form" method="POST" action="{{ URL::asset('/admin/anggota/edit')}}">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
@@ -209,8 +209,8 @@
           </div>
           <!-- Modal hapusAnggota -->
           <div id="hapusAnggota" class="modal fade" role="dialog">
-            <form class="form-horizontal" role="form" id="deleteAnggota">
-            <div class="modal-dialog modal-lg">
+            <form class="form-horizontal" role="form" method="POST" action="{{ URL::asset('/admin/anggota/hapus')}}">
+            <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <h4 class="modal-title"></h4>
@@ -224,36 +224,11 @@
                     <label class="control-label col-sm-8">No Anggota</label>
                     {{ csrf_field() }}
                     <input type="text" class="form-control" name="no" placeholder="No Anggota" readonly>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm">PIN</label>
-                    <input type="text" class="form-control" name="pin" placeholder="Kode PIN" readonly>
-                  </div>                 
+                  </div>              
                   <div class="form-group">
                     <label class="control-label col-sm-2">Nama</label>
                     <input type="text" class="form-control" name="nama" placeholder="Nama Anggota" readonly>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-2">Departemen</label>
-                    <select class="form-control" name="departemen" readonly>
-                      <option value="null" disabled selected hidden>Posisi  Departemen</option>
-                      <option value="A & G">A & G</option>
-                      <option value="Accounting">Accounting</option>
-                      <option value="Engineering">Engineering</option>
-                      <option value="Food & Beverage">Food & Beverage</option>
-                      <option value="Human Resource">Human Resource</option>
-                      <option value="Housekeeping">Housekeeping</option>
-                      <option value="Sales & Marketing">Sales & Marketing</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-2">Posisi</label>
-                    <input type="text" class="form-control" name="posisi" placeholder="Posisi Pekerjaan" readonly>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-8">Total Simpanan</label>
-                    <input type="number" class="form-control" name="totalSimpanan" placeholder="Total Simpanan" readonly>
-                  </div>                
+                  </div>               
                 </div>
                   <div class="modal-footer">
                   <button type="submit" class="btn btn-danger">

@@ -243,6 +243,12 @@
     <script src="{{ URL::asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Ajax -->
     <script src="{{ URL::asset('js/ajax/ajax.js') }}"></script>
+    <!-- Popup toastr after event -->
+    @if(isset($info))
+      <script type="text/javascript">
+        toastr.{{$info['result']}}("{{$info['ket']}}","{{ucwords($info['result'])}}");
+      </script>
+    @endif
   </div>
 </body>
 

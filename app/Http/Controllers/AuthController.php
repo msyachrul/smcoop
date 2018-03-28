@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Anggota;
 use Validator;
-use Illuminate\Support\Facades\input;
 
 class AuthController extends Controller
 {

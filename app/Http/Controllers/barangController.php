@@ -6,84 +6,87 @@ use Illuminate\Http\Request;
 use App\Barang;
 use Validator;
 use Response;
-use Illuminate\Support\Facades\input;
+use Illuminate\Support\Facades\Input;
 
 class barangController extends Controller
 {
     public function index() {
-
     	$barang = Barang::all();
+        $info = session('info');
+
+        if (isset($info)) {
+            return view('admin.barang',compact('barang','info'));
+        }
 
     	return view('admin.barang',compact('barang'));
     }
 
-    public function tambah(Request $req) {
-
-    	$rules = array(
-    		'nama' => 'required',
+    public function tambah(Request $request) {
+        $rules = array(
+            'nama' => 'required',
             'harga' => 'required|numeric|min:0',
-    	);
+        );
 
-    	$validator = Validator::make(input::all(),$rules);
+        $validator = Validator::make(Input::all(),$rules);
 
-    	if ($validator->fails()) {
-    		return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
-    	}
-    	else {
-
-            $cek = Barang::where('nama',$req->nama)->get();
-
+        if ($validator->fails()) {
+            return redirect('/admin/barang')->with('info',['result' => 'error','ket' => $validator->getMessageBag()->first()]);
+        }
+        else {
+            $cek = Barang::where('nama',$request->nama)->get();
             if(count($cek)>0) {
-                return response::json(array('errors'=>'ada'));
+                $barang = Barang::all();
+
+                return redirect('/admin/barang')->with('info',['result' => 'error','ket' => 'Barang sudah terdaftar!']);
             }
             else {
-    		$barang = new Barang;
-    			$barang->nama = ucwords($req->nama);
-                $barang->harga = $req->harga;
-    		$barang->save();
+                $barang = new Barang;
+                    $barang->nama = ucwords($request->nama);
+                    $barang->harga = $request->harga;
+                $barang->save();
+                $barang = Barang::all();
 
-    		return response()->json($barang);
+                return redirect('/admin/barang')->with('info',['result' => 'success','ket' => 'Barang berhasil ditambahkan!']);
             }
-    	}
+        }
     }
 
-    public function update(Request $req) {
-
+    public function update(Request $request) {
     	$rules = array(
     		'id' => 'required',
     		'nama' => 'required',
             'harga' => 'required|numeric|min:0',
     	);
 
-    	$validator = Validator::make(input::all(),$rules);
+    	$validator = Validator::make(Input::all(),$rules);
 
     	if ($validator->fails()) {
-    		return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+    		return redirect('/admin/barang')->with('info',['result' => 'error','ket' => $validator->getMessageBag()->first()]);
     	}
     	else {
-    		$barang = Barang::find($req->id);
-    			$barang->nama = ucwords($req->nama);
-                $barang->harga = $req->harga;
+    		$barang = Barang::find($request->id);
+    			$barang->nama = ucwords($request->nama);
+                $barang->harga = $request->harga;
     		$barang->save();
 
-    		return response()->json($barang);
+    		return redirect('/admin/barang')->with('info',['result' => 'success','ket' => 'Data barang berhasil diperbaharui!']);
     	}    	
     }
 
-    public function hapus(Request $req) {
+    public function hapus(Request $request) {
     	
     	$rules = array(
     		'id' => 'required',
     	);
 
-    	$validator = Validator::make(input::all(),$rules);
+    	$validator = Validator::make(Input::all(),$rules);
 
     	if ($validator->fails()) {
-    		return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+    		return redirect('/admin/barang')->with('info',['result' => 'error','ket' => $validator->getMessageBag()->first()]);
     	}
     	else {
-    		$barang = Barang::find($req->id)->delete();
-    		return response()->json($barang);
+    		$barang = Barang::find($request->id)->delete();
+    		return redirect('/admin/barang')->with('info',['result' => 'success','ket' => 'Barang berhasil dihapus!']);
     	}
     }
 }

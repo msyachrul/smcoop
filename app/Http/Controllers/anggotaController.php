@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use App\Anggota;
 use Validator;
 use Response;
-use Illuminate\Support\Facades\input;
+use Illuminate\Support\Facades\Input;
 
 class anggotaController extends Controller
 {
-
     public function index()	{
     	$anggota = Anggota::orderBy('nama','ASC')->get();
+        $info = session('info');
+
+        if (isset($info)) {
+            return view('admin.anggota',compact('anggota','info'));
+        }
 
     	return view('admin.anggota',compact('anggota'));
     }
@@ -26,16 +30,16 @@ class anggotaController extends Controller
             'totalSimpanan' => 'numeric|min:0',
     	);
 
-    	$validator = Validator::make(input::all(),$rules);
+    	$validator = Validator::make(Input::all(),$rules);
 
     	if ($validator->fails()) {
-    		return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+            return redirect('/admin/anggota')->with('info',['result' => 'error','ket' => $validator->getMessageBag()->first()]);
     	}
     	else {
             $cek = Anggota::where('no',$request->no)->get();
 
             if (count($cek) > 0) {
-                return response::json(array('errors'=>'ada'));
+                return redirect('/admin/anggota')->with('info',['result' => 'error','ket' => 'No anggota sudah terdaftar!']);
             }
             else {
             $anggota = new Anggota;
@@ -50,7 +54,7 @@ class anggotaController extends Controller
 
     		$anggota->save();
 
-    		return response()->json('Anggota berhasil ditambahkan');
+    		return redirect('/admin/anggota')->with('info',['result' => 'success','ket' => 'Anggota berhasil didaftarkan']);
             }
     	}
     }
@@ -65,10 +69,10 @@ class anggotaController extends Controller
             'totalSimpanan' => 'numeric|min:0',
         );
 
-        $validator = Validator::make(input::all(),$rules);
+        $validator = Validator::make(Input::all(),$rules);
 
         if ($validator->fails()) {
-            return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+            return redirect('/admin/anggota')->with('info',['result' => 'error','ket' => $validator->getMessageBag()->first()]);
         }
         else {
             $anggota = Anggota::where('no',$request->no)->update([
@@ -79,7 +83,7 @@ class anggotaController extends Controller
                 'totalSimpanan' => $request->totalSimpanan,
             ]);
 
-            return response()->json($anggota);
+            return redirect('/admin/anggota')->with('info',['result' => 'success','ket' => 'Data anggota berhasil diperbaharui']);
         }
     }
 
@@ -87,14 +91,14 @@ class anggotaController extends Controller
         $rules = array(
             'no' => 'required',
         );
-        $validator = Validator::make(input::all(),$rules);
+        $validator = Validator::make(Input::all(),$rules);
 
         if ($validator->fails()) {
-            return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+            return redirect('/admin/anggota')->with('info',['result' => 'error','ket' => $validator->getMessageBag()->first()]);
         }        
         else {
             $anggota = Anggota::where('no',$request->no)->delete();
-            return response()->json($anggota);
+            return redirect('/admin/anggota')->with('info',['result' => 'success','ket' => 'Anggota berhasil dihapus']);
         }   
     }
 
