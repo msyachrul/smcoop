@@ -9,7 +9,7 @@
       	</div>
         <div class="card-body">
           <div class="table-responsive" id="reloadTable">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="anggotaTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th width="5%">#</th>
@@ -46,6 +46,7 @@
 
           <!-- Modal daftarAnggota -->
           <div id="daftarAnggota" class="modal fade" role="dialog">
+            <form class="form-horizontal" role="form" id="tambahAnggota">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
@@ -53,18 +54,18 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                  <form class="form-horizontal" role="form">
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
-                    <input type="text" class="form-control" name="no" id="no" placeholder="No Anggota" required>
+                    {{ csrf_field() }}
+                    <input type="text" class="form-control" name="no" placeholder="No Anggota" required>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="nama">Nama</label>
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Anggota" required>
+                    <label class="control-label col-sm-2">Nama</label>
+                    <input type="text" class="form-control" name="nama" placeholder="Nama Anggota" required>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="departemen">Departemen</label>
-                    <select class="form-control" name="departemen" id="departemen" required>
+                    <label class="control-label col-sm-2">Departemen</label>
+                    <select class="form-control" name="departemen" required>
                       <option value="null" disabled selected hidden>Posisi  Departemen</option>
                       <option value="A & G">A & G</option>
                       <option value="Accounting">Accounting</option>
@@ -76,17 +77,16 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="posisi">Posisi</label>
-                    <input type="text" class="form-control" id="posisi" name="posisi" placeholder="Posisi Pekerjaan" required>
+                    <label class="control-label col-sm-2">Posisi</label>
+                    <input type="text" class="form-control" name="posisi" placeholder="Posisi Pekerjaan" required>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-8" for="totalSimpanan">Total Simpanan</label>
-                    <input type="number" class="form-control" name="totalSimpanan" id="totalSimpanan" placeholder="Total Simpanan">
+                    <label class="control-label col-sm-8">Total Simpanan</label>
+                    <input type="number" class="form-control" name="totalSimpanan" placeholder="Total Simpanan">
                   </div>
-                  </form>                  
                 </div>
                   <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" id="tambahAnggota">
+                  <button type="submit" class="btn btn-primary">
                     <span class="fa fa-plus"></span> Daftar
                   </button>
                   <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -95,9 +95,11 @@
                   </div>
               </div>
             </div>
+            </form>
           </div>
           <!-- Modal tampilAnggota -->
           <div id="tampilAnggota" class="modal fade" role="dialog">
+            <form class="form-horizontal" role="form">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
@@ -105,22 +107,21 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                  <form class="form-horizontal" role="form">
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
-                    <input type="text" class="form-control" name="no" id="tampilNoAnggota" placeholder="No Anggota" disabled>
+                    <input type="text" class="form-control" name="no" placeholder="No Anggota" disabled>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm">PIN</label>
-                    <input type="text" class="form-control" name="pin" id="tampilPin" disabled>
+                    <input type="text" class="form-control" name="pin" placeholder="Kode PIN" disabled>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="tampilNama">Nama</label>
-                    <input type="text" class="form-control" id="tampilNama" name="nama" placeholder="Nama Anggota" disabled>
+                    <label class="control-label col-sm-2">Nama</label>
+                    <input type="text" class="form-control" name="nama" placeholder="Nama Anggota" disabled>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="tampilDepartemen">Departemen</label>
-                    <select class="form-control" name="departemen" id="tampilDepartemen" disabled>
+                    <label class="control-label col-sm-2">Departemen</label>
+                    <select class="form-control" name="departemen" disabled>
                       <option value="null" disabled selected hidden>Posisi  Departemen</option>
                       <option value="A & G">A & G</option>
                       <option value="Accounting">Accounting</option>
@@ -132,14 +133,13 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="tampilPosisi">Posisi</label>
-                    <input type="text" class="form-control" id="tampilPosisi" name="posisi" placeholder="Posisi Pekerjaan" disabled>
+                    <label class="control-label col-sm-2">Posisi</label>
+                    <input type="text" class="form-control" name="posisi" placeholder="Posisi Pekerjaan" disabled>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-8" for="editTotalSimpanan">Total Simpanan</label>
-                    <input type="number" class="form-control" name="totalSimpanan" id="tampilTotalSimpanan" placeholder="Total Simpanan" disabled>
+                    <label class="control-label col-sm-8">Total Simpanan</label>
+                    <input type="number" class="form-control" name="totalSimpanan" placeholder="Total Simpanan" disabled>
                   </div>
-                  </form>                  
                 </div>
                   <div class="modal-footer">
                   <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -148,9 +148,11 @@
                   </div>
               </div>
             </div>
+            </form>
           </div>
           <!-- Modal editAnggota -->
           <div id="editAnggota" class="modal fade" role="dialog">
+            <form class="form-horizontal" role="form" id="updateAnggota">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
@@ -158,22 +160,22 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                  <form class="form-horizontal" role="form">
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
-                    <input type="text" class="form-control" name="no" id="editNoAnggota" placeholder="No Anggota" disabled>
+                    {{ csrf_field() }}
+                    <input type="text" class="form-control" name="no" placeholder="No Anggota" readonly>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm">PIN</label>
-                    <input type="text" class="form-control" name="pin" id="editPin" required>
+                    <input type="text" class="form-control" name="pin" placeholder="Kode PIN" required>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="editNama">Nama</label>
-                    <input type="text" class="form-control" id="editNama" name="nama" placeholder="Nama Anggota" required>
+                    <label class="control-label col-sm-2">Nama</label>
+                    <input type="text" class="form-control" name="nama" placeholder="Nama Anggota" required>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="editDepartemen">Departemen</label>
-                    <select class="form-control" name="departemen" id="editDepartemen" required>
+                    <label class="control-label col-sm-2">Departemen</label>
+                    <select class="form-control" name="departemen" required>
                       <option value="null" disabled selected hidden>Posisi  Departemen</option>
                       <option value="A & G">A & G</option>
                       <option value="Accounting">Accounting</option>
@@ -185,17 +187,16 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="editPosisi">Posisi</label>
-                    <input type="text" class="form-control" id="editPosisi" name="posisi" placeholder="Posisi Pekerjaan" required>
+                    <label class="control-label col-sm-2">Posisi</label>
+                    <input type="text" class="form-control" name="posisi" placeholder="Posisi Pekerjaan" required>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-8" for="editTotalSimpanan">Total Simpanan</label>
-                    <input type="number" class="form-control" name="totalSimpanan" id="editTotalSimpanan" placeholder="Total Simpanan">
+                    <label class="control-label col-sm-8">Total Simpanan</label>
+                    <input type="number" class="form-control" name="totalSimpanan" placeholder="Total Simpanan">
                   </div>
-                  </form>                  
                 </div>
                   <div class="modal-footer">
-                  <button type="submit" class="btn btn-info" id="updateAnggota">
+                  <button type="submit" class="btn btn-info">
                     <span class="fa fa-pencil"></span> Update
                   </button>
                   <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -204,9 +205,11 @@
                   </div>
               </div>
             </div>
+            </form>
           </div>
           <!-- Modal hapusAnggota -->
           <div id="hapusAnggota" class="modal fade" role="dialog">
+            <form class="form-horizontal" role="form" id="deleteAnggota">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
@@ -214,25 +217,25 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                  <form class="form-horizontal" role="form">
                   <div class="form-group">
-                    <label class="control-label col-sm-12 text-center"><b>Apakah anda yakin menghapus anggota ini?</b></label>  
+                    <label class="control-label col-sm-12 text-center"><b>Apakah anda yakin menghapus anggota ini?</b></label>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-8">No Anggota</label>
-                    <input type="text" class="form-control" name="no" id="hapusNoAnggota" placeholder="No Anggota" disabled>
+                    {{ csrf_field() }}
+                    <input type="text" class="form-control" name="no" placeholder="No Anggota" readonly>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm">PIN</label>
-                    <input type="text" class="form-control" name="pin" id="hapusPin" disabled>
+                    <input type="text" class="form-control" name="pin" placeholder="Kode PIN" readonly>
                   </div>                 
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="hapusNama">Nama</label>
-                    <input type="text" class="form-control" id="hapusNama" name="nama" placeholder="Nama Anggota" disabled>
+                    <label class="control-label col-sm-2">Nama</label>
+                    <input type="text" class="form-control" name="nama" placeholder="Nama Anggota" readonly>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="hapusDepartemen">Departemen</label>
-                    <select class="form-control" name="departemen" id="hapusDepartemen" disabled>
+                    <label class="control-label col-sm-2">Departemen</label>
+                    <select class="form-control" name="departemen" readonly>
                       <option value="null" disabled selected hidden>Posisi  Departemen</option>
                       <option value="A & G">A & G</option>
                       <option value="Accounting">Accounting</option>
@@ -244,17 +247,16 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-2" for="hapusPosisi">Posisi</label>
-                    <input type="text" class="form-control" id="hapusPosisi" name="posisi" placeholder="Posisi Pekerjaan" disabled>
+                    <label class="control-label col-sm-2">Posisi</label>
+                    <input type="text" class="form-control" name="posisi" placeholder="Posisi Pekerjaan" readonly>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-8" for="hapusTotalSimpanan">Total Simpanan</label>
-                    <input type="number" class="form-control" name="totalSimpanan" id="hapusTotalSimpanan" placeholder="Total Simpanan" disabled>
-                  </div>
-                  </form>                  
+                    <label class="control-label col-sm-8">Total Simpanan</label>
+                    <input type="number" class="form-control" name="totalSimpanan" placeholder="Total Simpanan" readonly>
+                  </div>                
                 </div>
                   <div class="modal-footer">
-                  <button type="submit" class="btn btn-danger" id="buangAnggota">
+                  <button type="submit" class="btn btn-danger">
                     <span class="fa fa-trash"></span> Hapus
                   </button>
                   <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -263,5 +265,6 @@
                   </div>
               </div>
             </div>
+            </form>
           </div>
 @endsection

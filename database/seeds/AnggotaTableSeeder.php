@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class AnggotaTableSeeder extends Seeder
 {
@@ -24,8 +23,6 @@ class AnggotaTableSeeder extends Seeder
                 'posisi' => $faker->jobTitle,
                 'totalSimpanan' => $faker->randomNumber(6),
                 'admin' => false,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ]);
         }
     }

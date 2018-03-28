@@ -63,26 +63,34 @@
 
  // Anggota
 
+
+ $(document).ready(function(){
+  $('#anggotaTable').DataTable();
+ });
  // ajax tampil modal daftarAnggota
  $(document).on('click','.daftarAnggota', function(){
-   $('#daftarAnggota').modal('show');
+   $('#daftarAnggota').modal('show');   
    $('.form-horizontal').show();
    $('.modal-title').text('Daftar Anggota');
+   $('input[name=no]').val('');
+   // $('input[name=pin]').val('');
+   $('input[name=nama]').val('');
+   $('select[name=departemen]').val('null');
+   $('input[name=posisi]').val('');
+   $('input[name=totalSimpanan').val('');
+ });
+ // focus
+ $('#daftarAnggota').on('shown.bs.modal', function(){
+    $('input[name=no]').focus();
  });
   // fungsi tambahAnggota
-  $('#tambahAnggota').click(function(){
+  $('#tambahAnggota').on('submit',function(){
+    event.preventDefault();
+    // console.log($(this).serialize());
   	$.ajax({
   		type: 'POST',
   		url: '/admin/anggota/daftar',
-  		data: {
-  			'_token': $('input[name=_token]').val(),
-        'no': $('input[name=no]').val(),
-  			'nama': $('input[name=nama]').val(),
-  			'departemen': $('select[name=departemen]').val(),
-  			'posisi': $('input[name=posisi]').val(),
-        'totalSimpanan': $('input[name=totalSimpanan]').val(),
-  		},
-      // Validasi
+  		data: $(this).serialize(), 
   		success: function(data){
   			if (data.errors == 'ada') {
           toastr.error('No anggota sudah terdaftar!','Error',{timeOut:5000});
@@ -92,60 +100,48 @@
   			}       
   			else {
   				toastr.success('Anggota berhasil ditambahkan','Success',{timeOut:5000});
-          $('#daftarAnggota').modal('hide');
+          $('#daftarAnggota').modal('hide');          
           setTimeout(function(){
             location.reload();
           },500);
   			}
   		},
   	});
-   $('#no').val('');
-   $('#nama').val('');
-   $('#departemen').val('null');
-   $('#posisi').val('');
-   $('#totalSimpanan').val('');
+   $('input').val('');
+   $('select').val('null');
   });
+
+  function showDataAnggota(param) {
+   $('input[name=no]').val(param.data('no'));
+   $('input[name=pin]').val(param.data('pin'));
+   $('input[name=nama]').val(param.data('nama'));
+   $('select[name=departemen]').val(param.data('departemen'));
+   $('input[name=posisi]').val(param.data('posisi'));
+   $('input[name=totalSimpanan').val(param.data('totalsimpanan'));
+  };
+
  // ajax tampil modal tampilAnggota
  $(document).on('click','.tampilAnggota', function() {
    $('#tampilAnggota').modal('show');
    $('.form-horizontal').show();
    $('.modal-title').text('Data Anggota');
-   $('#tampilId').val($(this).data('id'));
-   $('#tampilNoAnggota').val($(this).data('no'));
-   $('#tampilPin').val($(this).data('pin'));
-   $('#tampilNama').val($(this).data('nama'));
-   $('#tampilDepartemen').val($(this).data('departemen'));
-   $('#tampilPosisi').val($(this).data('posisi'));
-   $('#tampilTotalSimpanan').val($(this).data('totalsimpanan'));
+   showDataAnggota($(this));
  });
  // ajax tampil modal editAnggota
  $(document).on('click','.editAnggota', function() {
    $('#editAnggota').modal('show');
    $('.form-horizontal').show();
    $('.modal-title').text('Update Anggota');
-   $('#editId').val($(this).data('id'));
-   $('#editPin').val($(this).data('pin'));
-   $('#editNoAnggota').val($(this).data('no'));
-   $('#editNama').val($(this).data('nama'));
-   $('#editDepartemen').val($(this).data('departemen'));
-   $('#editPosisi').val($(this).data('posisi'));
-   $('#editTotalSimpanan').val($(this).data('totalsimpanan'));
+   showDataAnggota($(this));
  });
   // fungsi editAnggota
-  $('#updateAnggota').click(function() {
+  $('#updateAnggota').on('submit',function() {
+    event.preventDefault();
+    // console.log($(this).serialize());
     $.ajax({
       type: 'POST',
       url: '/admin/anggota/edit',
-      data: {
-        '_token': $('input[name=_token]').val(),
-        'id': $('#editId').val(),
-        'no': $('#editNoAnggota').val(),
-        'pin': $('#editPin').val(),
-        'nama': $('#editNama').val(),
-        'departemen': $('#editDepartemen').val(),
-        'posisi': $('#editPosisi').val(),
-        'totalSimpanan': $('#editTotalSimpanan').val(),
-      },
+      data: $(this).serialize(),
       // Validasi
       success: function(data) {
         if (data.errors) {
@@ -166,23 +162,16 @@
    $('#hapusAnggota').modal('show');
    $('.form-horizontal').show();
    $('.modal-title').text('Hapus Anggota');
-   $('#hapusId').val($(this).data('id'));
-   $('#hapusPin').val($(this).data('pin'));
-   $('#hapusNoAnggota').val($(this).data('no'));  
-   $('#hapusNama').val($(this).data('nama'));
-   $('#hapusDepartemen').val($(this).data('departemen'));
-   $('#hapusPosisi').val($(this).data('posisi'));
-   $('#hapusTotalSimpanan').val($(this).data('totalsimpanan'));
+   showDataAnggota($(this));
  });
   // fungsi hapusAnggota
-  $('#buangAnggota').click(function() {
+  $('#deleteAnggota').on('submit',function() {
+    event.preventDefault();
+    // console.log($(this).serialize());
     $.ajax({
       type: 'POST',
       url: '/admin/anggota/hapus',
-      data: {
-        '_token': $('input[name=_token]').val(),
-        'no': $('#hapusNoAnggota').val(),
-      },
+      data: $(this).serialize(),
       success: function(data) {
         if (data.errors) {
           toastr.error('Anggota gagal dihapus!','Error',{timeOut:5000});
@@ -302,181 +291,7 @@
   });
  });
 
-// Pembelian
-
- // ajax tampil modal inputPembelian
- $(document).on('click','.inputPembelian',function(){
-    $('#inputPembelian').modal('show');
-    $('.modal-title').text('Input Pembelian');
-    $('.form-horizontal').show();
- });
- // autocomplete namaBarang   
- $( '.namaBarang' ).autocomplete({
-    source: '/admin/pembelian/autocomplete',
-    select: function(event,ui) {
-      event.preventDefault();
-      $('.namaBarang').val(ui.item.label);
-      $('.idBarang').val(ui.item.value);
-    }
- });
- // fungsi inputPembelian
- $('#_inputPembelian').click(function(){
-    $.ajax({
-      type: 'POST',
-      url: '/admin/pembelian/input',
-      data: {
-        '_token': $('input[name=_token]').val(),
-        'tanggal': $('input[name=tanggal]').val(),
-        'harga': $('input[name=harga]').val(),
-        'kuantitas': $('input[name=kuantitas]').val(),
-        'barang_id': $('input[name=barang_id]').val(),
-      },
-      success:function(data){
-        if (data.errors == 'ada') {
-          toastr.error('Data pembelian sudah ada!','Error',{timeOut:5000});
-        }
-        else if (data.errors) {
-          toastr.error('Input pembelian gagal!','Error',{timeOut:5000});
-        }
-        else {
-          toastr.success('Input pembelian berhasil','Success',{timeOut:5000});
-          // $('#inputPembelian').modal('hide');
-          setTimeout(function(){
-            location.reload();
-          },500);
-        }
-      }
-    });
-    $('#barang_id').val('');
-    $('#namaBarang').val('');
-    $('#harga').val('');
-    $('#kuantitas').val('');
- });
- // ajax tampil modal editPembelian
- $(document).on('click','.editPembelian',function(){
-  $('#editPembelian').modal('show');
-  $('.modal-title').text('Edit Pembelian');
-  $('.form-horizontal').show();
-  $('#editId').val($(this).data('id'));
-  $('#editTanggal').val($(this).data('tanggal'));
-  $('#editBarang_id').val($(this).data('barang_id'));
-  $('#editNamaBarang').val($(this).data('nama'));
-  $('#editHarga').val($(this).data('harga'));
-  $('#editKuantitas').val($(this).data('kuantitas'));
- });
- // fungsi editPembelian
- $('#_editPembelian').click(function(){
-  $.ajax({
-    type: 'POST',
-    url: '/admin/pembelian/edit',
-    data: {
-      '_token': $('input[name=_token]').val(),
-      'id': $('#editId').val(),
-      'harga': $('#editHarga').val(),
-      'kuantitas': $('#editKuantitas').val(),
-    },
-    success:function(data){
-      if (data.errors) {
-          toastr.error('Edit pembelian gagal!','Error',{timeOut:5000});
-        }
-      else {
-          toastr.success('Edit pembelian berhasil','Success',{timeOut:5000});
-          $('#editPembelian').modal('hide');
-          $('#keteranganTanggal').text('');
-          setTimeout(function(){
-            location.reload();
-          },500);
-      }
-    }
-  });
- });
- // ajax tampil modal hapusPembelian
- $(document).on('click','.hapusPembelian',function(){
-  $('#hapusPembelian').modal('show');
-  $('.modal-title').text('Hapus Pembelian');
-  $('.form-horizontal').show();
-  $('#hapusId').val($(this).data('id'));
-  $('#hapusTanggal').val($(this).data('tanggal'));
-  $('#hapusBarang_id').val($(this).data('barang_id'));
-  $('#hapusNamaBarang').val($(this).data('nama'));
-  $('#hapusHarga').val($(this).data('harga'));
-  $('#hapusKuantitas').val($(this).data('kuantitas'));
- });
- // fungsi hapusPembelian
- $('#_hapusPembelian').click(function(){
-  $.ajax({
-    type: 'POST',
-    url: '/admin/pembelian/hapus',
-    data: {
-      '_token': $('input[name=_token]').val(),
-      'id': $('#hapusId').val(),      
-    },
-    success:function(data){
-      if (data.errors) {
-          toastr.error('Hapus pembelian gagal!','Error',{timeOut:5000});
-        }
-      else {
-          toastr.success('Hapus pembelian berhasil','Success',{timeOut:5000});
-          $('#hapusPembelian').modal('hide');
-          setTimeout(function(){
-            location.reload();
-          },500);
-        }
-    }
-  });
- });
-
- // ajax tampil modal cariPembelian
- $(document).on('click','.cariPembelian',function(){
-  $('#cariPembelian').modal('show');
-  $('.modal-title').text('Laporan Pembelian');
-  $('.form-horizontal').show();
- });
- // fungsi cariPembelian
- $('#_cariPembelian').click(function(){
-  $.ajax({
-    type: 'POST',
-    url: '/admin/pembelian/cari',
-    data: {
-      '_token': $('input[name=_token]').val(),
-      'dariTanggal': $('input[name=dariTanggal]').val(),
-      'sampaiTanggal': $('input[name=sampaiTanggal]').val(),
-    },
-    success:function(data){
-      if (data.errors) {
-          toastr.error('Cari laporan pembelian gagal!','Error',{timeOut:5000});
-      }
-      else {
-          toastr.success('Cari laporan pembelian berhasil','Success',{timeOut:5000});
-          $('#cariPembelian').modal('hide');
-          $('#keteranganTanggal').html('Tanggal <b>' + $('input[name=dariTanggal]').val() + '</b> sampai <b>' + $('input[name=sampaiTanggal]').val()) + '</b>';
-          var html = '';
-          for (var i = 0; i < data.length; i++) {
-            html += '<tr>';
-            html += '<td>' + (i+1) + '</td>';
-            html += '<td>' + data[i].tanggal + '</td>';
-            html += '<td>' + data[i].nama + '</td>';
-            html += '<td class="text-right">Rp ' + data[i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + '</td>';
-            html += '<td class="text-right">' + data[i].kuantitas + '</td>';
-            html += '<td class="text-right">Rp ' + (data[i].harga * data[i].kuantitas).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + '</td>';
-            html += '<td><a href="#" class="editPembelian btn btn-info btn-sm" data-id="' + data[i].id + '" data-tanggal="' + data[i].tanggal + '" data-nama="' + data[i].nama + '" data-harga="' + data[i].harga + '" data-kuantitas="' + data[i].kuantitas + '" data-barang_id="' + data[i].barang_id + '"><i class="fa fa-pencil"></i></a> <a href="#" class="hapusPembelian btn btn-danger btn-sm" data-id="' + data[i].id + '" data-tanggal="' + data[i].tanggal + '" data-nama="' + data[i].nama + '" data-harga="' + data[i].harga + '" data-kuantitas="' + data[i].kuantitas + '" data-barang_id="' + data[i].barang_id + '"><i class="fa fa-trash"></i></a></td>';
-            html += '</tr>';
-          }
-          $('#tbodyCari').html(html);
-      }
-    }
-  });
- });
-
  // Penjualan
-
- // ajax tampil modal cariPenjualan
- $(document).on('click','.cariPenjualan',function(){
-  $('#cariPenjualan').modal('show');
-  $('.modal-title').text('Cari Penjualan');
-  $('.form-horziontal').show();
- });
- // BELUM BERES
 
  // autocomplete i_penjualanNamaAnggota
  $( '.i_penjualanNamaAnggota' ).autocomplete({

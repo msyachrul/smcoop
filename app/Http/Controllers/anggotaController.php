@@ -17,7 +17,7 @@ class anggotaController extends Controller
     	return view('admin.anggota',compact('anggota'));
     }
 
-    public function tambah(Request $req) {
+    public function tambah(Request $request) {
     	$rules = array(
             'no' => 'required',
     		'nama' => 'required',
@@ -32,7 +32,7 @@ class anggotaController extends Controller
     		return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
     	}
     	else {
-            $cek = Anggota::where('no',$req->no)->get();
+            $cek = Anggota::where('no',$request->no)->get();
 
             if (count($cek) > 0) {
                 return response::json(array('errors'=>'ada'));
@@ -40,22 +40,22 @@ class anggotaController extends Controller
             else {
             $anggota = new Anggota;
 
-    			$anggota->no = $req->no;
+    			$anggota->no = $request->no;
                 $anggota->pin = rand(100000,999999);
-                $anggota->nama = ucwords($req->nama);
-    			$anggota->departemen = $req->departemen;
-    			$anggota->posisi = ucwords($req->posisi);
-                $anggota->totalSimpanan = $req->totalSimpanan;
+                $anggota->nama = ucwords($request->nama);
+    			$anggota->departemen = $request->departemen;
+    			$anggota->posisi = ucwords($request->posisi);
+                $anggota->totalSimpanan = $request->totalSimpanan;
                 $anggota->admin = false;
 
     		$anggota->save();
 
-    		return response()->json($anggota);
+    		return response()->json('Anggota berhasil ditambahkan');
             }
     	}
     }
 
-    public function update(Request $req) {
+    public function update(Request $request) {
         $rules = array(
             'no' => 'required',
             'pin' => 'required',
@@ -71,19 +71,19 @@ class anggotaController extends Controller
             return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
         }
         else {
-            $anggota = Anggota::where('no',$req->no)->update([
-                'pin' => $req->pin,
-                'nama' => ucwords($req->nama),
-                'departemen' => $req->departemen,
-                'posisi' => ucwords($req->posisi),
-                'totalSimpanan' => $req->totalSimpanan,
+            $anggota = Anggota::where('no',$request->no)->update([
+                'pin' => $request->pin,
+                'nama' => ucwords($request->nama),
+                'departemen' => $request->departemen,
+                'posisi' => ucwords($request->posisi),
+                'totalSimpanan' => $request->totalSimpanan,
             ]);
 
             return response()->json($anggota);
         }
     }
 
-    public function hapus(Request $req) {
+    public function hapus(Request $request) {
         $rules = array(
             'no' => 'required',
         );
@@ -93,7 +93,7 @@ class anggotaController extends Controller
             return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
         }        
         else {
-            $anggota = Anggota::where('no',$req->no)->delete();
+            $anggota = Anggota::where('no',$request->no)->delete();
             return response()->json($anggota);
         }   
     }
