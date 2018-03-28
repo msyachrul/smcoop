@@ -129,14 +129,14 @@
           @if ($sesi['admin'] == true)
           <a class="nav-link dropdown-toggle" data-toggle="dropdown">Administrator | <b>{{ $sesi['nama'] }}</b></a>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li class="dropdown-item"><a href="{{ URL::asset('admin/profile') }}"><i class="fa fa-fw fa-user"></i>Profil</a></li>
+            <a href="{{ URL::asset('admin/profile') }}"><li class="dropdown-item"><i class="fa fa-fw fa-user"></i>Profil</li></a>
           @else
           <a class="nav-link dropdown-toggle" data-toggle="dropdown">Pengguna | <b>{{ $sesi['nama'] }}</b></a>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li class="dropdown-item"><a href="{{ URL::asset('/profile') }}"><i class="fa fa-fw fa-user"></i>Profil</a></li>
+            <a href="{{ URL::asset('/profile') }}"><li class="dropdown-item"><i class="fa fa-fw fa-user"></i>Profil</li></a>
           @endif
-            <li class="dropdown-item"><a href="#" data-toggle="modal" data-target="#pinModal"><i class="fa fa-fw fa-gear"></i>Ganti PIN</a></li>
-            <li class="dropdown-item"><a href="#" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-fw fa-sign-out"></i>Keluar</a></li>
+            <a href="#" data-toggle="modal" data-target="#pinModal"><li class="dropdown-item"><i class="fa fa-fw fa-gear"></i>Ganti PIN</li></a>
+            <a href="#" data-toggle="modal" data-target="#logoutModal"><li class="dropdown-item"><i class="fa fa-fw fa-sign-out"></i>Keluar</li></a>
           </ul>          
           </div>
         </li>
