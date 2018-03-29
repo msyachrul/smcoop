@@ -27,7 +27,7 @@ class anggotaController extends Controller
     		'nama' => 'required',
     		'departemen' => 'required',
     		'posisi' => 'required',
-            'totalSimpanan' => 'numeric|min:0',
+            'tanggalBergabung' => 'required',
     	);
 
     	$validator = Validator::make(Input::all(),$rules);
@@ -49,7 +49,7 @@ class anggotaController extends Controller
                 $anggota->nama = ucwords($request->nama);
     			$anggota->departemen = $request->departemen;
     			$anggota->posisi = ucwords($request->posisi);
-                $anggota->totalSimpanan = $request->totalSimpanan;
+                $anggota->tanggal_bergabung = $request->tanggalBergabung;
                 $anggota->admin = false;
 
     		$anggota->save();
@@ -66,7 +66,7 @@ class anggotaController extends Controller
             'nama' => 'required',
             'departemen' => 'required',
             'posisi' => 'required',
-            'totalSimpanan' => 'numeric|min:0',
+            'tanggalBergabung' => 'required',
         );
 
         $validator = Validator::make(Input::all(),$rules);
@@ -80,7 +80,7 @@ class anggotaController extends Controller
                 'nama' => ucwords($request->nama),
                 'departemen' => $request->departemen,
                 'posisi' => ucwords($request->posisi),
-                'totalSimpanan' => $request->totalSimpanan,
+                'tanggal_bergabung' => $request->tanggalBergabung,
             ]);
 
             return redirect('/admin/anggota')->with('info',['result' => 'success','ket' => 'Data anggota berhasil diperbaharui']);
@@ -108,7 +108,15 @@ class anggotaController extends Controller
 
         $anggota = Anggota::where('no',$cek['no'])->first();
 
-        return view('profile')->with('anggota',$anggota);
+        $dateTime1 = date_create($anggota->tanggal_bergabung);
+        $dateTime2 = date_create(date('Y-m-d'));
+        $interval = date_diff($dateTime1,$dateTime2);
+
+        $bulan = ($interval->y * 12) + $interval->m;
+
+        $totalSimpanan = 100000 + ( 100000 * $bulan );
+
+        return view('profile',compact('anggota','totalSimpanan'));
     }
 
     public function updateProfile(Request $request)

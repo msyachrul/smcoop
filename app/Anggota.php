@@ -9,7 +9,7 @@ class Anggota extends Model
 	protected $table = "anggotas";
 
     protected $fillable = [
-        'no','pin','nama', 'departemen','posisi','totalSimpanan','admin',
+        'no','pin','nama', 'departemen','posisi','tanggal_bergabung','admin',
     ];
 
 	public $timestamps = false;    

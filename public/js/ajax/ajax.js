@@ -62,7 +62,7 @@
     $('input[name=nama]').val('');
     $('select[name=departemen]').val('null');
     $('input[name=posisi]').val('');
-    $('input[name=totalSimpanan').val('');
+    $('input[name=tanggalBergabung').val('');
     $('#daftarAnggota').on('shown.bs.modal', function(){
       $('input[name=no]').focus();
     });
@@ -74,7 +74,7 @@
     $('input[name=nama]').val(param.data('nama'));
     $('select[name=departemen]').val(param.data('departemen'));
     $('input[name=posisi]').val(param.data('posisi'));
-    $('input[name=totalSimpanan').val(param.data('totalsimpanan'));
+    $('input[name=tanggalBergabung').val(param.data('tanggalbergabung'));
   };
 
   // ajax tampil modal tampilAnggota

@@ -15,7 +15,7 @@
                   <th width="5%">#</th>
                   <th width="20#">No Anggota</th>
                   <th width="30%">Nama</th>
-                  <th width="30%">Total Simpanan</th>
+                  <th width="30%">Tanggal Bergabung</th>
                   <th class="text-center" width="15%">
                     <a href="#" class="daftarAnggota btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                   </th>
@@ -29,12 +29,12 @@
                 	<td>{{ $i++ }}</td>
               		<td>{{ $value->no }}</td>
               		<td>{{ $value->nama }}</td>
-                  <td>Rp <?php echo number_format($value->totalSimpanan); ?></td>
+                  <td>{{ $value->tanggal_bergabung }}</td>
                   <!-- Trigger Modal -->
                   <td class="text-center">
-                    <a href="#" class="tampilAnggota btn btn-success btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-eye"></i></a>
-                    <a href="#" class="editAnggota btn btn-info btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="hapusAnggota btn btn-danger btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-totalsimpanan="{{ $value->totalSimpanan }}"><i class="fa fa-trash"></i></a>
+                    <a href="#" class="tampilAnggota btn btn-success btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-tanggalbergabung="{{ $value->tanggal_bergabung }}"><i class="fa fa-eye"></i></a>
+                    <a href="#" class="editAnggota btn btn-info btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-tanggalbergabung="{{ $value->tanggal_bergabung }}"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="hapusAnggota btn btn-danger btn-sm" data-no="{{ $value->no }}" data-pin="{{ $value->pin }}" data-nama="{{ $value->nama }}" data-departemen="{{ $value->departemen }}" data-posisi="{{ $value->posisi }}" data-tanggalbergabung="{{ $value->tanggal_bergabung }}"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -81,8 +81,8 @@
                     <input type="text" class="form-control" name="posisi" placeholder="Posisi Pekerjaan" required>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-8">Total Simpanan</label>
-                    <input type="number" class="form-control" name="totalSimpanan" placeholder="Total Simpanan">
+                    <label class="control-label col-sm-8">Tanggal Bergabung</label>
+                    <input type="text" class="form-control" name="tanggalBergabung" placeholder="YYYY-MM-DD">
                   </div>
                 </div>
                   <div class="modal-footer">
@@ -137,8 +137,8 @@
                     <input type="text" class="form-control" name="posisi" placeholder="Posisi Pekerjaan" disabled>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-8">Total Simpanan</label>
-                    <input type="number" class="form-control" name="totalSimpanan" placeholder="Total Simpanan" disabled>
+                    <label class="control-label col-sm-8">Tanggal Bergabung</label>
+                    <input type="text" class="form-control" name="tanggalBergabung" placeholder="YYYY-MM-DD" disabled>
                   </div>
                 </div>
                   <div class="modal-footer">
@@ -191,8 +191,8 @@
                     <input type="text" class="form-control" name="posisi" placeholder="Posisi Pekerjaan" required>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-sm-8">Total Simpanan</label>
-                    <input type="number" class="form-control" name="totalSimpanan" placeholder="Total Simpanan">
+                    <label class="control-label col-sm-8">Tanggal Bergabung</label>
+                    <input type="text" class="form-control" name="tanggalBergabung" placeholder="YYYY-MM-DD">
                   </div>
                 </div>
                   <div class="modal-footer">

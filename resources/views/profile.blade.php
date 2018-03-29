@@ -52,7 +52,7 @@
 					<div class="col-sm">
 						<label class="control-label col-sm">Total Simpanan</label>
 						<div class="form-control">
-							Rp {{ number_format($anggota->totalSimpanan) }}
+							Rp {{ number_format($totalSimpanan) }}
 						</div>
 					</div>
 				</div>

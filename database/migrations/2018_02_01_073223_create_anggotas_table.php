@@ -19,7 +19,7 @@ class CreateAnggotasTable extends Migration
             $table->string('nama',50);
             $table->string('departemen',30)->nullable();
             $table->string('posisi',30)->nullable();
-            $table->integer('totalSimpanan')->nullable();
+            $table->date('tanggal_bergabung')->nullable();
             $table->boolean('admin')->default(false);
         });
     }
