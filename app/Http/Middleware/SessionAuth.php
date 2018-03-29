@@ -18,8 +18,13 @@ class SessionAuth
        
         $cek = session('data');
 
-        if(!empty($cek)) {
-            return redirect('/error');
+        if (!empty($cek)) {
+            if($cek['admin'] == true) {
+                return redirect('/error')->withErrors('admin');
+            }
+            if($cek['admin'] != true) {
+                return redirect('/error')->withErrors('user');
+            }
         }
         
         return $next($request);

@@ -28,13 +28,17 @@ class penjualanController extends Controller
 
     public function cari(Request $request)
     {
-        $tanggal = ['dari'=>$request->dari,'sampai'=>$request->sampai];
-        $penjualan = Penjualan::whereBetween('tanggal',[$request->dari,$request->sampai])->orderBy('tanggal','ASC')->get();
+        $dari = $request->dariTahun."-".$request->dariBulan."-".$request->dariTanggal;
+        $sampai = $request->sampaiTahun."-".$request->sampaiBulan."-".$request->sampaiTanggal;
+    
+        $tanggal = ["dari" => $dari,"sampai" => $sampai];
 
-        return view('admin.penjualan')->with('penjualan',$penjualan)->with('tanggal',$tanggal);
+        $penjualan = Penjualan::whereBetween('tanggal',[$dari,$sampai])->orderBy('tanggal','ASC')->get();
+
+        return view('admin.penjualan',compact('tanggal','penjualan'));
     }
 
-    public function inputPenjualan() {
+    public function indexInput() {
         $i = 0;
 
     	do {
@@ -48,6 +52,11 @@ class penjualanController extends Controller
         $tmpBarang = DB::table('tmp_detail_penjualans')->get();
         // ambil total barang
         $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
+        $info = session('info');
+
+        if(isset($info)) {
+            return view('admin.penjualan_input',compact('no','tmpBarang','tmpTotal','info'));            
+        }
 
     	return view('admin.penjualan_input',compact('no','tmpBarang','tmpTotal'));
     }
@@ -78,7 +87,7 @@ class penjualanController extends Controller
         return response()->json($item);
     }
 
-    public function inputBarang(Request $request) {
+    public function inputTmpBarang(Request $request) {
       $rules = array(
         'barang_id' => 'required|numeric|min:0',
         'kuantitas' => 'required|numeric|min:0',
@@ -124,46 +133,47 @@ class penjualanController extends Controller
     public function inputTransaksi(Request $request) {
         $rules = array(
         'no' => 'required',
-        'anggota_no' => 'required',
-        'tanggal' => 'required|date_format:Y-m-d',
         'total' => 'required|numeric|min:0',
+        'tanggal' => 'required|numeric|min:0',
+        'bulan' => 'required|numeric|min:0',
+        'tahun' => 'required|numeric|min:0',
+        'anggota_no' => 'required',
       );
 
       $validator = Validator::make(Input::all(),$rules);
 
       if ($validator->fails()) {
-        return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+        return redirect('/admin/penjualan/input')->with('info',['result' => 'error','ket' => $validator->getMessageBag()->first()]);
       }
       else {
         $tmpBarang = DB::table('tmp_detail_penjualans')->get();
 
         if (count($tmpBarang) < 1) {
-          return response::json(array('errors'=>'kosong'));
+          return redirect('/admin/penjualan/input')->with('info',['result' => 'error','ket' => 'Barang masih kosong!']);
         }
 
         else {
             $penjualan = new Penjualan;
                 $penjualan->no = $request->no;
                 $penjualan->anggota_no = $request->anggota_no;
-                $penjualan->tanggal = $request->tanggal;
+                $penjualan->tanggal = $request->tahun.'-'.$request->bulan.'-'.$request->tanggal;
                 $penjualan->total = $request->total;
             $penjualan->save();
 
             foreach ($tmpBarang as $key => $value) {
-                DB::table('detail_penjualans')->insert([
-                    'penjualan_no' => $request->no,
-                    'barang_id' => $value->barang_id,
-                    'nama' => $value->nama,
-                    'harga' => $value->harga,
-                    'kuantitas' => $value->kuantitas,
-                    'subTotal' => $value->subTotal,
-                ]);
+                $detailPenjualan = new DetailPenjualan;
+                    $detailPenjualan->penjualan_no = $request->no;
+                    $detailPenjualan->barang_id = $value->barang_id;
+                    $detailPenjualan->nama = $value->nama;
+                    $detailPenjualan->harga = $value->harga;
+                    $detailPenjualan->kuantitas = $value->kuantitas;
+                    $detailPenjualan->subTotal = $value->subTotal;
+                $detailPenjualan->save();
             }
 
             DB::table('tmp_detail_penjualans')->delete();
 
-
-            return response()->json($penjualan);
+            return redirect('/admin/penjualan/input')->with('info',['result' => 'success','ket' => 'Input transaksi penjualan berhasil']);
         }
       }
     }
@@ -198,7 +208,7 @@ class penjualanController extends Controller
 
     public function edit(Request $request) {
 
-        $detail = DB::table('detail_penjualans')->where('penjualan_no',$request->no)->get();
+        $detail = DetailPenjualan::where('penjualan_no',$request->no)->get();
         // $penjualan = Penjualan::where('no',$request->no)->get();
         $penjualan = DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.no',$request->no)->select('a.no','a.tanggal','a.total','a.anggota_no','b.nama')->first();
 
@@ -218,13 +228,13 @@ class penjualanController extends Controller
         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }
       else {
-        $cek = DB::table('detail_penjualans')->where('penjualan_no',$request->no)->where('barang_id',$request->barang_id)->first();
+        $cek = DetailPenjualan::where('penjualan_no',$request->no)->where('barang_id',$request->barang_id)->first();
 
         if (!empty($cek)) {
             $kuantitas = $cek->kuantitas+$request->kuantitas;
             $subTotal = $cek->harga*$kuantitas;
 
-            $barang = DB::table('detail_penjualans')->where('penjualan_no',$request->no)->where('barang_id',$request->barang_id)->update([
+            $barang = DetailPenjualan::where('penjualan_no',$request->no)->where('barang_id',$request->barang_id)->update([
                 'kuantitas' => $kuantitas,
                 'subTotal' => $subTotal,
             ]);
@@ -286,7 +296,6 @@ class penjualanController extends Controller
 
     public function pembelianAnggota(Request $request)
     {
-
         $dari = $request->dariTahun."-".$request->dariBulan."-".$request->dariTanggal;
         $sampai = $request->sampaiTahun."-".$request->sampaiBulan."-".$request->sampaiTanggal;
     

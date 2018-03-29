@@ -13,53 +13,60 @@
 			</div>
 		</div>
 		<div class="card-body">
-			<form role="form">
-				{{ csrf_field() }}
-				<label for="tanggal">Tanggal</label>
-				<div class="form-group row">
-					<div class="col-sm-3">
-						<input type="date" class="form-control form-control-sm" name="tanggal" value="{{ date('Y-m-d') }}" required>
-					</div>
-					<div class="col-sm">
-						<a href="#" class="i_penjualan btn btn-warning btn-sm pull-right"><i class="fa fa-save"></i> Simpan Transaksi</a>
-					</div>
+			<form role="form" method="POST" action="{{ URL::asset('/admin/penjualan/input/transaksi')}}">
+			{{ csrf_field() }}
+			<input type="hidden" name="no" value="{{ $no }}" required>
+			<input type="hidden" name="total" value="{{ $tmpTotal }}" required>
+			<label for="tanggal">Tanggal</label>
+			<div class="form-row">
+				<div class="form-group col-sm-1">
+					<input type="number" name="tanggal" class="form-control form-control-sm" placeholder="DD" value="{{ date('d')}}" required>
 				</div>
-				<label for="namaAnggota">Anggota</label>
-				<div class="form-group row">
-				    <div class="col-sm-2">
-						<input type="text" class="i_penjualanNoAnggota form-control form-control-sm" name="anggota_no" placeholder="No Anggota" disabled required>
-				    </div>
-				    <div class="col-sm">
-					    <input type="text" class="i_penjualanNamaAnggota form-control form-control-sm" id="namaAnggota" placeholder="Nama Anggota" required>
-				    </div>
-				    <div class="enable_penjualanNamaAnggota col-sm-1">
-				    	<a href="#" class="enable_penjualanNamaAnggota btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
-				    </div>
+				<div class="form-group col-sm-1">
+					<input type="number" name="bulan" class="form-control form-control-sm" placeholder="MM" value="{{ date('m')}}" required>
 				</div>
-				<label for="namaBarang">Barang /</label>
-				<label for="kuantitas">Kuantitas</label>
-				<div class="form-group row">
-				    <div class="col-sm-2">
-					    <input type="text" class="i_penjualanIdBarang form-control form-control-sm" name="barang_id" placeholder="No Barang" disabled required>
-					</div>
-					<div class="col-sm">
-					    <input type="text" class="i_penjualanNamaBarang form-control form-control-sm" id="namaBarang" placeholder="Nama Barang" required>
-					</div>/
-					<div class="col-sm-2">
-						<input type="number" class="i_penjualanKuantitas form-control form-control-sm" name="kuantitas" id="kuantitas" placeholder="Kuantitas" value="1">
-					</div>
+				<div class="form-group col-sm-1">
+					<input type="number" name="tahun" class="form-control form-control-sm" placeholder="YYYY" value="{{ date('Y')}}" required>
 				</div>
-				<div class="form-group row">
-					<div class="col-sm">
-						<div class="pull-right">
-							<a href="#" class="btn btn-primary btn-sm" id="penjualanInputBarang"><i class="fa fa-plus"></i> Tambah</a>
-							<a href="#" class="btn btn-danger btn-sm" id="batalInputPenjualan"><i class="fa fa-close"></i> Hapus</a>
-						</div>
-					</div>
+				<div class="form-group col-sm">
+					<button type="submit" class="btn btn-warning btn-sm pull-right"><i class="fa fa-save"></i> Simpan Transaksi</button>
 				</div>
+			</div>
+			<label for="namaAnggota">Anggota</label>
+			<div class="form-row">
+			    <div class="form-group col-sm-2">
+					<input type="text" class="i_penjualanNoAnggota form-control form-control-sm" name="anggota_no" placeholder="No Anggota" readonly required>
+			    </div>
+			    <div class="form-group col-sm">
+				    <input type="text" class="i_penjualanNamaAnggota form-control form-control-sm" id="namaAnggota" placeholder="Nama Anggota" required>
+			    </div>
+			    <div class="enable_penjualanNamaAnggota form-group col-sm-1">
+			    	<a href="#" class="enable_penjualanNamaAnggota btn btn-info btn-sm pull-right"><i class="fa fa-edit"></i> Edit</a>
+			    </div>
+			</div>
 			</form>
+			<label for="namaBarang">Barang</label>
+			<div class="form-row">
+			    <div class="form-group col-sm-2">
+				    <input type="text" class="i_penjualanIdBarang form-control form-control-sm" name="barang_id" placeholder="No Barang" disabled required>
+				</div>
+				<div class="form-group col-sm">
+				    <input type="text" class="i_penjualanNamaBarang form-control form-control-sm" id="namaBarang" placeholder="Nama Barang" required>
+				</div>
+				<div class="form-group col-sm-2">
+					<input type="number" class="i_penjualanKuantitas form-control form-control-sm" name="kuantitas" placeholder="Kuantitas" value="1">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm">
+					<div class="pull-right">
+						<a href="#" class="btn btn-primary btn-sm" id="penjualanInputBarang"><i class="fa fa-plus"></i> Tambah</a>
+						<a href="#" class="btn btn-danger btn-sm" id="batalInputPenjualan"><i class="fa fa-close"></i> Hapus</a>
+					</div>
+				</div>
+			</div>
 			<div class="table-responsive" id="reloadTable">
-				<table class="table table-bordered" id="barangTable" width="100%" cellspacing="0">
+				<table class="table table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<tr>
 							<th width="5%">#</th>
@@ -69,7 +76,7 @@
 							<th width="5%"></th>
 						</tr>
 					</thead>
-					<tbody id="tbodyPenjualanBarang">
+					<tbody>
 						<?php $i=1; ?>
 						@foreach($tmpBarang as $key => $value)
 						<tr>
@@ -84,16 +91,9 @@
 						@endforeach
 						<tr>
 							<td colspan="3"><b>Total</b></td>
-							<td class="detailTotal text-right">
-								Rp {{ number_format($tmpTotal) }}
-								<input type="hidden" name="no" value="{{ $no }}" required>
-								<input type="hidden" class="i_penjualanHiddenTotal" name="total" value="{{ $tmpTotal }}" required disabled>
-							</td>
+							<td class="detailTotal text-right">Rp {{ number_format($tmpTotal) }}</td>
 					    	<td></td>
-			    		</div>
-					</div>
-				</div></td>
-						</tr>
+			    		</tr>
 					</tbody>
 				</table>
 			</div>

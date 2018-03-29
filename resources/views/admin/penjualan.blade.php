@@ -11,7 +11,7 @@
         <div class="card-header">
           <i class="fa fa-table"></i> Data Penjualan
           <div class="pull-right">
-            <a href="#" class="cariPenjualan btn btn-success btn-sm"><i class="fa fa-search"></i></a>
+            <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cariPenjualan"><i class="fa fa-search"></i> Cari</a>
           </div>
         </div>
         <div class="card-body">
@@ -69,31 +69,43 @@
     <!-- Modal pilih tanggal -->
     <div id="cariPenjualan" class="modal fade" role="dialog">
       <form method="POST" action="" class="form-horizontal" role="form">
-        {{ csrf_field() }}
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"></h4>
+            <h4 class="modal-title">Cari Penjualan</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-                <div class="form-group">
-                  <label class="control-label col-sm-6">Dari</label>
-                  <input type="date" class="form-control" name="dari" placeholder="YYYY-MM-DD" required>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-6">Sampai</label>
-                  <input type="date" class="form-control" name="sampai" placeholder="YYYY-MM-DD" required>
-                </div>
+            {{ csrf_field() }}
+            <div class="form-row">
+              <label class="form-group col-sm col-form-label">Dari</label>
+              <div class="form-group col-sm">
+                <input type="number" name="dariTanggal" class="form-control" placeholder="DD">
+              </div>
+              <div class="form-group col-sm">
+                <input type="number" name="dariBulan" class="form-control" placeholder="MM">
+              </div>
+              <div class="form-group col-sm">
+                <input type="number" name="dariTahun" class="form-control" placeholder="YYYY">
+              </div>
             </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-info">
-                <span class="fa fa-search"></span> Cari
-              </button>
-              <button type="button" class="btn btn-warning" data-dismiss="modal">
-                <span class="fa fa-close"></span> Batal
-              </button>
+            <div class="form-row">
+              <label class="form-group col-sm col-form-label">Sampai</label>
+              <div class="form-group col-sm">
+                <input type="number" name="sampaiTanggal" class="form-control" placeholder="DD">
+              </div>
+              <div class="form-group col-sm">
+                <input type="number" name="sampaiBulan" class="form-control" placeholder="MM">
+              </div>
+              <div class="form-group col-sm">
+                <input type="number" name="sampaiTahun" class="form-control" placeholder="YYYY">
+              </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Cari</button>  
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
+          </div>
         </div>
       </div>
       </form>

@@ -42,51 +42,51 @@
 	</div>
 	<!-- Modal pilih tanggal -->
     <div id="cariPembelian" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Cari Pembelian</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-        	<form method="POST" action="" class="form-horizontal">
-                {{ csrf_field() }}
-				<div class="form-group row">
-					<label class="col-sm col-form-label">Dari</label>
-					<div class="col-sm">
-						<input type="number" name="dariTanggal" class="form-control" placeholder="DD">
-					</div>
-					<div class="col-sm">
-						<input type="number" name="dariBulan" class="form-control" placeholder="MM">
-					</div>
-					<div class="col-sm">
-						<input type="number" name="dariTahun" class="form-control" placeholder="YYYY">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-sm col-form-label">Sampai</label>
-					<div class="col-sm">
-						<input type="number" name="sampaiTanggal" class="form-control" placeholder="DD">
-					</div>
-					<div class="col-sm">
-						<input type="number" name="sampaiBulan" class="form-control" placeholder="MM">
-					</div>
-					<div class="col-sm">
-						<input type="number" name="sampaiTahun" class="form-control" placeholder="YYYY">
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm">
-						<div class="pull-right">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Cari</button>	
-							<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
+      	<form method="POST" action="" class="form-horizontal">
+      	<div class="modal-dialog">
+        	<div class="modal-content">
+          		<div class="modal-header">
+		            <h4 class="modal-title">Cari Pembelian</h4>
+        		    <button type="button" class="close" data-dismiss="modal">&times;</button>
+          		</div>
+          		<div class="modal-body">
+	            	{{ csrf_field() }}
+					<div class="form-group row">
+						<label class="col-sm col-form-label">Dari</label>
+						<div class="col-sm">
+							<input type="number" name="dariTanggal" class="form-control" placeholder="DD">
+						</div>
+						<div class="col-sm">
+							<input type="number" name="dariBulan" class="form-control" placeholder="MM">
+						</div>
+						<div class="col-sm">
+							<input type="number" name="dariTahun" class="form-control" placeholder="YYYY">
 						</div>
 					</div>
-				</div>
-	        </form>
-          </div>
-        </div>
-      </div>
+					<div class="form-group row">
+						<label class="col-sm col-form-label">Sampai</label>
+						<div class="col-sm">
+							<input type="number" name="sampaiTanggal" class="form-control" placeholder="DD">
+						</div>
+						<div class="col-sm">
+							<input type="number" name="sampaiBulan" class="form-control" placeholder="MM">
+						</div>
+						<div class="col-sm">
+							<input type="number" name="sampaiTahun" class="form-control" placeholder="YYYY">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm">
+							<div class="pull-right">
+								<button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Cari</button>	
+								<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
+							</div>
+						</div>
+					</div>
+          		</div>
+        	</div>
+      	</div>
+      	</form>
     </div>
 		<!-- Modal DetailTransaksi -->
         <div id="modalDetailUser" class="modal fade" role="dialog">

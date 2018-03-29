@@ -22,7 +22,7 @@ class UserAuth
         }
 
         if ($cek['admin'] == true) {
-            return redirect('/error');
+            return redirect('/error')->withErrors('admin');
         }
 
         return $next($request);

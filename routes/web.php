@@ -71,10 +71,10 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
     Route::get('/', 'penjualanController@index');
     Route::post('/', 'penjualanController@cari');
     Route::prefix('input')->group(function(){
-      Route::get('/', 'penjualanController@inputPenjualan');
+      Route::get('/', 'penjualanController@indexInput');
       Route::get('/anggota/autocomplete', 'penjualanController@autocompleteAnggota');
       Route::get('/barang/autocomplete', 'penjualanController@autocompleteBarang');
-      Route::post('/barang/tambah', 'penjualanController@inputBarang');
+      Route::post('/barang/tambah', 'penjualanController@inputTmpBarang');
       Route::post('/transaksi', 'penjualanController@inputTransaksi');
       Route::post('/barang/hapus', 'penjualanController@hapusTmpBarang');
       Route::post('/barang/cek', 'penjualanController@cek');
