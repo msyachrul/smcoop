@@ -36,11 +36,4 @@ class laporanController extends Controller
 
     	return view('admin.laporan')->with('anggota',$anggota)->with('tanggal',$tanggal)->with('penjualan',$penjualan)->with('transaksi',$transaksi)->with('nominal',$nominal);
     }
-
-    public function detail(Request $request)
-    {
-        $detail = DetailPenjualan::where('penjualan_no',$request->no)->get();
-
-        return response()->json($detail);
-    }
 }

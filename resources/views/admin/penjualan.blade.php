@@ -40,7 +40,8 @@
                   <th width="5%">#</th>
                   <th>Tanggal</th>
                   <th>No Penjualan</th>
-                  <th class="text-right">Total</th>
+                  <th>No Anggota</th>
+                  <th width="20%" class="text-right">Total</th>
                   <th width="15%" class="text-center">
                     <a href="{{ URL::asset('/admin/penjualan/input') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                   </th>
@@ -53,6 +54,7 @@
                   <td>{{ $no++ }}</td>
                   <td>{{ $value->tanggal }}</td>
                   <td>{{ $value->no }}</td>
+                  <td>{{ $value->anggota_no }}</td>
                   <td class="text-right">Rp {{ number_format($value->total) }}</td>
                   <td>
                     <a href="{{ URL::asset('/admin/penjualan/'.$value->no) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>

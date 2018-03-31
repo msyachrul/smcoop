@@ -61,75 +61,6 @@ class penjualanController extends Controller
     	return view('admin.penjualan_input',compact('no','tmpBarang','tmpTotal'));
     }
 
-    public function autocompleteAnggota(Request $request) {
-        $term = $request->term;
-        $anggota = DB::table('anggotas')->where('nama','LIKE','%'.$term.'%')->orderBy('nama','ASC')->get();
-        $item = [];
-
-        foreach ($anggota as $key => $value) {
-            $item[$key]['no'] = $value->no;
-            $item[$key]['label'] = $value->nama;
-        }
-
-        return response()->json($item);
-    }
-
-    public function autocompleteBarang(Request $request) {
-        $term = $request->term;
-        $barang = DB::table('barangs')->where('nama','LIKE','%'.$term.'%')->orderBy('nama','ASC')->get();
-        $item = [];
-
-        foreach ($barang as $key => $value) {
-            $item[$key]['id'] = $value->id;
-            $item[$key]['label'] = $value->nama;
-        }
-
-        return response()->json($item);
-    }
-
-    public function inputTmpBarang(Request $request) {
-      $rules = array(
-        'barang_id' => 'required|numeric|min:0',
-        'kuantitas' => 'required|numeric|min:0',
-      );
-
-      $validator = Validator::make(Input::all(),$rules);
-
-      if ($validator->fails()) {
-        return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
-      }
-      else {
-        $cek = DB::table('tmp_detail_penjualans')->where('barang_id',$request->barang_id)->first();
-
-        if (!empty($cek)) {
-            $kuantitas = $cek->kuantitas+$request->kuantitas;
-            $subTotal = $cek->harga*$kuantitas;
-
-            $tmpBarang = DB::table('tmp_detail_penjualans')->where('barang_id',$request->barang_id)->update([
-                'kuantitas' => $kuantitas,
-                'subTotal' => $subTotal,
-            ]);
-
-            return response()->json($tmpBarang);
-        }
-        else {
-        // ambil data barang
-        $barang = DB::table('barangs')->where('id',$request->barang_id)->first();
-        $subTotal = $barang->harga*$request->kuantitas;
-        // masukan data barang ke tabel sementara
-        $tmpBarang = DB::table('tmp_detail_penjualans')->insert([
-            'barang_id' => $request->barang_id,
-            'nama' => $barang->nama,
-            'harga' => $barang->harga,
-            'kuantitas' => $request->kuantitas,
-            'subTotal' => $subTotal,
-        ]);
-
-        return response()->json($tmpBarang);
-        }
-      }
-    }
-
     public function inputTransaksi(Request $request) {
         $rules = array(
         'no' => 'required',
@@ -178,8 +109,85 @@ class penjualanController extends Controller
       }
     }
 
+    public function autocompleteAnggota(Request $request) {
+        $term = $request->term;
+        $anggota = DB::table('anggotas')->where('nama','LIKE','%'.$term.'%')->orderBy('nama','ASC')->get();
+        $item = [];
+
+        foreach ($anggota as $key => $value) {
+            $item[$key]['no'] = $value->no;
+            $item[$key]['label'] = $value->nama;
+        }
+
+        return response()->json($item);
+    }
+
+    public function autocompleteBarang(Request $request) {
+        $term = $request->term;
+        $barang = DB::table('barangs')->where('nama','LIKE','%'.$term.'%')->orderBy('nama','ASC')->get();
+        $item = [];
+
+        foreach ($barang as $key => $value) {
+            $item[$key]['id'] = $value->id;
+            $item[$key]['label'] = $value->nama;
+        }
+
+        return response()->json($item);
+    }
+
+    public function inputTmpBarang(Request $request) {
+      $rules = array(
+        'barang_id' => 'required|numeric|min:0',
+        'kuantitas' => 'required|numeric|min:0',
+      );
+
+      $validator = Validator::make(Input::all(),$rules);
+
+      if ($validator->fails()) {
+        return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }
+      else {
+        $cek = DB::table('tmp_detail_penjualans')->where('barang_id',$request->barang_id)->first();
+
+        if (!empty($cek)) {
+            $kuantitas = $cek->kuantitas+$request->kuantitas;
+            $subTotal = $cek->harga*$kuantitas;
+
+            $tmpBarang = DB::table('tmp_detail_penjualans')->where('barang_id',$request->barang_id)->update([
+                'kuantitas' => $kuantitas,
+                'subTotal' => $subTotal,
+            ]);
+            
+            $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
+
+            return response()->json($tmpTotal);
+        }
+        else {
+        // ambil data barang
+        $barang = DB::table('barangs')->where('id',$request->barang_id)->first();
+        $subTotal = $barang->harga*$request->kuantitas;
+        // masukan data barang ke tabel sementara
+        $tmpBarang = DB::table('tmp_detail_penjualans')->insert([
+            'barang_id' => $request->barang_id,
+            'nama' => $barang->nama,
+            'harga' => $barang->harga,
+            'kuantitas' => $request->kuantitas,
+            'subTotal' => $subTotal,
+        ]);
+
+        $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
+
+        return response()->json($tmpTotal);
+        }
+      }
+    }   
+
     public function hapusTmpBarang(Request $request) {
-        return DB::table('tmp_detail_penjualans')->where('id',$request->id)->delete();
+        DB::table('tmp_detail_penjualans')->where('id',$request->id)->delete();
+
+        $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
+
+        return response()->json($tmpTotal);
     }
 
     public function cek() {
@@ -194,10 +202,14 @@ class penjualanController extends Controller
     }
 
     public function batal() {        
-        return DB::table('tmp_detail_penjualans')->delete();
+        DB::table('tmp_detail_penjualans')->delete();
+
+        $tmpTotal = DB::table('tmp_detail_penjualans')->sum('subTotal');
+
+        return response()->json($tmpTotal);
     }
 
-    public function detail(Request $request) {
+    public function detailPenjualan(Request $request) {
 
         $detail = DB::table('detail_penjualans')->where('penjualan_no',$request->no)->get();
         // $penjualan = Penjualan::where('no',$request->no)->get();
@@ -314,15 +326,16 @@ class penjualanController extends Controller
         return view('pembelian',compact('pembelian','tanggal'));
     }
 
-    public function detailPembelianAnggota(Request $request)
+    public function detail(Request $request)
     {
         $detail = DetailPenjualan::where('penjualan_no',$request->no)->get();
+        $total = DetailPenjualan::where('penjualan_no',$request->no)->sum('subTotal');
 
-        return response()->json($detail);
+        return response()->json(array('detail' => $detail , 'total' => $total));
     }
 
     public function tagihan()
-    {        
+    {            
         return view('tagihan');
     }
 
@@ -348,7 +361,13 @@ class penjualanController extends Controller
         $periode = $request->periode;
         $tahun = $request->tahun;
 
-        return view('tagihan',compact('pembelian','periode','tahun'));
+        $data = [
+            'anggota' => DB::table('penjualans as a')->join('anggotas as b','a.anggota_no','b.no')->where('a.anggota_no',session('data')['no'])->select('b.nama')->first()->nama,
+            'transaksi' => Penjualan::whereBetween('tanggal',[$dari,$sampai])->where('anggota_no',session('data')['no'])->count('no'),
+            'total' => Penjualan::whereBetween('tanggal',[$dari,$sampai])->where('anggota_no',session('data')['no'])->sum('total'),
+        ];
+
+        return view('tagihan',compact('pembelian','periode','tahun','data'));
     }
 
 }

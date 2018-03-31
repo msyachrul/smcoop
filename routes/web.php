@@ -21,7 +21,7 @@ Route::group(['middleware' => 'userAuth'],function(){
   Route::post('/profile','anggotaController@updateProfile');
   Route::get('/pembelian','penjualanController@index');
   Route::post('/pembelian','penjualanController@pembelianAnggota');
-  Route::post('/pembelian/detail','penjualanController@detailPembelianAnggota');
+  Route::post('/pembelian/detail','penjualanController@detail');
   Route::get('/tagihan','penjualanController@tagihan');
   Route::post('/tagihan','penjualanController@cariTagihan');
   Route::post('/ubahpin','anggotaController@ubahPin');
@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
       Route::post('/barang/cek', 'penjualanController@cek');
     });
     Route::post('/batal', 'penjualanController@batal');
-    Route::get('/{no}', 'penjualanController@detail');
+    Route::get('/{no}', 'penjualanController@detailPenjualan');
     Route::prefix('edit')->group(function(){
       Route::get('/{no}', 'penjualanController@edit');
       Route::post('/barang/tambah', 'penjualanController@tambahBarang');
@@ -92,7 +92,7 @@ Route::group(['prefix' => 'admin','middleware' => 'adminAuth'],function() {
   Route::group(['prefix' => 'laporan'],function() {
     Route::get('/penjualan','laporanController@index');
     Route::post('/penjualan','laporanController@cari');
-    Route::post('/penjualan/detail','laporanController@detail');
+    Route::post('/penjualan/detail','penjualanController@detail');
   });
   
 });

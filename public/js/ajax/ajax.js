@@ -189,6 +189,7 @@
           toastr.success('Input barang berhasil','Success',{timeOut:5000});
           $('.detailTotal').load('/admin/penjualan/input .detailTotal');
           $('#reloadTable').load('/admin/penjualan/input table');
+          $('input[name=total]').val(data);
         }
       }
     });
@@ -219,14 +220,15 @@
               data: {
                 '_token': $('input[name=_token]').val(),
               },
-              success:function(){
+              success:function(data){
                 toastr.success('Hapus semua barang berhasil','Success',{timeOut:5000});
+                $('.detailTotal').load('/admin/penjualan/input .detailTotal');
+                $('#reloadTable').load('/admin/penjualan/input table');
+                $('input[name=total]').val(data);
               }
             });
           }
         }
-        $('.detailTotal').load('/admin/penjualan/input .detailTotal');
-        $('#reloadTable').load('/admin/penjualan/input table');
       }
     });
   });
@@ -256,6 +258,7 @@
         $('#hapusPenjualanBarang').modal('hide');
         $('.detailTotal').load('/admin/penjualan/input .detailTotal');
         $('#reloadTable').load('/admin/penjualan/input table');
+        $('input[name=total]').val(data);
       }
     });
   });
@@ -325,15 +328,16 @@
       },
       success: function(data){
         let html = [];
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data['detail'].length; i++) {
           html += "<tr>";
-          html += "<td>"+ data[i].nama +"</td>";
-          html += "<td class='text-right'>Rp "+ data[i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
-          html += "<td class='text-right'>"+ data[i].kuantitas +"</td>";
-          html += "<td class='text-right'>Rp "+ data[i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
+          html += "<td>"+ data['detail'][i].nama +"</td>";
+          html += "<td class='text-right'>Rp "+ data['detail'][i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
+          html += "<td class='text-right'>"+ data['detail'][i].kuantitas +"</td>";
+          html += "<td class='text-right'>Rp "+ data['detail'][i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
           html += "</tr>";
         }
         $('.list').html(html);
+        $('#total').html('Rp '+data['total'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
       }
     });
   });
@@ -362,15 +366,16 @@
       },
       success: function(data){
         let html = [];
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data['detail'].length; i++) {
           html += "<tr>";
-          html += "<td>"+ data[i].nama +"</td>";
-          html += "<td class='text-right'>Rp "+ data[i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
-          html += "<td class='text-right'>"+ data[i].kuantitas +"</td>";
-          html += "<td class='text-right'>Rp "+ data[i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
+          html += "<td>"+ data['detail'][i].nama +"</td>";
+          html += "<td class='text-right'>Rp "+ data['detail'][i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
+          html += "<td class='text-right'>"+ data['detail'][i].kuantitas +"</td>";
+          html += "<td class='text-right'>Rp "+ data['detail'][i].subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); +"</td>";
           html += "</tr>";
         }
         $('.list').html(html);
+        $('#total').html('Rp '+data['total'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
       },
     });
   });

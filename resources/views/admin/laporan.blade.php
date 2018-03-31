@@ -111,7 +111,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" width="100%">
+                            <table class="table table-striped" width="100%" cellpadding="0" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Nama Barang</th>
@@ -121,6 +121,12 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list"></tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="text-right" colspan="3"><b>Total</b></td>
+                                        <td id="total" class="text-right"></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

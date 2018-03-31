@@ -61,7 +61,7 @@
 				<div class="form-group col-sm">
 					<div class="pull-right">
 						<a href="#" class="btn btn-primary btn-sm" id="penjualanInputBarang"><i class="fa fa-plus"></i> Tambah</a>
-						<a href="#" class="btn btn-danger btn-sm" id="batalInputPenjualan"><i class="fa fa-close"></i> Hapus</a>
+						<a href="#" class="btn btn-danger btn-sm" id="batalInputPenjualan"><i class="fa fa-close"></i> Batal</a>
 					</div>
 				</div>
 			</div>

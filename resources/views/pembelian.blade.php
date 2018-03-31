@@ -108,6 +108,12 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list"></tbody>
+                                <tfoot>
+			                        <tr>
+			                            <td class="text-right" colspan="3"><b>Total</b></td>
+			                            <td id="total" class="text-right"></td>
+			                        </tr>
+			                    </tfoot>
                             </table>
                         </div>
                     </div>
